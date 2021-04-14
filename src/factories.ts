@@ -1,7 +1,7 @@
 import ProxyFactory111 from './assets/proxy_factory_1.1.1.json'
 import ProxyFactory130 from './assets/proxy_factory_1.3.0.json'
 import { DeploymentFilter, SingletonDeployment } from './types'
-import { findDeployment } from './utils'
+import { applyFilterDefaults, findDeployment } from './utils'
 
 
 
@@ -11,5 +11,5 @@ const factoryDeployments: SingletonDeployment[] = [
 ]
 
 export const getProxyFactoryDeployment = (filter?: DeploymentFilter): SingletonDeployment | undefined => {
-    return findDeployment(filter ?? {}, factoryDeployments)
+    return findDeployment(applyFilterDefaults(filter), factoryDeployments)
 }
