@@ -12,6 +12,6 @@ const factoryDeployments = [
     proxy_factory_1_3_0_json_1.default, proxy_factory_1_1_1_json_1.default
 ];
 const getProxyFactoryDeployment = (filter) => {
-    return utils_1.findDeployment(filter !== null && filter !== void 0 ? filter : {}, factoryDeployments);
+    return utils_1.findDeployment(utils_1.applyFilterDefaults(filter), factoryDeployments);
 };
 exports.getProxyFactoryDeployment = getProxyFactoryDeployment;

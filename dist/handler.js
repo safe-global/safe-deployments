@@ -12,7 +12,7 @@ const defaultCallbackHandlerDeployments = [
     default_callback_handler_1_1_1_json_1.default
 ];
 const getDefaultCallbackHandlerDeployment = (filter) => {
-    return utils_1.findDeployment(filter !== null && filter !== void 0 ? filter : {}, defaultCallbackHandlerDeployments);
+    return utils_1.findDeployment(utils_1.applyFilterDefaults(filter), defaultCallbackHandlerDeployments);
 };
 exports.getDefaultCallbackHandlerDeployment = getDefaultCallbackHandlerDeployment;
 // This is a sorted array (by preference)
@@ -20,7 +20,7 @@ const compatFallbackHandlerDeployments = [
     compatibility_fallback_handler_1_3_0_json_1.default
 ];
 const getCompatibilityFallbackHandlerDeployment = (filter) => {
-    return utils_1.findDeployment(filter !== null && filter !== void 0 ? filter : {}, compatFallbackHandlerDeployments);
+    return utils_1.findDeployment(utils_1.applyFilterDefaults(filter), compatFallbackHandlerDeployments);
 };
 exports.getCompatibilityFallbackHandlerDeployment = getCompatibilityFallbackHandlerDeployment;
 // This is a sorted array (by preference)
@@ -28,6 +28,6 @@ const fallbackHandlerDeployments = [
     compatibility_fallback_handler_1_3_0_json_1.default, default_callback_handler_1_1_1_json_1.default
 ];
 const getFallbackHandlerDeployment = (filter) => {
-    return utils_1.findDeployment(filter !== null && filter !== void 0 ? filter : {}, fallbackHandlerDeployments);
+    return utils_1.findDeployment(utils_1.applyFilterDefaults(filter), fallbackHandlerDeployments);
 };
 exports.getFallbackHandlerDeployment = getFallbackHandlerDeployment;

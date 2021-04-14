@@ -14,7 +14,7 @@ const multiSendDeployments = [
     multi_send_1_1_1_json_1.default, multi_send_1_3_0_json_1.default
 ];
 const getMultiSendDeployment = (filter) => {
-    return utils_1.findDeployment(filter !== null && filter !== void 0 ? filter : {}, multiSendDeployments);
+    return utils_1.findDeployment(utils_1.applyFilterDefaults(filter), multiSendDeployments);
 };
 exports.getMultiSendDeployment = getMultiSendDeployment;
 // This is a sorted array (by preference)
@@ -22,7 +22,7 @@ const multiSendCallOnlyDeployments = [
     multi_send_call_only_1_3_0_json_1.default
 ];
 const getMultiSendCallOnlyDeployment = (filter) => {
-    return utils_1.findDeployment(filter !== null && filter !== void 0 ? filter : {}, multiSendCallOnlyDeployments);
+    return utils_1.findDeployment(utils_1.applyFilterDefaults(filter), multiSendCallOnlyDeployments);
 };
 exports.getMultiSendCallOnlyDeployment = getMultiSendCallOnlyDeployment;
 // This is a sorted array (by preference)
@@ -30,6 +30,6 @@ const createCallDeployments = [
     create_call_1_3_0_json_1.default
 ];
 const getCreateCallDeployment = (filter) => {
-    return utils_1.findDeployment(filter !== null && filter !== void 0 ? filter : {}, createCallDeployments);
+    return utils_1.findDeployment(utils_1.applyFilterDefaults(filter), createCallDeployments);
 };
 exports.getCreateCallDeployment = getCreateCallDeployment;
