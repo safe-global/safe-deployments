@@ -1,5 +1,5 @@
-import DefaultCallbackHandler130 from './assets/default_callback_handler_1.1.1.json'
-import CompatibilityFallbackHandler from './assets/compatibility_fallback_handler_1.3.0.json'
+import DefaultCallbackHandler130 from './assets/v1.1.1/default_callback_handler.json'
+import CompatibilityFallbackHandler from './assets/v1.3.0/compatibility_fallback_handler.json'
 import { DeploymentFilter, SingletonDeployment } from './types'
 import { applyFilterDefaults, findDeployment } from './utils'
 

@@ -1,7 +1,7 @@
-import CreateCall130 from './assets/create_call_1.3.0.json'
-import MultiSend111 from './assets/multi_send_1.1.1.json'
-import MultiSend130 from './assets/multi_send_1.3.0.json'
-import MultiSendCallOnly130 from './assets/multi_send_call_only_1.3.0.json'
+import CreateCall130 from './assets/v1.3.0/create_call.json'
+import MultiSend111 from './assets/v1.1.1/multi_send.json'
+import MultiSend130 from './assets/v1.3.0/multi_send.json'
+import MultiSendCallOnly130 from './assets/v1.3.0/multi_send_call_only.json'
 import { DeploymentFilter, SingletonDeployment } from './types'
 import { applyFilterDefaults, findDeployment } from './utils'
 

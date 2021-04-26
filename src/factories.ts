@@ -1,5 +1,5 @@
-import ProxyFactory111 from './assets/proxy_factory_1.1.1.json'
-import ProxyFactory130 from './assets/proxy_factory_1.3.0.json'
+import ProxyFactory111 from './assets/v1.1.1/proxy_factory.json'
+import ProxyFactory130 from './assets/v1.3.0/proxy_factory.json'
 import { DeploymentFilter, SingletonDeployment } from './types'
 import { applyFilterDefaults, findDeployment } from './utils'
 
