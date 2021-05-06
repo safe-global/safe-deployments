@@ -1,6 +1,14 @@
 Gnosis Safe Deployments
 =======================
 
+[![npm version](https://badge.fury.io/js/%40gnosis.pm%2Fsafe-deployments.svg)](https://badge.fury.io/js/%40gnosis.pm%2Fsafe-deployments)
+
+This contract contains a collection of deployments of the contract of the [Safe contracts repository](https://github.com/gnosis/safe-contracts). 
+
+For each deployment the address on the different networks and the abi files are available. To get an overview of the available versions check the available [json assets](./src/assets/).
+
+To add additional deployments please follow the [deployment steps in the Safe contract repository](https://github.com/gnosis/safe-contracts#deployments).
+
 ## Install
 - npm - `npm i @gnosis.pm/safe-deployments`
 - yarn - `yarn add @gnosis.pm/safe-deployments`
