@@ -44,8 +44,5 @@
     "prettier": "^2.1.2",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.4"
-  },
-  "resolutions": {
-    "bitcore-lib": "8.1.1"
   }
 }
