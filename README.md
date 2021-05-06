@@ -1,5 +1,4 @@
-Gnosis Safe Deployments
-=======================
+# Gnosis Safe Deployments
 
 [![npm version](https://badge.fury.io/js/%40gnosis.pm%2Fsafe-deployments.svg)](https://badge.fury.io/js/%40gnosis.pm%2Fsafe-deployments)
 
@@ -83,10 +82,6 @@ const callbackHandler = getDefaultCallbackHandlerDeployment()
 const compatHandler = getCompatibilityFallbackHandlerDeployment()
 ```
 
-Security and Liability
-----------------------
-All contracts are WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+## License
 
-License
--------
-All code is released under LGPL-3.0
+This library is released under MIT.
