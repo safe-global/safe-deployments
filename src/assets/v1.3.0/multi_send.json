@@ -1,9 +1,16 @@
 {
   "defaultAddress": "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761",
-  "released": false,
+  "released": true,
   "contractName": "MultiSend",
   "version": "1.3.0",
-  "networkAddresses": {},
+  "networkAddresses": {
+    "1": "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761",
+    "4": "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761",
+    "42": "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761",
+    "5": "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761",
+    "100": "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761",
+    "246": "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761"
+  },
   "abi": [
     {
       "inputs": [],

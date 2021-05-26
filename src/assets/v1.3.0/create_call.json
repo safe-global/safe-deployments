@@ -1,9 +1,16 @@
 {
   "defaultAddress": "0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4",
-  "released": false,
+  "released": true,
   "contractName": "CreateCall",
   "version": "1.3.0",
-  "networkAddresses": {},
+  "networkAddresses": {
+    "1": "0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4",
+    "4": "0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4",
+    "42": "0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4",
+    "5": "0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4",
+    "100": "0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4",
+    "246": "0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4"
+  },
   "abi": [
     {
       "anonymous": false,
