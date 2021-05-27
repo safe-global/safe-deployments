@@ -1,10 +1,18 @@
 {
   "defaultAddress": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
-  "released": false,
+  "released": true,
   "contractName": "GnosisSafe",
   "version": "1.3.0",
-  "networkAddresses": {},
-  "abi":[
+  "networkAddresses": {
+    "1": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+    "4": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+    "42": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+    "5": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+    "100": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+    "137": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
+    "246": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552"
+  },
+  "abi": [
     {
       "inputs": [],
       "stateMutability": "nonpayable",
@@ -40,6 +48,32 @@
         }
       ],
       "name": "ApproveHash",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "handler",
+          "type": "address"
+        }
+      ],
+      "name": "ChangedFallbackHandler",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "guard",
+          "type": "address"
+        }
+      ],
+      "name": "ChangedGuard",
       "type": "event"
     },
     {
@@ -328,6 +362,34 @@
           "internalType": "bytes",
           "name": "signatures",
           "type": "bytes"
+        },
+        {
+          "internalType": "uint256",
+          "name": "requiredSignatures",
+          "type": "uint256"
+        }
+      ],
+      "name": "checkNSignatures",
+      "outputs": [],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "dataHash",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        },
+        {
+          "internalType": "bytes",
+          "name": "signatures",
+          "type": "bytes"
         }
       ],
       "name": "checkSignatures",
@@ -588,25 +650,6 @@
           "internalType": "uint256",
           "name": "",
           "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "bytes",
-          "name": "message",
-          "type": "bytes"
-        }
-      ],
-      "name": "getMessageHash",
-      "outputs": [
-        {
-          "internalType": "bytes32",
-          "name": "",
-          "type": "bytes32"
         }
       ],
       "stateMutability": "view",
@@ -933,19 +976,6 @@
         }
       ],
       "name": "setup",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "bytes",
-          "name": "_data",
-          "type": "bytes"
-        }
-      ],
-      "name": "signMessage",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
