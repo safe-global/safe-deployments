@@ -11,7 +11,11 @@
     "100": "0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2",
     "137": "0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2",
     "246": "0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2",
+<<<<<<< HEAD
     "4002": "0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2"
+=======
+    "73799": "0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2"
+>>>>>>> 204b13a (Added all deployed addresses for volta chain)
   },
   "abi": [
     {
