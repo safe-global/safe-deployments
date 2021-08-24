@@ -2,6 +2,7 @@ import CreateCall130 from './assets/v1.3.0/create_call.json'
 import MultiSend111 from './assets/v1.1.1/multi_send.json'
 import MultiSend130 from './assets/v1.3.0/multi_send.json'
 import MultiSendCallOnly130 from './assets/v1.3.0/multi_send_call_only.json'
+import SignMessageLib130 from './assets/v1.3.0/sign_message_lib.json'
 import { DeploymentFilter, SingletonDeployment } from './types'
 import { applyFilterDefaults, findDeployment } from './utils'
 
@@ -30,4 +31,12 @@ const createCallDeployments: SingletonDeployment[] = [
 
 export const getCreateCallDeployment = (filter?: DeploymentFilter): SingletonDeployment | undefined => {
     return findDeployment(applyFilterDefaults(filter), createCallDeployments)
+}
+
+const signMessageLibDeployments: SingletonDeployment[] = [
+    SignMessageLib130
+]
+
+export const getSignMessageLibDeployment = (filter?: DeploymentFilter): SingletonDeployment | undefined => {
+    return findDeployment(applyFilterDefaults(filter), signMessageLibDeployments)
 }
