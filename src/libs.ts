@@ -7,7 +7,7 @@ import { applyFilterDefaults, findDeployment } from './utils'
 
 // This is a sorted array (by preference, currently we use 111 in most cases)
 const multiSendDeployments: SingletonDeployment[] = [
-    MultiSend111, MultiSend130
+    MultiSend130, MultiSend111
 ]
 
 export const getMultiSendDeployment = (filter?: DeploymentFilter): SingletonDeployment | undefined => {
