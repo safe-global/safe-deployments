@@ -1,0 +1,66 @@
+{
+  "defaultAddress": "0xa25b3579a295be016de5eb5F082b54B12d45F72C",
+  "contractName": "SignMessageLib",
+  "version": "1.3.0",
+  "released": true,
+  "networkAddresses": {
+    "1": "0xa25b3579a295be016de5eb5F082b54B12d45F72C",
+    "4": "0xa25b3579a295be016de5eb5F082b54B12d45F72C",
+    "42": "0xa25b3579a295be016de5eb5F082b54B12d45F72C",
+    "5": "0xa25b3579a295be016de5eb5F082b54B12d45F72C",
+    "56": "0xa25b3579a295be016de5eb5F082b54B12d45F72C",
+    "100": "0xa25b3579a295be016de5eb5F082b54B12d45F72C",
+    "137": "0xa25b3579a295be016de5eb5F082b54B12d45F72C",
+    "246": "0xa25b3579a295be016de5eb5F082b54B12d45F72C",
+    "4002": "0xa25b3579a295be016de5eb5F082b54B12d45F72C",
+    "42161": "0xa25b3579a295be016de5eb5F082b54B12d45F72C",
+    "73799": "0xa25b3579a295be016de5eb5F082b54B12d45F72C"
+  },
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "msgHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "SignMsg",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "message",
+          "type": "bytes"
+        }
+      ],
+      "name": "getMessageHash",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "_data",
+          "type": "bytes"
+        }
+      ],
+      "name": "signMessage",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]
+}
