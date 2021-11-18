@@ -18,7 +18,7 @@ Please list any useful links that you encounter in the process. Such as, block e
 As you complete the steps, provide links to the chain's block explorer transactions, to verify the correct execution of the steps.
 
 - [ ] If contracts are not deployed. Deploy them using [the tool](https://github.com/gnosis/safe-contracts)
-  - [ ] Verify the chain at https://chainlist.org/ . Please fill the Chain ID: 10 [link to info](https://github.com/ethereum-lists/chains/blob/master/_data/chains/eip155-10.json)
+  - [ ] Verify the chain at https://chainlist.org/ .
 - [ ] Please document links of interest such as faucets, bridges, block explorer, etc. as comments in this issue.
 - [ ] Execute the steps in our internal [guide](https://app.gitbook.com/o/-MhyDtGxUyODu7d4sgda/s/-MhyEL1Pq_BGR0rFugaE/backend/contract-deployment-checks) for user side validation of the contracts:
   - [ ] Deploy 2 L2 safes
