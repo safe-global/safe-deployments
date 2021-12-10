@@ -1,4 +1,5 @@
 import GnosisSafeL2130 from './assets/v1.3.0/gnosis_safe_l2.json'
+import GnosisSafe140 from './assets/v1.4.0/gnosis_safe.json'
 import GnosisSafe130 from './assets/v1.3.0/gnosis_safe.json'
 import GnosisSafe120 from './assets/v1.2.0/gnosis_safe.json'
 import GnosisSafe111 from './assets/v1.1.1/gnosis_safe.json'
@@ -8,7 +9,8 @@ import { applyFilterDefaults, findDeployment } from './utils'
 
 // This is a sorted array (newest to oldest)
 const safeDeployments: SingletonDeployment[] = [
-    GnosisSafe130, GnosisSafe120, GnosisSafe111, GnosisSafe100
+    GnosisSafe140
+    //GnosisSafe130, GnosisSafe120, GnosisSafe111, GnosisSafe100
 ]
 
 export const getSafeSingletonDeployment = (filter?: DeploymentFilter): SingletonDeployment | undefined => {
