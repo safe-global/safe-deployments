@@ -20,8 +20,9 @@ As you complete the steps, provide links to the chain's block explorer transacti
 - [ ] If contracts are not deployed. Deploy them using [the tool](https://github.com/gnosis/safe-contracts)
   - [ ] Verify the chain at https://chainlist.org/ .
 - [ ] Please document links of interest such as faucets, bridges, block explorer, etc. as comments in this issue.
-- [ ] Execute the steps in our internal [guide](https://app.gitbook.com/o/-MhyDtGxUyODu7d4sgda/s/-MhyEL1Pq_BGR0rFugaE/backend/contract-deployment-checks) for user side validation of the contracts:
+- [ ] (Optional) Execute using [safe-tasks](https://github.com/gnosis/safe-tasks) the steps in our internal [guide](https://app.gitbook.com/o/-MhyDtGxUyODu7d4sgda/s/-MhyEL1Pq_BGR0rFugaE/backend/contract-deployment-checks) for user side validation of the contracts:
   - [ ] Deploy 2 L2 safes
+   - run `$ yarn safe create --l2` *(Note: you will need to specify `--factory` and `--singleton` addresses if the chain enforces EIP155)*
   - [ ] Use one safe to wrap and unwrap ETH.
   - [ ] Transfer native currency of the chain to one of the safes from your EOA
   - [ ] Transfer ERC20 token (please provide link and/or deploy one if necessary) to one of the safes
