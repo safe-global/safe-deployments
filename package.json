@@ -1,6 +1,6 @@
 {
   "name": "@gnosis.pm/safe-deployments",
-  "version": "1.12.0",
+  "version": "1.15.0",
   "description": "Collection of Safe singleton deployments",
   "homepage": "https://github.com/gnosis/safe-deployments/",
   "license": "MIT",
@@ -16,7 +16,8 @@
     "build": "yarn rimraf dist && tsc",
     "lint": "eslint --max-warnings 0 .",
     "prepack": "yarn build",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -32,7 +33,9 @@
     "url": "https://github.com/gnosis/safe-deployments/issues"
   },
   "devDependencies": {
+    "@types/jest": "^27.5.1",
     "@types/node": "^14.14.21",
+    "@types/semver": "^7.3.9",
     "@typescript-eslint/eslint-plugin": "^4.7.0",
     "@typescript-eslint/parser": "^4.7.0",
     "eslint": "^7.13.0",
@@ -41,8 +44,13 @@
     "eslint-plugin-no-only-tests": "^2.4.0",
     "eslint-plugin-prettier": "^3.1.4",
     "husky": "^5.1.3",
+    "jest": "^28.1.0",
     "prettier": "^2.1.2",
+    "ts-jest": "^28.0.2",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.4"
+  },
+  "dependencies": {
+    "semver": "^7.3.7"
   }
 }
