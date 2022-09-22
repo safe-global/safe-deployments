@@ -5,7 +5,7 @@ labels: "[enhancement]"
 body: 
   - type: markdown 
     attributes:
-      value: Please fill the following formulary
+      value: Please fill the following form
   - type: input
     id: chainid
     attributes:
@@ -32,7 +32,7 @@ body:
     id: versioning 
     attributes: 
       label: Version of contracts deployed
-      description: What version of contracts are deployed? NOTE:one issue per version and one pull request per version)
+      description: What version of contracts are deployed? NOTE:one issue per version and one pull request per version
       multiple: false
       options: 
         - v1.0.0
