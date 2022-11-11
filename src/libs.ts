@@ -1,5 +1,4 @@
 import CreateCall130 from './assets/v1.3.0/create_call.json'
-import MultiSend100 from './assets/v1.0.0/multi_send.json'
 import MultiSend111 from './assets/v1.1.1/multi_send.json'
 import MultiSend130 from './assets/v1.3.0/multi_send.json'
 import MultiSendCallOnly130 from './assets/v1.3.0/multi_send_call_only.json'
@@ -9,7 +8,7 @@ import { findDeployment } from './utils'
 
 // This is a sorted array (by preference, currently we use 111 in most cases)
 const multiSendDeployments: SingletonDeployment[] = [
-  MultiSend130, MultiSend111, MultiSend100
+  MultiSend130, MultiSend111
 ]
 
 export const getMultiSendDeployment = (filter?: DeploymentFilter): SingletonDeployment | undefined => {

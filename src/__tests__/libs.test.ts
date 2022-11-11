@@ -1,5 +1,4 @@
 import CreateCall130 from '../assets/v1.3.0/create_call.json';
-import MultiSend100 from '../assets/v1.0.0/multi_send.json';
 import MultiSend111 from '../assets/v1.1.1/multi_send.json';
 import MultiSend130 from '../assets/v1.3.0/multi_send.json';
 import MultiSendCallOnly130 from '../assets/v1.3.0/multi_send_call_only.json';
@@ -16,9 +15,7 @@ describe('libs.ts', () => {
     it('should find the preferred deployment first', () => {
       const result = getMultiSendDeployment();
       expect(result).toBe(MultiSend130);
-      [MultiSend111, MultiSend100].forEach((version) => {
-        expect(result).not.toBe(version);
-      });
+      expect(result).not.toBe(MultiSend111);
     });
   });
   describe('getMultiSendCallOnlyDeployment', () => {
