@@ -1,8 +1,8 @@
 {
-  "name": "@gnosis.pm/safe-deployments",
-  "version": "1.19.0",
+  "name": "@safe-global/safe-deployments",
+  "version": "1.20.2",
   "description": "Collection of Safe singleton deployments",
-  "homepage": "https://github.com/gnosis/safe-deployments/",
+  "homepage": "https://github.com/safe-global/safe-deployments/",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gnosis/safe-deployments.git"
+    "url": "git+https://github.com/safe-global/safe-deployments.git"
   },
   "keywords": [
     "Ethereum",
@@ -30,7 +30,7 @@
   ],
   "author": "richard@gnosis.io",
   "bugs": {
-    "url": "https://github.com/gnosis/safe-deployments/issues"
+    "url": "https://github.com/safe-global/safe-deployments/issues"
   },
   "devDependencies": {
     "@types/jest": "^27.5.1",
