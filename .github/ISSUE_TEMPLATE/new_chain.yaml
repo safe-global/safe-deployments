@@ -24,7 +24,7 @@ body:
     id: deployed
     attributes: 
       label: Contract deployed
-      description: Confirm that the contracts are deployed on the chain, if not deploy with [safe-contracts](https://github.com/gnosis/safe-contracts) 
+      description: Confirm that the contracts are deployed on the chain, if not deploy with [safe-contracts](https://github.com/safe-global/safe-contracts) 
       options:
         - label: I confirm that the contracts are deployed 
           required: true
