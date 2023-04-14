@@ -81,6 +81,8 @@ const callbackHandler = getDefaultCallbackHandlerDeployment()
 
 const compatHandler = getCompatibilityFallbackHandlerDeployment()
 ```
+## Release cycle
+`safe-deployments` release cycle is once per month, except urgent issues that require immediate attention. 
 
 ## Notes
 
