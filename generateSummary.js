@@ -46,7 +46,7 @@ const getProxyFactoryDeployment = (version, released, network) => ({
 })
 
 const deployments = [getSafeSingletonDeployment, getProxyFactoryDeployment]
-const versions = ['1.3.0','1.2.0', '1.1.0', ,'1.0.0']
+const versions = ['1.3.0','1.2.0','1.1.0','1.0.0']
 
 
 const chainRows = [];
@@ -55,11 +55,13 @@ chains.forEach(chain => {
     let chainTitle = `${chain.title || chain.name}`
     chainTitle = `|[${chainTitle}](${chain.infoURL})|`
     let chainRow = chainTitle
+    let deployedOnChain = false;
     versions.forEach(version => {
         let chainVersion = '';
         deployments.forEach(deployment => {
             const deploymentInfo = deployment(version, true, chain.chainId)
             if (deploymentInfo.networkAddresses.length > 0) {
+                deployedOnChain = true;
                 const address = deploymentInfo.networkAddresses[0][1]
                 const contractName = deploymentInfo.contractName
                 const deploymentMarkdown = `${contractName} - [${address}](${chain.explorers[0].url}/address/${address})/ `;
@@ -69,7 +71,9 @@ chains.forEach(chain => {
         chainRow = `${chainRow} ${chainVersion}|`
     })
     console.log({chainRow})
-    chainRows.push(chainRow)
+    if (deployedOnChain) {
+        chainRows.push(chainRow)
+    }
     console.log({chainRows})
 });
 
