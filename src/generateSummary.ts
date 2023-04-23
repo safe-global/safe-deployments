@@ -4,7 +4,8 @@ import { getSafeL2SingletonDeployment, getSafeSingletonDeployment } from './safe
 import { getProxyFactoryDeployment } from './factories';
 import ALL_CHAINS from '../chains.json';
 
-const title = '# Safe Deployments';
+const title = '# Safe Deployments\n';
+const description = 'This table contains a list of deployed Safe contracts. Chain information was taken from [Ethereum Lists: Chains](https://github.com/ethereum-lists/chains).\n';
 const versions = ['1.3.0', '1.2.0', '1.1.1', '1.0.0'];
 
 // filter chains by if their Chain ID is in the list of deployed chains
@@ -48,5 +49,5 @@ const chainRows = chains
     return chainRow;
   });
 
-const data = [title, headerRow, seperatorRow, ...chainRows].join('\n');
+const data = [title, description, headerRow, seperatorRow, ...chainRows].join('\n');
 fs.writeFileSync('SUMMARY.md', data);
