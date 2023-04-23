@@ -2,7 +2,7 @@ import * as fs from 'fs';
 
 import { getSafeL2SingletonDeployment, getSafeSingletonDeployment } from './safes';
 import { getProxyFactoryDeployment } from './factories';
-import ALL_CHAINS from '../chains_sample.json';
+import ALL_CHAINS from '../chains.json';
 
 const title = '# Safe Deployments';
 const versions = ['1.3.0', '1.2.0', '1.1.1', '1.0.0'];
@@ -38,7 +38,8 @@ const chainRows = chains
         if (deploymentInfo?.networkAddresses[chain.chainId]) {
           const address = deploymentInfo.networkAddresses[chain.chainId];
           const contractName = deploymentInfo.contractName;
-          const deploymentMarkdown = `${contractName} - [${address}](${chain?.explorers![0].url}/address/${address})<br />`;
+          const explorerUrl = chain.explorers?.[0]?.url || ''
+          const deploymentMarkdown = `${contractName} - ${explorerUrl ? `[${address}](${explorerUrl}/address/${address})` : address}<br />`
           chainVersion += deploymentMarkdown;
         }
       });
