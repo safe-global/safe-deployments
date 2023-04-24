@@ -2,6 +2,8 @@ import * as fs from 'fs';
 
 import { getSafeL2SingletonDeployment, getSafeSingletonDeployment } from './safes';
 import { getProxyFactoryDeployment } from './factories';
+import { getDefaultCallbackHandlerDeployment, getCompatibilityFallbackHandlerDeployment, getFallbackHandlerDeployment } from './handler';
+import { getMultiSendDeployment, getMultiSendCallOnlyDeployment, getCreateCallDeployment, getSignMessageLibDeployment } from './libs';
 import ALL_CHAINS from '../chains.json';
 
 const title = '# Safe Deployments\n';
@@ -11,7 +13,9 @@ const versions = ['1.3.0', '1.2.0', '1.1.1', '1.0.0'];
 const headerRow = `| **Chain**                   | ${versions.map((version) => `**${version}**`.padEnd(27, ' ')).join('|')} |`;
 const seperatorRow = `| ${'-'.repeat(28)} | ${versions.map(() => ` ${'-'.repeat(26)} |`).join('')} `;
 
-const deployments = [getProxyFactoryDeployment, getSafeSingletonDeployment, getSafeL2SingletonDeployment];
+const deployments = [getProxyFactoryDeployment, getSafeSingletonDeployment, getSafeL2SingletonDeployment,
+     getDefaultCallbackHandlerDeployment, getCompatibilityFallbackHandlerDeployment, getFallbackHandlerDeployment,
+     getMultiSendDeployment, getMultiSendCallOnlyDeployment, getCreateCallDeployment, getSignMessageLibDeployment];
 
 const chainRows = ALL_CHAINS
   .filter((chain) => {
