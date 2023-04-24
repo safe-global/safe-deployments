@@ -8,15 +8,12 @@ const title = '# Safe Deployments\n';
 const description = 'This table contains a list of deployed Safe contracts. Chain information was taken from [Ethereum Lists: Chains](https://github.com/ethereum-lists/chains).\n';
 const versions = ['1.3.0', '1.2.0', '1.1.1', '1.0.0'];
 
-// filter chains by if their Chain ID is in the list of deployed chains
-const chains = ALL_CHAINS.filter((chain) => getProxyFactoryDeployment({ network: chain.chainId.toString() }));
-
 const headerRow = `| **Chain**                   | ${versions.map((version) => `**${version}**`.padEnd(27, ' ')).join('|')} |`;
 const seperatorRow = `| ${'-'.repeat(28)} | ${versions.map(() => ` ${'-'.repeat(26)} |`).join('')} `;
 
 const deployments = [getProxyFactoryDeployment, getSafeSingletonDeployment, getSafeL2SingletonDeployment];
 
-const chainRows = chains
+const chainRows = ALL_CHAINS
   .filter((chain) => {
     let deployedOnChain = false;
     versions.forEach((version) => {
