@@ -15,7 +15,7 @@
   "scripts": {
     "build": "yarn rimraf dist && tsc",
     "summarize": "ts-node scripts/generateSummary.ts",
-    "summarize-npx": "npx scripts/generateSummary.ts",
+    "summarize-npx": "npx ts-node scripts/generateSummary.ts",
     "lint": "eslint --max-warnings 0 .",
     "prepack": "yarn build",
     "prepare": "husky install",
