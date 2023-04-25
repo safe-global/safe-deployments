@@ -1,9 +1,9 @@
 import * as fs from 'fs';
 
-import { getSafeL2SingletonDeployment, getSafeSingletonDeployment } from './safes';
-import { getProxyFactoryDeployment } from './factories';
-import { getDefaultCallbackHandlerDeployment, getCompatibilityFallbackHandlerDeployment, getFallbackHandlerDeployment } from './handler';
-import { getMultiSendDeployment, getMultiSendCallOnlyDeployment, getCreateCallDeployment, getSignMessageLibDeployment } from './libs';
+import { getSafeL2SingletonDeployment, getSafeSingletonDeployment } from '../src/safes';
+import { getProxyFactoryDeployment } from '../src/factories';
+import { getDefaultCallbackHandlerDeployment, getCompatibilityFallbackHandlerDeployment, getFallbackHandlerDeployment } from '../src/handler';
+import { getMultiSendDeployment, getMultiSendCallOnlyDeployment, getCreateCallDeployment, getSignMessageLibDeployment } from '../src/libs';
 import ALL_CHAINS from '../chains.json';
 
 const title = '# Safe Deployments\n';
