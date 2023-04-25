@@ -5,10 +5,26 @@ import { getProxyFactoryDeployment } from '../src/factories';
 import { getDefaultCallbackHandlerDeployment, getCompatibilityFallbackHandlerDeployment, getFallbackHandlerDeployment } from '../src/handler';
 import { getMultiSendDeployment, getMultiSendCallOnlyDeployment, getCreateCallDeployment, getSignMessageLibDeployment } from '../src/libs';
 import ALL_CHAINS from '../chains.json';
+import { exit } from 'process';
 
 const title = '# Safe Deployments\n';
 const description = 'This table contains a list of deployed Safe contracts. Chain information was taken from [Ethereum Lists: Chains](https://github.com/ethereum-lists/chains).\n';
-const versions = ['1.3.0', '1.2.0', '1.1.1', '1.0.0'];
+const versions = fs.readdirSync('./src/assets')
+  .filter(file => fs.lstatSync(`./src/assets/${file}`).isDirectory())
+  .map(dir => dir.replace(/^v/, ''))
+  .sort((a, b) => {
+    const versionA = a.split('.').map(Number);
+    const versionB = b.split('.').map(Number);
+
+    for (let i = 0; i < 3; i++) {
+      if (versionA[i] < versionB[i]) {
+        return 1;
+      } else if (versionA[i] > versionB[i]) {
+        return -1;
+      }
+    }
+    return 0;
+});
 
 const headerRow = `| **Chain**                   | ${versions.map((version) => `**${version}**`.padEnd(27, ' ')).join('|')} |`;
 const seperatorRow = `| ${'-'.repeat(28)} | ${versions.map(() => ` ${'-'.repeat(26)} |`).join('')} `;
