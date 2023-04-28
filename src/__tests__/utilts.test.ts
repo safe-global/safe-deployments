@@ -16,7 +16,7 @@ describe('utils.ts', () => {
         defaultAddress: '',
         version: '',
         abi: [],
-        networkAddresses: {},
+        networkAddresses: { "1": "0xbeef" },
         contractName: '',
         released: false,
       };
@@ -24,7 +24,7 @@ describe('utils.ts', () => {
         defaultAddress: '',
         version: '',
         abi: [],
-        networkAddresses: {},
+        networkAddresses: { "1": "0xbeef" },
         contractName: '',
         released: true, // Default filter value
       };
@@ -38,6 +38,11 @@ describe('utils.ts', () => {
       expect(findDeployment(undefined, testDeployments)).toBe(
         testReleasedDeployment
       );
+
+      // should preserve the released flag even if its not explicitly passed
+      expect(findDeployment({ network: '1' }, testDeployments)).toBe(
+        testReleasedDeployment
+      )
     });
     it('should return the correct deployment (filtered by version)', () => {
       // Chronological deployments
