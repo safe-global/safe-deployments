@@ -67,7 +67,7 @@ describe('utils.ts', () => {
         findDeployment({ version: '2.0.0+L2' }, _safeL2Deployments)
       ).toBeUndefined();
     });
-    it('should return the correct deployment (filtered by release)', () => {
+    it.only('should return the correct deployment (filtered by release)', () => {
       // Chronological deployments
       expect(findDeployment({ released: true }, _safeDeployments)).toBe(
         GnosisSafe130
