@@ -11,8 +11,6 @@ export const findDeployment = (criteria: DeploymentFilter = DEFAULT_FILTER, depl
         if (typeof criteriaWithDefaults.released === 'boolean' && deployment.released != criteriaWithDefaults.released) return false
         if (criteriaWithDefaults.network && !deployment.networkAddresses[criteriaWithDefaults.network]) return false
 
-    console.log('criteria.version && !semverSatisfies(deployment.version, criteria.version)', typeof criteria.version !== 'undefined' && !semverSatisfies(deployment.version, criteria.version))  
-    console.log(`typeof criteria.released === 'boolean' && deployment.released != criteria.released)`, typeof criteria.released === 'boolean' && deployment.released != criteria.released)
     return true
   })
 }
