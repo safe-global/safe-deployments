@@ -3,10 +3,14 @@ import semverSatisfies from 'semver/functions/satisfies'
 
 const DEFAULT_FILTER: DeploymentFilter = { released: true }
 
-export const findDeployment = (criteria: DeploymentFilter = DEFAULT_FILTER, deployments: SingletonDeployment[]): SingletonDeployment | undefined =>
-  deployments.find((deployment) => {
-        if (criteria.version && !semverSatisfies(deployment.version, criteria.version)) return false
-        if (typeof criteria.released === 'boolean' && deployment.released != criteria.released) return false
-        if (criteria.network && !deployment.networkAddresses[criteria.network]) return false
+export const findDeployment = (criteria: DeploymentFilter = DEFAULT_FILTER, deployments: SingletonDeployment[]): SingletonDeployment | undefined => {
+  const criteriaWithDefaults: DeploymentFilter = { ...DEFAULT_FILTER, ...criteria }
+
+  return deployments.find((deployment) => {
+        if (typeof criteriaWithDefaults.version !== 'undefined' && !semverSatisfies(deployment.version, criteriaWithDefaults.version)) return false
+        if (typeof criteriaWithDefaults.released === 'boolean' && deployment.released != criteriaWithDefaults.released) return false
+        if (criteriaWithDefaults.network && !deployment.networkAddresses[criteriaWithDefaults.network]) return false
+
     return true
   })
+}
