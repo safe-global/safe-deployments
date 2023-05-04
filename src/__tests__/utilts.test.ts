@@ -16,7 +16,7 @@ describe('utils.ts', () => {
         defaultAddress: '',
         version: '',
         abi: [],
-        networkAddresses: {},
+        networkAddresses: { "1": "0xbeef" },
         contractName: '',
         released: false,
       };
@@ -24,7 +24,7 @@ describe('utils.ts', () => {
         defaultAddress: '',
         version: '',
         abi: [],
-        networkAddresses: {},
+        networkAddresses: { "1": "0xbeef" },
         contractName: '',
         released: true, // Default filter value
       };
@@ -38,6 +38,11 @@ describe('utils.ts', () => {
       expect(findDeployment(undefined, testDeployments)).toBe(
         testReleasedDeployment
       );
+
+      // should preserve the released flag even if its not explicitly passed
+      expect(findDeployment({ network: '1' }, testDeployments)).toBe(
+        testReleasedDeployment
+      )
     });
     it('should return the correct deployment (filtered by version)', () => {
       // Chronological deployments
@@ -67,33 +72,48 @@ describe('utils.ts', () => {
         findDeployment({ version: '2.0.0+L2' }, _safeL2Deployments)
       ).toBeUndefined();
     });
-    it('should return the correct deployment (filtered by release)', () => {
+    it('should return the correct deployment (filtered by released flag)', () => {
+      const testUnreleasedDeployment: SingletonDeployment = {
+        defaultAddress: '',
+        version: '',
+        abi: [],
+        networkAddresses: { "1": "0xbeef" },
+        contractName: '',
+        released: false,
+      };
+      const testReleasedDeployment: SingletonDeployment = {
+        defaultAddress: '',
+        version: '',
+        abi: [],
+        networkAddresses: { "1": "0xbeef" },
+        contractName: '',
+        released: true, // Default filter value
+      };
+
+      const testDeployments = [
+        testUnreleasedDeployment,
+        testReleasedDeployment,
+      ];
+
+
       // Chronological deployments
       expect(findDeployment({ released: true }, _safeDeployments)).toBe(
         GnosisSafe130
       );
-      // Incorrect filter:
-      expect(
-        findDeployment({ released: false }, _safeDeployments)
-      ).toBeUndefined();
 
       // Reverse chronological deployments
       expect(findDeployment({ released: true }, _safeDeploymentsReverse)).toBe(
         GnosisSafe100
       );
-      // Incorrect filter:
+      // Released flag set to false:
       expect(
-        findDeployment({ released: false }, _safeDeploymentsReverse)
-      ).toBeUndefined();
+        findDeployment({ released: false }, testDeployments)
+      ).toBe(testUnreleasedDeployment);
 
       // L2 deployments
       expect(findDeployment({ released: true }, _safeL2Deployments)).toBe(
         GnosisSafeL2130
       );
-      // Incorrect filter:
-      expect(
-        findDeployment({ released: false }, _safeL2Deployments)
-      ).toBeUndefined();
     });
 
     it('should return the correct deployment (filtered by network)', () => {
@@ -211,6 +231,29 @@ describe('utils.ts', () => {
       ).toBeUndefined();
     });
     it('should return the correct deployment (filtered by released and network)', () => {
+      const testUnreleasedDeployment: SingletonDeployment = {
+        defaultAddress: '',
+        version: '',
+        abi: [],
+        networkAddresses: { "1": "0xbeef" },
+        contractName: '',
+        released: false,
+      };
+      const testReleasedDeployment: SingletonDeployment = {
+        defaultAddress: '',
+        version: '',
+        abi: [],
+        networkAddresses: { "1": "0xbeef" },
+        contractName: '',
+        released: true, // Default filter value
+      };
+
+      const testDeployments = [
+        testUnreleasedDeployment,
+        testUnreleasedDeployment,
+        testReleasedDeployment,
+      ];
+
       // Reverse chronological deployments
       expect(
         findDeployment(
@@ -240,9 +283,9 @@ describe('utils.ts', () => {
       expect(
         findDeployment(
           { released: false, network: '1' },
-          _safeDeploymentsReverse
+          testDeployments
         )
-      ).toBeUndefined();
+      ).toBe(testUnreleasedDeployment);
 
       // L2 deployments
       expect(
@@ -253,7 +296,7 @@ describe('utils.ts', () => {
         findDeployment({ released: true, network: '0' }, _safeL2Deployments)
       ).toBeUndefined();
       expect(
-        findDeployment({ released: false, network: '100' }, _safeL2Deployments)
+        findDeployment({ released: false, network: '100' }, testDeployments)
       ).toBeUndefined();
     });
     it('should return the correct deployment (filtered by version, released and network)', () => {
