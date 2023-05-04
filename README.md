@@ -6,7 +6,7 @@ This contract contains a collection of deployments of the contract of the [Safe 
 
 For each deployment the address on the different networks and the abi files are available. To get an overview of the available versions check the available [json assets](./src/assets/) and [Summary Table](./SUMMARY.md).
 
-To regenerate the summary table to include new deployments run: `yarn run summarize` or `yarn run summarize-npx`.
+To regenerate the summary table to include new deployments run: `yarn run summarize`.
 
 To add additional deployments please follow the [deployment steps in the Safe contract repository](https://github.com/safe-global/safe-contracts#deployments).
 
