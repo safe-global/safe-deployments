@@ -10,7 +10,8 @@
     "dist",
     "src",
     "test",
-    "build"
+    "build",
+    "SUMMARY.md"
   ],
   "scripts": {
     "build": "yarn rimraf dist && tsc",
