@@ -4,26 +4,30 @@ import { getSafeL2SingletonDeployment, getSafeSingletonDeployment } from '../src
 import { getProxyFactoryDeployment } from '../src/factories';
 import { getDefaultCallbackHandlerDeployment, getCompatibilityFallbackHandlerDeployment, getFallbackHandlerDeployment } from '../src/handler';
 import { getMultiSendDeployment, getMultiSendCallOnlyDeployment, getCreateCallDeployment, getSignMessageLibDeployment } from '../src/libs';
-import ALL_CHAINS from '../chains.json';
-import { exit } from 'process';
+import axios from 'axios';
+
+export async function generateSummary() {
+
+const response = await axios.get('https://chainid.network/chains.json');
+const ALL_CHAINS: any[] = response.data;
 
 const title = '# Safe Deployments\n';
 const description = 'This table contains a list of deployed Safe contracts. Chain information was taken from [Ethereum Lists: Chains](https://github.com/ethereum-lists/chains).\n';
 const versions = fs.readdirSync('./src/assets')
-  .filter(file => fs.lstatSync(`./src/assets/${file}`).isDirectory())
-  .map(dir => dir.replace(/^v/, ''))
-  .sort((a, b) => {
-    const versionA = a.split('.').map(Number);
-    const versionB = b.split('.').map(Number);
+.filter(file => fs.lstatSync(`./src/assets/${file}`).isDirectory())
+.map(dir => dir.replace(/^v/, ''))
+.sort((a, b) => {
+  const versionA = a.split('.').map(Number);
+  const versionB = b.split('.').map(Number);
 
-    for (let i = 0; i < 3; i++) {
-      if (versionA[i] < versionB[i]) {
-        return 1;
-      } else if (versionA[i] > versionB[i]) {
-        return -1;
-      }
+  for (let i = 0; i < 3; i++) {
+    if (versionA[i] < versionB[i]) {
+      return 1;
+    } else if (versionA[i] > versionB[i]) {
+      return -1;
     }
-    return 0;
+  }
+  return 0;
 });
 
 const headerRow = `| **Chain**                   | ${versions.map((version) => `**${version}**`.padEnd(27, ' ')).join('|')} |`;
@@ -68,3 +72,7 @@ const chainRows = ALL_CHAINS
 
 const data = [title, description, headerRow, seperatorRow, ...chainRows].join('\n');
 fs.writeFileSync('SUMMARY.md', data);
+
+}
+
+generateSummary();
