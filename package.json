@@ -18,12 +18,8 @@
     "lint": "eslint --max-warnings 0 .",
     "prepack": "yarn build",
     "prepare": "husky install",
+    "prepublish": "yarn run summarize",
     "test": "jest"
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "echo \"[Husky] pre-push: summarizing table\" && yarn run summarize"
-    }
   },
   "repository": {
     "type": "git",
