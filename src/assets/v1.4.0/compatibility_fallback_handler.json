@@ -5,6 +5,7 @@
   "version": "1.4.0",
   "networkAddresses": {
     "5": "0x2a15DE4410d4c8af0A7b6c12803120f43C42B820",
+    "56": "0x2a15DE4410d4c8af0A7b6c12803120f43C42B820",
     "100": "0x2a15DE4410d4c8af0A7b6c12803120f43C42B820"
   },
   "abi": [
