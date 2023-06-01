@@ -1,12 +1,14 @@
 {
   "defaultAddress": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
   "contractName": "SafeProxyFactory",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "released": false,
   "networkAddresses": {
+    "1": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
     "5": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
     "56": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
-    "100": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67"
+    "100": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
+    "80001": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67"
   },
   "abi": [
     {

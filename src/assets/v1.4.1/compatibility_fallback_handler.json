@@ -1,12 +1,12 @@
 {
-  "defaultAddress": "0x2a15DE4410d4c8af0A7b6c12803120f43C42B820",
+  "defaultAddress": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
   "released": false,
   "contractName": "CompatibilityFallbackHandler",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "networkAddresses": {
-    "5": "0x2a15DE4410d4c8af0A7b6c12803120f43C42B820",
-    "56": "0x2a15DE4410d4c8af0A7b6c12803120f43C42B820",
-    "100": "0x2a15DE4410d4c8af0A7b6c12803120f43C42B820"
+    "1": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "100": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "80001": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99"
   },
   "abi": [
     {
