@@ -1,12 +1,12 @@
 {
-  "defaultAddress": "0x1eb4681c549d995AbdC4aB189cAbb9f00B508cAb",
+  "defaultAddress": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
   "released": false,
   "contractName": "SafeL2",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "networkAddresses": {
-    "5": "0x1eb4681c549d995AbdC4aB189cAbb9f00B508cAb",
-    "56": "0x1eb4681c549d995AbdC4aB189cAbb9f00B508cAb",
-    "100": "0x1eb4681c549d995AbdC4aB189cAbb9f00B508cAb"
+    "1": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
+    "100": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
+    "80001": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762"
   },
   "abi": [
     {
