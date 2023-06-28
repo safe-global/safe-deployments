@@ -1,6 +1,6 @@
 {
   "defaultAddress": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
-  "released": false,
+  "released": true,
   "contractName": "MultiSend",
   "version": "1.4.1",
   "networkAddresses": {
