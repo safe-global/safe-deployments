@@ -1,0 +1,26 @@
+{
+    "defaultAddress": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
+    "released": false,
+    "contractName": "MultiSendCallOnly",
+    "version": "1.4.0",
+    "networkAddresses": {
+        "5": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
+        "56": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
+        "100": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2"
+    },
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes",
+                    "name": "transactions",
+                    "type": "bytes"
+                }
+            ],
+            "name": "multiSend",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        }
+    ]
+}

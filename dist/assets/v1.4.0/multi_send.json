@@ -1,0 +1,31 @@
+{
+    "defaultAddress": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
+    "released": false,
+    "contractName": "MultiSend",
+    "version": "1.4.0",
+    "networkAddresses": {
+        "5": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
+        "56": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
+        "100": "0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526"
+    },
+    "abi": [
+        {
+            "inputs": [],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes",
+                    "name": "transactions",
+                    "type": "bytes"
+                }
+            ],
+            "name": "multiSend",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        }
+    ]
+}

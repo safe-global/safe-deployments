@@ -1,0 +1,62 @@
+{
+    "defaultAddress": "0x3d4BA2E0884aa488718476ca2FB8Efc291A46199",
+    "released": false,
+    "contractName": "SimulateTxAccessor",
+    "version": "1.4.0",
+    "networkAddresses": {
+        "5": "0x3d4BA2E0884aa488718476ca2FB8Efc291A46199",
+        "56": "0x3d4BA2E0884aa488718476ca2FB8Efc291A46199",
+        "100": "0x3d4BA2E0884aa488718476ca2FB8Efc291A46199"
+    },
+    "abi": [
+        {
+            "inputs": [],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "data",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "enum Enum.Operation",
+                    "name": "operation",
+                    "type": "uint8"
+                }
+            ],
+            "name": "simulate",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "estimate",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "success",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "returnData",
+                    "type": "bytes"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}
