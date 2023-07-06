@@ -1,3 +1,6 @@
+import SafeL2141 from '../assets/v1.4.1/safe_l2.json';
+import Safe141 from '../assets/v1.4.1/safe.json';
+
 import GnosisSafeL2130 from '../assets/v1.3.0/gnosis_safe_l2.json';
 import GnosisSafe130 from '../assets/v1.3.0/gnosis_safe.json';
 import GnosisSafe120 from '../assets/v1.2.0/gnosis_safe.json';
@@ -98,7 +101,7 @@ describe('utils.ts', () => {
 
       // Chronological deployments
       expect(findDeployment({ released: true }, _safeDeployments)).toBe(
-        GnosisSafe130
+        Safe141
       );
 
       // Reverse chronological deployments
@@ -112,7 +115,7 @@ describe('utils.ts', () => {
 
       // L2 deployments
       expect(findDeployment({ released: true }, _safeL2Deployments)).toBe(
-        GnosisSafeL2130
+        SafeL2141
       );
     });
 
@@ -134,7 +137,7 @@ describe('utils.ts', () => {
 
       // L2 deployments
       expect(findDeployment({ network: '100' }, _safeL2Deployments)).toBe(
-        GnosisSafeL2130
+        SafeL2141
       );
       // Incorrect filter:
       expect(
@@ -290,7 +293,7 @@ describe('utils.ts', () => {
       // L2 deployments
       expect(
         findDeployment({ released: true, network: '100' }, _safeL2Deployments)
-      ).toBe(GnosisSafeL2130);
+      ).toBe(SafeL2141);
       // Incorrect filter:
       expect(
         findDeployment({ released: true, network: '0' }, _safeL2Deployments)

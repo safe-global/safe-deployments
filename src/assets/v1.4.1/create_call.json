@@ -1,6 +1,6 @@
 {
   "defaultAddress": "0x9b35Af71d77eaf8d7e40252370304687390A1A52",
-  "released": false,
+  "released": true,
   "contractName": "CreateCall",
   "version": "1.4.1",
   "networkAddresses": {
