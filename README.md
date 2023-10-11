@@ -1,6 +1,7 @@
 # Safe Deployments
 
 [![npm version](https://badge.fury.io/js/%40safe-global%2Fsafe-deployments.svg)](https://badge.fury.io/js/%40safe-global%2Fsafe-deployments)
+[![CI](https://github.com/safe-global/safe-deployments/actions/workflows/test.yml/badge.svg)](https://github.com/safe-global/safe-deployments/actions/workflows/test.yml)
 
 This contract contains a collection of deployments of the contract of the [Safe contracts repository](https://github.com/safe-global/safe-contracts). 
 
