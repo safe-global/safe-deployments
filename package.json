@@ -18,7 +18,7 @@
     "lint:ts": "eslint --max-warnings 0 .",
     "lint:json": "prettier -c src/assets/*/*.json",
     "prepack": "yarn build",
-    "prepare": "husky install",
+    "prepare": "husky install && tsc",
     "test": "jest"
   },
   "repository": {
