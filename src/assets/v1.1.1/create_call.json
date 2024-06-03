@@ -1,17 +1,17 @@
 {
-  "defaultAddress": "0x8538fcbccba7f5303d2c679fa5d7a629a8c9bf4a",
+  "defaultAddress": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
   "released": true,
   "contractName": "CreateCall",
   "version": "1.1.1",
   "networkAddresses": {
-    "1": "0x8538fcbccba7f5303d2c679fa5d7a629a8c9bf4a",
-    "4": "0x8538fcbccba7f5303d2c679fa5d7a629a8c9bf4a",
-    "5": "0x8538fcbccba7f5303d2c679fa5d7a629a8c9bf4a",
-    "42": "0x8538fcbccba7f5303d2c679fa5d7a629a8c9bf4a",
-    "88": "0x8538fcbccba7f5303d2c679fa5d7a629a8c9bf4a",
-    "100": "0x8538fcbccba7f5303d2c679fa5d7a629a8c9bf4a",
-    "246": "0x8538fcbccba7f5303d2c679fa5d7a629a8c9bf4a",
-    "73799": "0x8538fcbccba7f5303d2c679fa5d7a629a8c9bf4a"
+    "1": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
+    "4": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
+    "5": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
+    "42": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
+    "88": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
+    "100": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
+    "246": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
+    "73799": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A"
   },
   "abi": [
     {
