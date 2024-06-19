@@ -73,40 +73,34 @@ case $# in
 esac
 
 echo "Verifying Deployment Asset"
-gh pr diff $pr --patch | git apply --include 'src/assets/**'
+gh checkout $pr --detach
+commitHash=$(git rev-parse HEAD)
+git checkout -q main
+git checkout -q $commitHash -- src/assets/v$version
 
 # Getting default addresses
-oneThreeZeroFiles=("compatibility_fallback_handler" "create_call" "gnosis_safe_l2" "gnosis_safe" "multi_send_call_only" "multi_send" "proxy_factory" "sign_message_lib" "simulate_tx_accessor")
-oneFourOneFiles=("compatibility_fallback_handler" "create_call" "multi_send_call_only" "multi_send" "safe_l2" "safe_proxy_factory" "safe" "sign_message_lib" "simulate_tx_accessor")
 versionFiles=()
-versionAddresses=()
 
 if [[ $version == "1.3.0" ]]; then
-    versionFiles=("${oneThreeZeroFiles[@]}")
+    versionFiles=("compatibility_fallback_handler"
+        "create_call" "gnosis_safe_l2" "gnosis_safe" "multi_send_call_only" "multi_send" "proxy_factory" "sign_message_lib" "simulate_tx_accessor")
 elif [[ $version == "1.4.1" ]]; then
-    versionFiles=("${oneFourOneFiles[@]}")
+    versionFiles=("compatibility_fallback_handler" "create_call" "multi_send_call_only" "multi_send" "safe_l2" "safe_proxy_factory" "safe" "sign_message_lib" "simulate_tx_accessor")
 fi
 
-# Getting default addresses
-for file in "${versionFiles[@]}"; do
-    versionAddresses+=($(jq -r '.defaultAddress' "src/assets/v$version/$file.json"))
-done
-
-# Getting default address based on the chain id
+# Getting default addresses, address on the chain and comparing the values.
 versionAddressesCI=()
 for file in "${versionFiles[@]}"; do
-    versionAddressesCI+=($(jq -r '.networkAddresses["'$chainid'"]' "src/assets/v$version/$file.json"))
-done
-
-# Checking default addresses and the addresses created for that chain id
-for i in {0..8}; do
-    if [[ ${versionAddresses[$i]} != ${versionAddressesCI[$i]} ]]; then
-        echo "ERROR: "${versionFiles[$i]}" default address is not the same as the one created for the chain id" 1>&2
+    address=$(jq -r '.defaultAddress' "src/assets/v$version/$file.json")
+    addressCI=$(jq -r --arg c "$chainid" '.networkAddresses[$c]' "src/assets/v$version/$file.json")
+    if [[ $address != $addressCI ]]; then
+        echo "ERROR: "$file" default address is not the same as the one created for the chain id" 1>&2
         exit 1
     fi
+    versionAddressesCI+=($addressCI)
 done
 
-echo "Default addresses are correct"
+echo "Network addresses are correct"
 
 # Code Hash of the default addresses (Chain ID: 1)
 # cast keccak $(cast code contractAddress --rpc-url https://rpc.ankr.com/eth)
@@ -122,7 +116,7 @@ fi
 
 versionCodeHashes=()
 for contract in "${versionContracts[@]}"; do
-    versionCodeHashes+=($(jq -r '.["'$version'"].["'$contract'"]' src/assets/code-hashes.json))
+    versionCodeHashes+=($(jq -r --arg v "$version" --arg c "$contract" '.[$v].[$c]' src/assets/code-hashes.json))
 done
 
 # Now getting the codehash (keccak of bytecode) for the default addresses created for that chain id
