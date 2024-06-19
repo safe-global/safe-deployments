@@ -143,11 +143,11 @@ fi
 # Now getting the codehash (keccak of bytecode) for the default addresses created for that chain id
 echo "Fetching codehashes from the chain"
 
-for contract in "${versionContracts[@]}"; do
-    codeHashes=$(jq -r --arg v "$version" --arg c "$contract" '.[$v].[$c]' src/assets/code-hashes.json)
+for i in "${!versionContracts[@]}"; do
+    codeHashes=$(jq -r --arg v "$version" --arg c "${versionContracts[$i]}" '.[$v].[$c]' src/assets/code-hashes.json)
     codeHashesCI=($(cast keccak $(cast code ${versionAddressesCI[$i]} --rpc-url $rpc)))
     if [[ $codeHashes != $codeHashesCI ]]; then
-        echo "ERROR: "$contract" code hash is not the same as the one created for the chain id" 1>&2
+        echo "ERROR: "${versionContracts[$i]}" code hash is not the same as the one created for the chain id" 1>&2
         exit 1
     fi
 done
