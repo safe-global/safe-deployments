@@ -199,28 +199,28 @@ echo "Default addresses are correct"
 
 # v1.3.0
 if [[ $version == "1.3.0" ]]; then
-    cfhCH="0x03e69f7ce809e81687c69b19a7d7cca45b6d551ffdec73d9bb87178476de1abf"
-    ccCH="0x8155d988823a4f6f1bcbc76a64af8e510c4ce68819290d43cf24956bd24dee82"
-    gsl2CH="0x21842597390c4c6e3c1239e434a682b054bd9548eee5e9b1d6a4482731023c0f"
-    gsCH="0xbba688fbdb21ad2bb58bc320638b43d94e7d100f6f3ebaab0a4e4de6304b1c2e"
-    mscoCH="0xa9865ac2d9c7a1591619b188c4d88167b50df6cc0c5327fcbd1c8c75f7c066ad"
-    msCH="0x0208282bd262360d0320862c5ac70f375f5ed3b9d89a83a615b4d398415bdc83"
-    pfCH="0x337d7f54be11b6ed55fef7b667ea5488db53db8320a05d1146aa4bd169a39a9b"
-    smlCH="0x3ac65dea3cc9dd0d7b7b800f834e3d73415b4e944bb94555c3e4a08fb137e918"
-    staCH="0xb3fb9763869f2c09a2ac5a425d2dd6060bf7ef46b3899049d71a711e71e00f04"
+    cfhCH=$(jq -r '.["'$version'"].["CompatibilityFallbackHandler"]' src/assets/code-hashes.json)
+    ccCH=$(jq -r '.["'$version'"].["CreateCall"]' src/assets/code-hashes.json)
+    gsl2CH=$(jq -r '.["'$version'"].["GnosisSafeL2"]' src/assets/code-hashes.json)
+    gsCH=$(jq -r '.["'$version'"].["GnosisSafe"]' src/assets/code-hashes.json)
+    mscoCH=$(jq -r '.["'$version'"].["MultiSendCallOnly"]' src/assets/code-hashes.json)
+    msCH=$(jq -r '.["'$version'"].["MultiSend"]' src/assets/code-hashes.json)
+    pfCH=$(jq -r '.["'$version'"].["ProxyFactory"]' src/assets/code-hashes.json)
+    smlCH=$(jq -r '.["'$version'"].["SignMessageLib"]' src/assets/code-hashes.json)
+    staCH=$(jq -r '.["'$version'"].["SimulateTxAccessor"]' src/assets/code-hashes.json)
 fi
 
 # v1.4.1
 if [[ $version == "1.4.1" ]]; then
-    cfhCH="0x7c6007a5d711cea8dfd5d91f5940ec29c7f200fe511eb1fc1397b367af3c42f9"
-    ccCH="0x2b3060c55fcb8275653e99ad511a71f67ba76934ed66a7d74d6e68b52afff889"
-    mscoCH="0xecd5bd14a08c5d2122379900b2f272bdf107a7e92423c10dd5fe3254386c9939"
-    msCH="0x0e4f7fc66550a322d1e7688e181b75e217e662a4f3f4d6a29b22bc61217c4b77"
-    sl2CH="0xb1f926978a0f44a2c0ec8fe822418ae969bd8c3f18d61e5103100339894f81ff"
-    spfCH="0x50c3cdc4074750a7a974204a716c999edd37482f907608d960b2b025ee0b3317"
-    sCH="0x1fe2df852ba3299d6534ef416eefa406e56ced995bca886ab7a553e6d0c5e1c4"
-    smlCH="0x525c754a46b79e05543a59bb61e8de3c9eee0d955a59352409cbe67ea1077528"
-    staCH="0x91f82615581fc73b190b83d72e883608b25e392f72322035df1b13d51766cf8d"
+    cfhCH=$(jq -r '.["'$version'"].["CompatibilityFallbackHandler"]' src/assets/code-hashes.json)
+    ccCH=$(jq -r '.["'$version'"].["CreateCall"]' src/assets/code-hashes.json)
+    mscoCH=$(jq -r '.["'$version'"].["MultiSendCallOnly"]' src/assets/code-hashes.json)
+    msCH=$(jq -r '.["'$version'"].["MultiSend"]' src/assets/code-hashes.json)
+    sl2CH=$(jq -r '.["'$version'"].["SafeL2"]' src/assets/code-hashes.json)
+    spfCH=$(jq -r '.["'$version'"].["SafeProxyFactory"]' src/assets/code-hashes.json)
+    sCH=$(jq -r '.["'$version'"].["Safe"]' src/assets/code-hashes.json)
+    smlCH=$(jq -r '.["'$version'"].["SignMessageLib"]' src/assets/code-hashes.json)
+    staCH=$(jq -r '.["'$version'"].["SimulateTxAccessor"]' src/assets/code-hashes.json)
 fi
 
 # Now getting the codehash (keccak of bytecode) for the default addresses created for that chain id
