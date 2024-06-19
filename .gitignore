@@ -7,7 +7,6 @@ deployments/
 env/
 .env
 dist/
-bin/
 solc
 coverage/
 coverage.json
