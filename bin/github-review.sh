@@ -30,7 +30,7 @@ if ! command -v gh &> /dev/null; then
     exit 1
 fi
 if ! command -v cast &> /dev/null; then
-    echo "ERROR: Please install the 'cast' Foundry (forge)" 1>&2
+    echo "ERROR: Please install the 'cast' tool included in the Foundry toolset" 1>&2
     exit 1
 fi
 
@@ -38,7 +38,6 @@ pr=0
 chainid=0
 rpc=0
 version=""
-# TODO: "1.0.0" "1.1.1" "1.2.0"
 availableVersion=("1.3.0" "1.4.1")
 case $# in
     4)
