@@ -34,58 +34,66 @@ if ! command -v cast &> /dev/null; then
     exit 1
 fi
 
-pr=0
-chainid=0
-rpc=0
-version=""
 availableVersion=("1.3.0" "1.4.1")
-case $# in
-    4)
-        if ! [[ $1 =~ ^[0-9]+$ ]]; then
-            echo "ERROR: $1 is not a valid GitHub PR number" 1>&2
-            usage
-            exit 1
-        fi
-        pr=$1
-        if ! [[ $2 =~ ^[0-9]+$ ]]; then
-            echo "ERROR: $2 is not a valid Chain ID number" 1>&2
-            usage
-            exit 1
-        fi
-        chainid="$(cast chain-id --rpc-url $3)"
-        if [[ $chainid != $2 ]]; then
-            echo "ERROR: RPC $3 doesn't match chain ID $2" 1>&2
-            usage
-            exit 1
-        fi
-        rpc=$3
-        if [[ ! " ${availableVersion[@]} " =~ " ${4} " ]]; then
-            echo "ERROR: $4 is not a valid version" 1>&2
-            usage
-            exit 1
-        fi
-        version=$4
-        ;;
-    *)
-        usage
-        exit 1
-        ;;
-esac
+if [[ "$#" -ne 4 ]]; then  
+    usage  
+    exit 1  
+fi 
+if ! [[ $1 =~ ^[0-9]+$ ]]; then
+    echo "ERROR: $1 is not a valid GitHub PR number" 1>&2
+    usage
+    exit 1
+fi
+pr=$1
+if ! [[ $2 =~ ^[0-9]+$ ]]; then
+    echo "ERROR: $2 is not a valid Chain ID number" 1>&2
+    usage
+    exit 1
+fi
+chainid="$(cast chain-id --rpc-url $3)"
+if [[ $chainid != $2 ]]; then
+    echo "ERROR: RPC $3 doesn't match chain ID $2" 1>&2
+    usage
+    exit 1
+fi
+rpc=$3
+if [[ ! " ${availableVersion[@]} " =~ " ${4} " ]]; then
+    echo "ERROR: $4 is not a valid version" 1>&2
+    usage
+    exit 1
+fi
+version=$4
 
 echo "Verifying Deployment Asset"
-gh checkout $pr --detach
-commitHash=$(git rev-parse HEAD)
-git checkout -q main
-git checkout -q $commitHash -- src/assets/v$version
+gh pr diff $pr --patch | git apply --include 'src/assets/**'
 
 # Getting default addresses
 versionFiles=()
 
 if [[ $version == "1.3.0" ]]; then
-    versionFiles=("compatibility_fallback_handler"
-        "create_call" "gnosis_safe_l2" "gnosis_safe" "multi_send_call_only" "multi_send" "proxy_factory" "sign_message_lib" "simulate_tx_accessor")
+    versionFiles=(
+        "compatibility_fallback_handler"
+        "create_call"
+        "gnosis_safe_l2"
+        "gnosis_safe"
+        "multi_send_call_only"
+        "multi_send"
+        "proxy_factory"
+        "sign_message_lib"
+        "simulate_tx_accessor"
+    )
 elif [[ $version == "1.4.1" ]]; then
-    versionFiles=("compatibility_fallback_handler" "create_call" "multi_send_call_only" "multi_send" "safe_l2" "safe_proxy_factory" "safe" "sign_message_lib" "simulate_tx_accessor")
+    versionFiles=(
+        "compatibility_fallback_handler"
+        "create_call"
+        "multi_send_call_only"
+        "multi_send"
+        "safe_l2"
+        "safe_proxy_factory"
+        "safe"
+        "sign_message_lib"
+        "simulate_tx_accessor"
+    )
 fi
 
 # Getting default addresses, address on the chain and comparing the values.
@@ -105,32 +113,41 @@ echo "Network addresses are correct"
 # Code Hash of the default addresses (Chain ID: 1)
 # cast keccak $(cast code contractAddress --rpc-url https://rpc.ankr.com/eth)
 
-oneThreeZeroContracts=("CompatibilityFallbackHandler" "CreateCall" "GnosisSafeL2" "GnosisSafe" "MultiSendCallOnly" "MultiSend" "ProxyFactory" "SignMessageLib" "SimulateTxAccessor")
-oneFourOneContracts=("CompatibilityFallbackHandler" "CreateCall" "MultiSendCallOnly" "MultiSend" "SafeL2" "SafeProxyFactory" "Safe" "SignMessageLib" "SimulateTxAccessor")
 versionContracts=()
 if [[ $version == "1.3.0" ]]; then
-    versionContracts=("${oneThreeZeroContracts[@]}")
+    versionContracts=(
+        "CompatibilityFallbackHandler"
+        "CreateCall"
+        "GnosisSafeL2"
+        "GnosisSafe"
+        "MultiSendCallOnly"
+        "MultiSend"
+        "ProxyFactory"
+        "SignMessageLib"
+        "SimulateTxAccessor"
+    )
 elif [[ $version == "1.4.1" ]]; then
-    versionContracts=("${oneFourOneContracts[@]}")
+    versionContracts=(
+        "CompatibilityFallbackHandler"
+        "CreateCall"
+        "MultiSendCallOnly"
+        "MultiSend"
+        "SafeL2"
+        "SafeProxyFactory"
+        "Safe"
+        "SignMessageLib"
+        "SimulateTxAccessor"
+    )
 fi
-
-versionCodeHashes=()
-for contract in "${versionContracts[@]}"; do
-    versionCodeHashes+=($(jq -r --arg v "$version" --arg c "$contract" '.[$v].[$c]' src/assets/code-hashes.json))
-done
 
 # Now getting the codehash (keccak of bytecode) for the default addresses created for that chain id
 echo "Fetching codehashes from the chain"
 
-versionCodeHashesCI=()
-for i in {0..8}; do
-    versionCodeHashesCI+=($(cast keccak $(cast code ${versionAddressesCI[$i]} --rpc-url $rpc)))
-done
-
-# Checking codehashes
-for i in {0..8}; do
-    if [[ ${versionCodeHashes[$i]} != ${versionCodeHashesCI[$i]} ]]; then
-        echo "ERROR: "${versionContracts[$i]}" code hash is not the same as the one created for the chain id" 1>&2
+for contract in "${versionContracts[@]}"; do
+    codeHashes=$(jq -r --arg v "$version" --arg c "$contract" '.[$v].[$c]' src/assets/code-hashes.json)
+    codeHashesCI=($(cast keccak $(cast code ${versionAddressesCI[$i]} --rpc-url $rpc)))
+    if [[ $codeHashes != $codeHashesCI ]]; then
+        echo "ERROR: "$contract" code hash is not the same as the one created for the chain id" 1>&2
         exit 1
     fi
 done
