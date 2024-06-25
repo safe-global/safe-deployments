@@ -1,9 +1,13 @@
 {
-  "defaultAddress": "0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4",
   "released": true,
   "contractName": "CompatibilityFallbackHandler",
   "version": "1.3.0",
   "codeHash": "0x03e69f7ce809e81687c69b19a7d7cca45b6d551ffdec73d9bb87178476de1abf",
+  "addresses": {
+    "canonical": "0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4",
+    "eip155": "0x017062a1dE2FE6b99BE3d9d37841FeD19F573804",
+    "zksync": "0x2f870a80647BbC554F3a0EBD093f11B4d2a7492A"
+  },
   "networkAddresses": {
     "1": "0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4",
     "3": "0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4",
