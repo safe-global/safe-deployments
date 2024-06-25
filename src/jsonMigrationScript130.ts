@@ -1,10 +1,6 @@
 import fs from "fs"
 import { SingletonDeploymentJSON } from "./types"
 
-function isHex(value: string): boolean {
-  return /^0x[0-9a-fA-F]*$/.test(value)
-}
-
 const fileList: string[] = [
   "compatibility_fallback_handler.json",
   "create_call.json",
@@ -17,7 +13,7 @@ const fileList: string[] = [
   "simulate_tx_accessor.json",
 ]
 
-for (const fileName of fileList) {
+async function processFile(fileName: string) {
   const file = fs.readFileSync(`./src/assets/v1.3.0/${fileName}`, "utf8")
   const json = JSON.parse(file) as SingletonDeploymentJSON
 
@@ -55,8 +51,7 @@ for (const fileName of fileList) {
       (rpc) => !rpc.startsWith("ws") && !rpc.includes("INFURA_API_KEY")
     )
     if (!rpcs.length) {
-      console.log(`Chain ${chainId} not supported. Copying previous value...`)
-      newJson.networkAddresses[chainId] = previousAddress
+      console.log(`Chain ${chainId} is missing in chain list. Skipping...`)
       continue
     }
 
@@ -66,6 +61,9 @@ for (const fileName of fileList) {
         const [addrType, addr] = value
         const deployedCode = await fetch(rpc, {
           method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify({
             jsonrpc: "2.0",
             method: "eth_getCode",
@@ -73,9 +71,8 @@ for (const fileName of fileList) {
             id: 1,
           }),
         })
-          .then((res) => {
-            const json = res.json()
-
+          .then((res) => res.json())
+          .then((json) => {
             if ("result" in json) {
               return json
             }
@@ -84,11 +81,16 @@ for (const fileName of fileList) {
           })
           .catch((e) => {
             console.log(`Error fetching code for ${addr} on chain ${chainId}. Skipping...`, e)
-            return { result: "" }
+            return { error: true }
           })
 
+        if (deployedCode.error) {
+          console.log(`RPC failed for chain ${chainId}. Skipping...`)
+          continue
+        }
+
         if (deployedCode.result === "0x" || deployedCode.result === "") {
-          console.log(`Contract ${addr} not deployed on chain ${chainId}. Skipping...`)
+          console.log(`Contract ${addr} not deployed. Skipping...`)
           continue
         } else {
           networkAddresses.push(addrType)
@@ -99,7 +101,13 @@ for (const fileName of fileList) {
         console.log(
           `Contract ${fileName} not deployed on chain ${chainId}. Fallback to old json...`
         )
-        newJson.networkAddresses[chainId] = previousAddress
+        const previousAddressType = Object.keys(addresses).find(
+          (key) => addresses[key] === previousAddress
+        )
+        if (!previousAddressType) {
+          throw new Error("Previous address type not found")
+        }
+        newJson.networkAddresses[chainId] = previousAddressType
         continue
       } else if (networkAddresses.length === 1) {
         newJson.networkAddresses[chainId] = networkAddresses[0]
@@ -109,11 +117,13 @@ for (const fileName of fileList) {
 
       break
     }
-
-    break
   }
 
   fs.writeFileSync(`./src/assets/v1.3.0/new-${fileName}`, JSON.stringify(newJson, null, 2))
-
-  break
 }
+
+async function main() {
+  await Promise.all(fileList.map(fileName => processFile(fileName)))
+}
+
+main().catch(console.error)
