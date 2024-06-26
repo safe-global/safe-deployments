@@ -1,5 +1,4 @@
 {
-  "defaultAddress": "0x40A2aCCbd92BCA938b02010E17A5b8929b49130D",
   "released": true,
   "contractName": "MultiSendCallOnly",
   "version": "1.3.0",

@@ -3,7 +3,7 @@
   "contractName": "SimulateTxAccessor",
   "version": "1.4.1",
   "codeHash": "0x91f82615581fc73b190b83d72e883608b25e392f72322035df1b13d51766cf8d",
-  "addresse": {
+  "addresses": {
     "canonical": "canonical"
   },
   "networkAddresses": {

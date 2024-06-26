@@ -5,7 +5,6 @@
   "homepage": "https://github.com/safe-global/safe-deployments/",
   "license": "MIT",
   "main": "dist/index.js",
-  "type": "module",
   "typings": "dist/index.d.ts",
   "files": [
     "dist",

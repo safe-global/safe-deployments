@@ -1,5 +1,4 @@
 {
-  "defaultAddress": "0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da",
   "released": true,
   "contractName": "SimulateTxAccessor",
   "version": "1.3.0",
