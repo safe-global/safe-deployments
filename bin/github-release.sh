@@ -78,10 +78,14 @@ fi
 
 log "generating NPM packaging"
 npm pack
+package="${name#@}-${tag#v}.tgz"
+package="${package//\//-}"
 
 if [[ "$dryrun" == "n" ]]; then
 	log "creating draft release"
 	gh release delete "$tag" --yes &>/dev/null || true
 	gh release create "$tag" --draft --generate-notes --target "$(git rev-parse HEAD)" --title "$tag"
-	gh release upload "$tag" --clobber "safe-global-safe-deployments-${tag#v}.tgz"
+
+	log "uploading ${package}"
+	gh release upload "$tag" "${package}"
 fi
