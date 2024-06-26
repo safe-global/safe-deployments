@@ -1,10 +1,11 @@
 export interface SingletonDeployment {
     defaultAddress: string,
-    version: string,
-    abi: any[],
-    networkAddresses: Record<string, string>,
-    contractName: string,
     released: boolean
+    contractName: string,
+    version: string,
+    codeHash: string,
+    networkAddresses: Record<string, string>,
+    abi: any[],
 }
 
 export interface DeploymentFilter {

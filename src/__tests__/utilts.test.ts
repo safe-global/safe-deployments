@@ -19,16 +19,18 @@ describe('utils.ts', () => {
         defaultAddress: '',
         version: '',
         abi: [],
-        networkAddresses: { "1": "0xbeef" },
+        networkAddresses: { "1": "0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef" },
         contractName: '',
+        codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
         released: false,
       };
       const testReleasedDeployment: SingletonDeployment = {
         defaultAddress: '',
         version: '',
         abi: [],
-        networkAddresses: { "1": "0xbeef" },
+        networkAddresses: { "1": "0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef" },
         contractName: '',
+        codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
         released: true, // Default filter value
       };
 
@@ -80,16 +82,18 @@ describe('utils.ts', () => {
         defaultAddress: '',
         version: '',
         abi: [],
-        networkAddresses: { "1": "0xbeef" },
+        networkAddresses: { "1": "0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef" },
         contractName: '',
+        codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
         released: false,
       };
       const testReleasedDeployment: SingletonDeployment = {
         defaultAddress: '',
         version: '',
         abi: [],
-        networkAddresses: { "1": "0xbeef" },
+        networkAddresses: { "1": "0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef" },
         contractName: '',
+        codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
         released: true, // Default filter value
       };
 
@@ -238,16 +242,18 @@ describe('utils.ts', () => {
         defaultAddress: '',
         version: '',
         abi: [],
-        networkAddresses: { "1": "0xbeef" },
+        networkAddresses: { "1": "0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef" },
         contractName: '',
+        codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
         released: false,
       };
       const testReleasedDeployment: SingletonDeployment = {
         defaultAddress: '',
         version: '',
         abi: [],
-        networkAddresses: { "1": "0xbeef" },
+        networkAddresses: { "1": "0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef" },
         contractName: '',
+        codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
         released: true, // Default filter value
       };
 
