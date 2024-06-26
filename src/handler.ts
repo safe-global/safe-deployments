@@ -1,17 +1,13 @@
-import DefaultCallbackHandler130 from "./assets/v1.1.1/default_callback_handler.json";
-import CompatibilityFallbackHandler130 from "./assets/v1.3.0/compatibility_fallback_handler.json";
-import CompatibilityFallbackHandler141 from "./assets/v1.4.1/compatibility_fallback_handler.json";
-import { DeploymentFilter, SingletonDeployment } from "./types";
-import { findDeployment } from "./utils";
+import DefaultCallbackHandler130 from './assets/v1.1.1/default_callback_handler.json';
+import CompatibilityFallbackHandler130 from './assets/v1.3.0/compatibility_fallback_handler.json';
+import CompatibilityFallbackHandler141 from './assets/v1.4.1/compatibility_fallback_handler.json';
+import { DeploymentFilter, SingletonDeployment } from './types';
+import { findDeployment } from './utils';
 
 // This is a sorted array (by preference)
-const defaultCallbackHandlerDeployments: SingletonDeployment[] = [
-  DefaultCallbackHandler130,
-];
+const defaultCallbackHandlerDeployments: SingletonDeployment[] = [DefaultCallbackHandler130];
 
-export const getDefaultCallbackHandlerDeployment = (
-  filter?: DeploymentFilter,
-): SingletonDeployment | undefined => {
+export const getDefaultCallbackHandlerDeployment = (filter?: DeploymentFilter): SingletonDeployment | undefined => {
   return findDeployment(filter, defaultCallbackHandlerDeployments);
 };
 
@@ -34,8 +30,6 @@ const fallbackHandlerDeployments: SingletonDeployment[] = [
   DefaultCallbackHandler130,
 ];
 
-export const getFallbackHandlerDeployment = (
-  filter?: DeploymentFilter,
-): SingletonDeployment | undefined => {
+export const getFallbackHandlerDeployment = (filter?: DeploymentFilter): SingletonDeployment | undefined => {
   return findDeployment(filter, fallbackHandlerDeployments);
 };

@@ -1,5 +1,5 @@
-import { DeploymentFilter, SingletonDeployment } from "./types";
-import semverSatisfies from "semver/functions/satisfies";
+import { DeploymentFilter, SingletonDeployment } from './types';
+import semverSatisfies from 'semver/functions/satisfies';
 
 const DEFAULT_FILTER: DeploymentFilter = { released: true };
 
@@ -14,20 +14,13 @@ export const findDeployment = (
 
   return deployments.find((deployment) => {
     if (
-      typeof criteriaWithDefaults.version !== "undefined" &&
+      typeof criteriaWithDefaults.version !== 'undefined' &&
       !semverSatisfies(deployment.version, criteriaWithDefaults.version)
     )
       return false;
-    if (
-      typeof criteriaWithDefaults.released === "boolean" &&
-      deployment.released != criteriaWithDefaults.released
-    )
+    if (typeof criteriaWithDefaults.released === 'boolean' && deployment.released != criteriaWithDefaults.released)
       return false;
-    if (
-      criteriaWithDefaults.network &&
-      !deployment.networkAddresses[criteriaWithDefaults.network]
-    )
-      return false;
+    if (criteriaWithDefaults.network && !deployment.networkAddresses[criteriaWithDefaults.network]) return false;
 
     return true;
   });
