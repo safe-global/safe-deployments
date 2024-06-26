@@ -8,6 +8,12 @@ const DEFAULT_FILTER: DeploymentFilter = { released: true };
 // to the address deployed on a chosen default network.
 const DEFAULT_NETWORK_CHAIN_ID = '1';
 
+/**
+ * Maps a SingletonDeploymentJSON object to a SingletonDeployment object.
+ *
+ * @param {SingletonDeploymentJSON} deployment - The deployment JSON object to map.
+ * @returns {SingletonDeployment} - The mapped deployment object.
+ */
 const mapJsonToDeploymentsFormatV1 = (deployment: SingletonDeploymentJSON): SingletonDeployment => {
   const defaultAddressType = Array.isArray(deployment.networkAddresses[DEFAULT_NETWORK_CHAIN_ID])
     ? deployment.networkAddresses[DEFAULT_NETWORK_CHAIN_ID][0]
@@ -23,6 +29,13 @@ const mapJsonToDeploymentsFormatV1 = (deployment: SingletonDeploymentJSON): Sing
   return { ...deployment, defaultAddress, networkAddresses };
 };
 
+/**
+ * Finds a deployment that matches the given criteria.
+ *
+ * @param {DeploymentFilter} [criteria=DEFAULT_FILTER] - The filter criteria to match deployments.
+ * @param {SingletonDeploymentJSON[]} deployments - The list of deployment JSON objects to search.
+ * @returns {SingletonDeployment | undefined} - The found deployment object or undefined if no match is found.
+ */
 export const findDeployment = (
   criteria: DeploymentFilter = DEFAULT_FILTER,
   deployments: SingletonDeploymentJSON[],

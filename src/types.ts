@@ -37,6 +37,7 @@ export interface SingletonDeployment {
   contractName: string;
   version: string;
   codeHash: string;
+  addresses: Record<string, string>;
   networkAddresses: Record<string, string>;
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   abi: AbiItem[];
