@@ -15,6 +15,22 @@ export interface SingletonDeploymentJSON {
   abi: any[];
 }
 
+interface AbiInput {
+  indexed?: boolean;
+  internalType: string;
+  name: string;
+  type: string;
+}
+
+interface AbiItem {
+  anonymous?: boolean;
+  inputs?: AbiInput[];
+  name?: string;
+  type: string;
+  stateMutability?: string;
+  outputs?: AbiInput[];
+}
+
 export interface SingletonDeployment {
   defaultAddress: string;
   released: boolean;
@@ -23,7 +39,7 @@ export interface SingletonDeployment {
   codeHash: string;
   networkAddresses: Record<string, string>;
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-  abi: any[];
+  abi: AbiItem[];
 }
 
 export interface SingletonDeploymentV2 {
@@ -32,7 +48,7 @@ export interface SingletonDeploymentV2 {
   version: string;
   codeHash: string;
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-  abi: any[];
+  abi: AbiItem[];
   networkAddresses: Record<string, AddressType | AddressType[]>;
   addresses: Partial<Record<AddressType, string>>;
 }

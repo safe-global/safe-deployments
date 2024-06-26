@@ -4,6 +4,11 @@
   "contractName": "MultiSend",
   "version": "1.3.0",
   "codeHash": "0x0208282bd262360d0320862c5ac70f375f5ed3b9d89a83a615b4d398415bdc83",
+  "addresses": {
+    "canonical": "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761",
+    "eip155": "0x998739BFdAAdde7C933B942a68053933098f9EDa",
+    "zksync": "0x0dFcccB95225ffB03c6FBB2559B530C2B7C8A912"
+  },
   "networkAddresses": {
     "1": "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761",
     "3": "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761",

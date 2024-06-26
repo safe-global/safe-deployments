@@ -4,6 +4,11 @@
   "contractName": "MultiSendCallOnly",
   "version": "1.3.0",
   "codeHash": "0xa9865ac2d9c7a1591619b188c4d88167b50df6cc0c5327fcbd1c8c75f7c066ad",
+  "addresses": {
+    "canonical": "0x40A2aCCbd92BCA938b02010E17A5b8929b49130D",
+    "eip155": "0xA1dabEF33b3B82c7814B6D82A79e50F4AC44102B",
+    "zksync": "0xf220D3b4DFb23C4ade8C88E526C1353AbAcbC38F"
+  },
   "networkAddresses": {
     "1": "0x40A2aCCbd92BCA938b02010E17A5b8929b49130D",
     "3": "0x40A2aCCbd92BCA938b02010E17A5b8929b49130D",
