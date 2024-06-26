@@ -36,7 +36,7 @@ describe("assets/", () => {
               const networkAddresses = json
                 .replace(
                   /^[\s\S]*"networkAddresses" *: *\{([^}]*)\}[\s\S]*$/,
-                  "$1"
+                  "$1",
                 )
                 .trim();
               const keys = networkAddresses.split(",").map((pair) => {
@@ -60,10 +60,10 @@ describe("assets/", () => {
               ].filter((address) => address !== undefined);
 
               for (const [network, address] of Object.entries(
-                networkAddresses
+                networkAddresses,
               )) {
                 expect(
-                  canonicalAddresses.map((address) => [network, address])
+                  canonicalAddresses.map((address) => [network, address]),
                 ).toContainEqual([network, address]);
               }
             });
