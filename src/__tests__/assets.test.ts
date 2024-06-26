@@ -1,5 +1,12 @@
 import fs from "fs";
 import path from "path";
+import { SingletonDeploymentJSON } from '../types'
+
+const KNOWN_ADDRESS_TYPES = [
+  "canonical",
+  "eip155",
+  "zksync"
+]
 
 function assetPath(...paths: string[]) {
   return path.join(__dirname, "..", "assets", ...paths);
@@ -19,7 +26,7 @@ async function readAsset(version: string, file: string) {
   return await fs.promises.readFile(assetPath(version, file), "utf-8");
 }
 
-async function readAssetJSON(version: string, file: string) {
+async function readAssetJSON(version: string, file: string): Promise<SingletonDeploymentJSON | undefined> {
   return JSON.parse(await readAsset(version, file));
 }
 
@@ -47,26 +54,55 @@ describe("assets/", () => {
               expect(keys).toEqual(sorted);
             });
 
-            it("should only contain canonical addresses", async () => {
-              const { networkAddresses } = await readAssetJSON(version, file);
-              const canonicalAddresses = [
-                // Ethereum Mainnet address
-                networkAddresses[1],
-                // For v1.3.0, support alternate address with different
-                // `CREATE2` deployer, notably used for Optimism Mainnet
-                ...(version === "v1.3.0" ? [networkAddresses[10]] : []),
-                // zkSync Mainnet address
-                networkAddresses[324],
-              ].filter((address) => address !== undefined);
+            it("networks should only contain canonical address types", async () => {
+              const deploymentJson = await readAssetJSON(version, file);
+              if (!deploymentJson) {
+                throw new Error(`Failed to read asset ${version}/${file}`);
+              }
 
-              for (const [network, address] of Object.entries(
+              const { networkAddresses, addresses } = deploymentJson
+              const canonicalAddressTypes = Object.keys(addresses)
+
+              for (const addressType of Object.values(
                 networkAddresses
               )) {
-                expect(
-                  canonicalAddresses.map((address) => [network, address])
-                ).toContainEqual([network, address]);
+                if (Array.isArray(addressType)) {
+                  for (const type of addressType) {
+                    expect(canonicalAddressTypes).toContain(type);
+                  }
+                } else {
+                  expect(canonicalAddressTypes).toContain(addressType);
+                }
               }
             });
+          });
+
+          it("should only contain known address types", async () => {
+            const deploymentJson = await readAssetJSON(version, file);
+            if (!deploymentJson) {
+              throw new Error(`Failed to read asset ${version}/${file}`);
+            }
+            const { addresses } = deploymentJson;
+
+            for (const addressType of Object.keys(addresses)) {
+              expect(KNOWN_ADDRESS_TYPES).toContain(addressType);
+            }
+          });
+
+          it("no network can contain zksync address together with other address types", async () => {
+            const deploymentJson = await readAssetJSON(version, file);
+            if (!deploymentJson) {
+              throw new Error(`Failed to read asset ${version}/${file}`);
+            }
+            const { networkAddresses } = deploymentJson;
+
+            for (const network of Object.keys(networkAddresses)) {
+              const addressTypes = networkAddresses[network];
+
+              if (Array.isArray(addressTypes)) {
+                expect(addressTypes).not.toContain("zksync");
+              }
+            }
           });
         });
       }
@@ -76,7 +112,11 @@ describe("assets/", () => {
           const files = versionFiles(version);
           const networkCounts: Record<string, number> = {};
           for (const file of files) {
-            const { networkAddresses } = await readAssetJSON(version, file);
+            const deploymentJson = await readAssetJSON(version, file);
+            if (!deploymentJson) {
+              throw new Error(`Failed to read asset ${version}/${file}`);
+            }
+            const { networkAddresses } = deploymentJson;
             for (const network of Object.keys(networkAddresses)) {
               networkCounts[network] = (networkCounts[network] ?? 0) + 1;
             }
