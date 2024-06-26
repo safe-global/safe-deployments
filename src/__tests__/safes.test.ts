@@ -4,10 +4,7 @@ import GnosisSafe130 from '../assets/v1.3.0/gnosis_safe.json';
 import GnosisSafe120 from '../assets/v1.2.0/gnosis_safe.json';
 import GnosisSafe111 from '../assets/v1.1.1/gnosis_safe.json';
 import GnosisSafe100 from '../assets/v1.0.0/gnosis_safe.json';
-import {
-  getSafeSingletonDeployment,
-  getSafeL2SingletonDeployment,
-} from '../safes';
+import { getSafeSingletonDeployment, getSafeL2SingletonDeployment } from '../safes';
 
 describe('safes.ts', () => {
   describe('getSafeSingletonDeployment', () => {

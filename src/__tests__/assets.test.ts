@@ -1,15 +1,11 @@
-import fs from "fs";
-import path from "path";
-import { SingletonDeploymentJSON } from '../types'
+import fs from 'fs';
+import path from 'path';
+import { SingletonDeploymentJSON } from '../types';
 
-const KNOWN_ADDRESS_TYPES = [
-  "canonical",
-  "eip155",
-  "zksync"
-]
+const KNOWN_ADDRESS_TYPES = ['canonical', 'eip155', 'zksync'];
 
 function assetPath(...paths: string[]) {
-  return path.join(__dirname, "..", "assets", ...paths);
+  return path.join(__dirname, '..', 'assets', ...paths);
 }
 
 function versions() {
@@ -23,49 +19,42 @@ function versionFiles(version: string) {
 }
 
 async function readAsset(version: string, file: string) {
-  return await fs.promises.readFile(assetPath(version, file), "utf-8");
+  return await fs.promises.readFile(assetPath(version, file), 'utf-8');
 }
 
 async function readAssetJSON(version: string, file: string): Promise<SingletonDeploymentJSON | undefined> {
   return JSON.parse(await readAsset(version, file));
 }
 
-describe("assets/", () => {
+describe('assets/', () => {
   for (const version of versions()) {
     describe(version, () => {
       for (const file of versionFiles(version)) {
         describe(file, () => {
-          describe("networkAddresses", () => {
-            it("should be sorted by chain ID", async () => {
+          describe('networkAddresses', () => {
+            it('should be sorted by chain ID', async () => {
               // We manually parse the JSON here, since ECMA `JSON.parse` will
               // always order fields with numeric keys.
               const json = await readAsset(version, file);
-              const networkAddresses = json
-                .replace(
-                  /^[\s\S]*"networkAddresses" *: *\{([^}]*)\}[\s\S]*$/,
-                  "$1"
-                )
-                .trim();
-              const keys = networkAddresses.split(",").map((pair) => {
-                const [key] = pair.split(":");
-                return parseInt(key.trim().replace(/^"(.*)"$/, "$1"));
+              const networkAddresses = json.replace(/^[\s\S]*"networkAddresses" *: *\{([^}]*)\}[\s\S]*$/, '$1').trim();
+              const keys = networkAddresses.split(',').map((pair) => {
+                const [key] = pair.split(':');
+                return parseInt(key.trim().replace(/^"(.*)"$/, '$1'));
               });
               const sorted = [...keys].sort((a, b) => a - b);
               expect(keys).toEqual(sorted);
             });
 
-            it("networks should only contain canonical address types", async () => {
+            it('networks should only contain canonical address types', async () => {
               const deploymentJson = await readAssetJSON(version, file);
               if (!deploymentJson) {
                 throw new Error(`Failed to read asset ${version}/${file}`);
               }
 
-              const { networkAddresses, addresses } = deploymentJson
-              const canonicalAddressTypes = Object.keys(addresses)
+              const { networkAddresses, addresses } = deploymentJson;
+              const canonicalAddressTypes = Object.keys(addresses);
 
-              for (const addressType of Object.values(
-                networkAddresses
-              )) {
+              for (const addressType of Object.values(networkAddresses)) {
                 if (Array.isArray(addressType)) {
                   for (const type of addressType) {
                     expect(canonicalAddressTypes).toContain(type);
@@ -77,7 +66,7 @@ describe("assets/", () => {
             });
           });
 
-          it("should only contain known address types", async () => {
+          it('should only contain known address types', async () => {
             const deploymentJson = await readAssetJSON(version, file);
             if (!deploymentJson) {
               throw new Error(`Failed to read asset ${version}/${file}`);
@@ -89,7 +78,7 @@ describe("assets/", () => {
             }
           });
 
-          it("no network can contain zksync address together with other address types", async () => {
+          it('no network can contain zksync address together with other address types', async () => {
             const deploymentJson = await readAssetJSON(version, file);
             if (!deploymentJson) {
               throw new Error(`Failed to read asset ${version}/${file}`);
@@ -100,15 +89,15 @@ describe("assets/", () => {
               const addressTypes = networkAddresses[network];
 
               if (Array.isArray(addressTypes)) {
-                expect(addressTypes).not.toContain("zksync");
+                expect(addressTypes).not.toContain('zksync');
               }
             }
           });
         });
       }
 
-      describe("networkAddresses", () => {
-        it("should contain the same networks in all files", async () => {
+      describe('networkAddresses', () => {
+        it('should contain the same networks in all files', async () => {
           const files = versionFiles(version);
           const networkCounts: Record<string, number> = {};
           for (const file of files) {
