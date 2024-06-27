@@ -14,7 +14,7 @@ const fileList: string[] = [
 ];
 
 async function processFile(fileName: string) {
-  const file = fs.readFileSync(`./src/assets/v1.3.0/${fileName}`, 'utf8');
+  const file = fs.readFileSync(`./src/__tests__/assets/v1/v1.3.0/${fileName}`, 'utf8');
   const json = JSON.parse(file) as SingletonDeploymentJSON;
 
   const addresses = {
@@ -28,6 +28,7 @@ async function processFile(fileName: string) {
     addresses,
     networkAddresses: {} as Record<string, string | string[]>,
   };
+  delete newJson.defaultAddress;
 
   for (const value of Object.values(addresses)) {
     if (!value) {
@@ -50,6 +51,11 @@ async function processFile(fileName: string) {
     const rpcs = chainData.rpc.filter((rpc) => !rpc.startsWith('ws') && !rpc.includes('INFURA_API_KEY'));
     if (!rpcs.length) {
       console.log(`Chain ${chainId} is missing in chain list. Skipping...`);
+      const previousAddressType = Object.keys(addresses).find((key) => addresses[key] === previousAddress);
+      if (!previousAddressType) {
+        throw new Error('Previous address type not found');
+      }
+      newJson.networkAddresses[chainId] = previousAddressType;
       continue;
     }
 
@@ -106,14 +112,23 @@ async function processFile(fileName: string) {
       } else if (networkAddresses.length === 1) {
         newJson.networkAddresses[chainId] = networkAddresses[0];
       } else {
-        newJson.networkAddresses[chainId] = networkAddresses;
+        const previousAddressType = Object.keys(addresses).find((key) => addresses[key] === previousAddress);
+        if (!previousAddressType) {
+          throw new Error('Previous address type not found');
+        }
+
+        // sort the array so that the previous address type is first
+        newJson.networkAddresses[chainId] = [
+          previousAddressType,
+          ...networkAddresses.filter((addr) => addr !== previousAddressType),
+        ];
       }
 
       break;
     }
   }
 
-  fs.writeFileSync(`./src/assets/v1.3.0/new-${fileName}`, JSON.stringify(newJson, null, 2));
+  fs.writeFileSync(`./src/assets/v1.3.0/${fileName}`, JSON.stringify(newJson, null, 2));
 }
 
 async function main() {
