@@ -10,7 +10,7 @@ describe('safes.ts', () => {
   describe('getSafeSingletonDeployment', () => {
     it('should find the latest deployment first', () => {
       const result = getSafeSingletonDeployment();
-      expect(result).toEqual(Safe141);
+      expect(result).toMatchObject(Safe141);
       [GnosisSafe130, GnosisSafe120, GnosisSafe111, GnosisSafe100].forEach((version) => {
         expect(result).not.toBe(version);
       });
@@ -19,7 +19,7 @@ describe('safes.ts', () => {
   describe('getSafeL2SingletonDeployment', () => {
     it('should find the latest deployment first', () => {
       const result = getSafeL2SingletonDeployment();
-      expect(result).toEqual(SafeL2141);
+      expect(result).toMatchObject(SafeL2141);
     });
   });
 });

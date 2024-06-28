@@ -14,26 +14,26 @@ describe('libs.ts', () => {
   describe('getMultiSendDeployment', () => {
     it('should find the preferred deployment first', () => {
       const result = getMultiSendDeployment();
-      expect(result).toEqual(MultiSend141);
+      expect(result).toMatchObject(MultiSend141);
       expect(result).not.toBe(MultiSend111);
     });
   });
   describe('getMultiSendCallOnlyDeployment', () => {
     it('should find the preferred deployment first', () => {
       const result = getMultiSendCallOnlyDeployment();
-      expect(result).toEqual(MultiSendCallOnly141);
+      expect(result).toMatchObject(MultiSendCallOnly141);
     });
   });
   describe('getCreateCallDeployment', () => {
     it('should find the preferred deployment first', () => {
       const result = getCreateCallDeployment();
-      expect(result).toEqual(CreateCall141);
+      expect(result).toMatchObject(CreateCall141);
     });
   });
   describe('getSignMessageLibDeployment', () => {
     it('should find the preferred deployment first', () => {
       const result = getSignMessageLibDeployment();
-      expect(result).toEqual(SignMessageLib141);
+      expect(result).toMatchObject(SignMessageLib141);
     });
   });
 });

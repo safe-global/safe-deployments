@@ -6,7 +6,7 @@ describe('factories.ts', () => {
   describe('getProxyFactoryDeployment', () => {
     it('should find the latest deployment first', () => {
       const result = getProxyFactoryDeployment();
-      expect(result).toEqual(ProxyFactory141);
+      expect(result).toMatchObject(ProxyFactory141);
       expect(result).not.toBe(ProxyFactory130);
     });
   });

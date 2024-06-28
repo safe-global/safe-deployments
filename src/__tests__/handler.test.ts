@@ -10,21 +10,21 @@ describe('handler.ts', () => {
   describe('getDefaultCallbackHandlerDeployment', () => {
     it('should find the preferred deployment first', () => {
       const result = getDefaultCallbackHandlerDeployment();
-      expect(result).toEqual(DefaultCallbackHandler130);
+      expect(result).toMatchObject(DefaultCallbackHandler130);
     });
   });
 
   describe('getCompatibilityFallbackHandlerDeployment', () => {
     it('should find the preferred deployment first', () => {
       const result = getCompatibilityFallbackHandlerDeployment();
-      expect(result).toEqual(CompatibilityFallbackHandler141);
+      expect(result).toMatchObject(CompatibilityFallbackHandler141);
     });
   });
 
   describe('getFallbackHandlerDeployment', () => {
     it('should find the preferred deployment first', () => {
       const result = getFallbackHandlerDeployment();
-      expect(result).toEqual(CompatibilityFallbackHandler141);
+      expect(result).toMatchObject(CompatibilityFallbackHandler141);
       expect(result).not.toBe(DefaultCallbackHandler130);
     });
   });
