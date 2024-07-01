@@ -1,18 +1,20 @@
 {
-  "defaultAddress": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
   "released": true,
   "contractName": "CreateCall",
   "version": "1.1.1",
   "codeHash": "0x9de5afc9afd2bc0e329d9b4fa34955da45bb8e11587c645c5ff5287d7507adeb",
+  "addresses": {
+    "canonical": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A"
+  },
   "networkAddresses": {
-    "1": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
-    "4": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
-    "5": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
-    "42": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
-    "88": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
-    "100": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
-    "246": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
-    "73799": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A"
+    "1": "canonical",
+    "4": "canonical",
+    "5": "canonical",
+    "42": "canonical",
+    "88": "canonical",
+    "100": "canonical",
+    "246": "canonical",
+    "73799": "canonical"
   },
   "abi": [
     {
