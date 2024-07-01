@@ -35,10 +35,10 @@ if ! command -v cast &> /dev/null; then
     exit 1
 fi
 
-if [[ "$#" -ne 4 ]]; then  
-    usage  
-    exit 1  
-fi 
+if [[ "$#" -ne 4 ]]; then
+    usage
+    exit 1
+fi
 if ! [[ $1 =~ ^[0-9]+$ ]]; then
     echo "ERROR: $1 is not a valid GitHub PR number" 1>&2
     usage
