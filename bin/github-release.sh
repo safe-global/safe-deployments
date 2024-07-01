@@ -83,11 +83,16 @@ if [[ -z "$draft" ]] && [[ "$current" == "$latest" ]]; then
 	fi
 
 	newtag="$(npm version patch --no-git-tag-version)"
+	branch="version/$newtag"
+	if git ls-remote --heads origin | grep "refs/heads/$branch\$"; then
+		log "version bump PR already exists"
+		exit 0
+	fi
 	if [[ "$dryrun" == "n" ]]; then
 		log "updating repository to $newtag"
-		git checkout -b "version/$newtag"
+		git checkout -b "$branch"
 		git commit -am "$newtag"
-		git push -u origin "version/$newtag"
+		git push -u origin "$branch"
 		gh pr create --fill
 	fi
 elif [[ "$current" != "$latest" ]]; then
