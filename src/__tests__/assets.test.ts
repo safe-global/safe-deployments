@@ -114,6 +114,40 @@ describe('assets/', () => {
             expect([network, count]).toEqual([network, files.length]);
           }
         });
+
+        it('the address types for a network should be the same in all files', async () => {
+          const files = versionFiles(version);
+          const networkAddressMap: Record<string, string | string[]> = {};
+
+          for (const file of files) {
+            const deploymentJson = await readAssetJSON(version, file);
+            if (!deploymentJson) {
+              throw new Error(`Failed to read asset ${version}/${file}`);
+            }
+            const { networkAddresses } = deploymentJson;
+
+            for (const [network, addressTypes] of Object.entries(networkAddresses)) {
+              if (!networkAddressMap[network]) {
+                networkAddressMap[network] = addressTypes;
+              } else {
+                // We use try/catch here to make the error message more readable.
+                // Without it the error message looks like:
+                // Expected: "canonical"
+                // Actual:   ["canonical", "eip155"]
+                try {
+                  expect(addressTypes).toEqual(networkAddressMap[network]);
+                } catch (e) {
+                  console.log(`
+                    Discrepancy in network ${network}
+                    Expected: ${networkAddressMap[network]}
+                    Actual:   ${addressTypes}
+                  `);
+                  throw e;
+                }
+              }
+            }
+          }
+        });
       });
     });
   }
