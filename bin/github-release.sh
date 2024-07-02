@@ -63,13 +63,20 @@ name="$(jq -r '.name' package.json)"
 current="$(jq -r '.version' package.json)"
 latest="$(npm view "$name" version)"
 
+log "current: v$current"
+log "latest:  v$latest"
+
 if ! printf "%s\n" "$latest" "$current" | sort -C -V; then
 	echo "ERROR: Latest NPM version is newer than current version" 1>&2
 	exit 1
 fi
 
 tag="v$current"
-draft="$(gh release view "$tag" --json targetCommitish --jq .targetCommitish 2>/dev/null || true)"
+commit="$(git rev-parse HEAD)"
+draft="$(gh release view "$tag" --json isDraft,targetCommitish --jq 'if(.isDraft) then .targetCommitish else "" end' 2>/dev/null || true)"
+
+log "commit:  ${commit}"
+log "draft:   ${draft:-none}"
 
 if [[ -z "$draft" ]] && [[ "$current" == "$latest" ]]; then
 	# In this case, we have no existing draft, and the current version is
@@ -77,23 +84,26 @@ if [[ -z "$draft" ]] && [[ "$current" == "$latest" ]]; then
 	# the package version.
 	log "==> Bumping Version"
 
+	git fetch --tags --force --quiet
 	if [[ -n "$(git tag -l --points-at HEAD | awk '$1 == "'$tag'"')" ]]; then
-		echo "INFO: No changes since latest release"
+		log "no changes since latest release"
 		exit 0
 	fi
 
 	newtag="$(npm version patch --no-git-tag-version)"
-	branch="version/$newtag"
-	if git ls-remote --heads origin | grep "refs/heads/$branch\$"; then
+	log "bumping to $newtag"
+
+	branch="bump/$newtag"
+	if git ls-remote --heads origin | grep "refs/heads/$branch\$" >/dev/null; then
 		log "version bump PR already exists"
 		exit 0
 	fi
 	if [[ "$dryrun" == "n" ]]; then
-		log "updating repository to $newtag"
+		log "creating PR bumping version"
 		git checkout -b "$branch"
-		git commit -am "$newtag"
+		git commit -am "Bump Version to $newtag"
 		git push -u origin "$branch"
-		gh pr create --fill
+		gh pr create --fill --reviewer safe-global/safe-protocol
 	fi
 elif [[ "$current" != "$latest" ]]; then
 	# In this case, the current version is newer that the latest released
@@ -101,13 +111,12 @@ elif [[ "$current" != "$latest" ]]; then
 	# includes the latest version.
 	log "==> Drafting Release"
 
-	commit="$(git rev-parse HEAD)"
 	if [[ "$commit" == "$draft" ]]; then
 		log "draft is already at latest commit"
 		exit 0
 	fi
 
-	log "generating NPM packaging"
+	log "generating NPM package"
 	npm pack
 	package="${name#@}-$current.tgz"
 	package="${package//\//-}"
