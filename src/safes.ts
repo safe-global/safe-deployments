@@ -17,13 +17,13 @@ export const _safeDeployments: SingletonDeploymentJSON[] = [
   GnosisSafe100,
 ];
 
-export const getSafeSingletonDeployment = (filter?: DeploymentFilter): SingletonDeployment | undefined => {
+export const getSafeSingletonDeployment = (filter?: DeploymentFilter) => {
   return findDeployment(filter, _safeDeployments);
 };
 
 // This is a sorted array (newest to oldest), exported for tests
 export const _safeL2Deployments: SingletonDeploymentJSON[] = [SafeL2141, GnosisSafeL2130];
 
-export const getSafeL2SingletonDeployment = (filter?: DeploymentFilter): SingletonDeployment | undefined => {
+export const getSafeL2SingletonDeployment = (filter?: DeploymentFilter) => {
   return findDeployment(filter, _safeL2Deployments);
 };

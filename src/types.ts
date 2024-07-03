@@ -11,6 +11,14 @@ enum AddressType {
   ZKSYNC = 'zksync',
 }
 
+export const enum DeploymentFormats {
+  // The old format that only allows a single address for each network.
+  SINGLETON = 'singleton',
+
+  // The new format that allows multiple addresses for each network.
+  MULTIPLE = 'multiple',
+}
+
 export interface SingletonDeploymentJSON {
   // Indicates if the deployment is released.
   released: boolean;
@@ -77,7 +85,7 @@ export interface SingletonDeploymentV2 {
   codeHash: string;
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   abi: any[];
-  networkAddresses: Record<string, AddressType | AddressType[]>;
+  networkAddresses: Record<string, string | string[]>;
   addresses: Partial<Record<AddressType, string>>;
 }
 

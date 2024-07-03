@@ -1,4 +1,10 @@
-import { DeploymentFilter, SingletonDeployment, SingletonDeploymentJSON } from './types';
+import {
+  DeploymentFilter,
+  SingletonDeployment,
+  SingletonDeploymentJSON,
+  DeploymentFormats,
+  SingletonDeploymentV2,
+} from './types';
 import semverSatisfies from 'semver/functions/satisfies';
 
 const DEFAULT_FILTER: DeploymentFilter = { released: true };
@@ -30,16 +36,51 @@ const mapJsonToDeploymentsFormatV1 = (deployment: SingletonDeploymentJSON): Sing
 };
 
 /**
+ * Maps a SingletonDeploymentJSON object to a SingletonDeploymentV2 object.
+ *
+ * This function transforms the `networkAddresses` field of the deployment JSON object.
+ * It converts each entry in `networkAddresses` to an array of addresses, using the `addresses` field
+ * to resolve each address type.
+ *
+ * @param {SingletonDeploymentJSON} deployment - The deployment JSON object to map.
+ * @returns {SingletonDeploymentV2} - The mapped deployment object in V2 format.
+ */
+const mapJsonToDeploymentsFormatV2 = (deployment: SingletonDeploymentJSON): SingletonDeploymentV2 => {
+  const newJson = { ...deployment };
+  newJson.networkAddresses = Object.fromEntries(
+    Object.entries(deployment.networkAddresses).map(([chainId, addressTypes]) => [
+      chainId,
+      Array.isArray(addressTypes)
+        ? addressTypes.map((addressType) => deployment.addresses[addressType])
+        : deployment.addresses[addressTypes],
+    ]),
+  );
+
+  return newJson;
+};
+
+type FindDeploymentFunc = {
+  (criteria: DeploymentFilter | undefined, deployments: SingletonDeploymentJSON[]): SingletonDeployment | undefined;
+  (
+    criteria: DeploymentFilter | undefined,
+    deployments: SingletonDeploymentJSON[],
+    format: DeploymentFormats.MULTIPLE,
+  ): SingletonDeploymentV2 | undefined;
+};
+
+/**
  * Finds a deployment that matches the given criteria.
  *
  * @param {DeploymentFilter} [criteria=DEFAULT_FILTER] - The filter criteria to match deployments.
  * @param {SingletonDeploymentJSON[]} deployments - The list of deployment JSON objects to search.
  * @returns {SingletonDeployment | undefined} - The found deployment object or undefined if no match is found.
  */
-export const findDeployment = (
-  criteria: DeploymentFilter = DEFAULT_FILTER,
-  deployments: SingletonDeploymentJSON[],
-): SingletonDeployment | undefined => {
+
+export const findDeployment: FindDeploymentFunc = (
+  criteria = DEFAULT_FILTER,
+  deployments,
+  format = DeploymentFormats.SINGLETON,
+): any => {
   const { version, released, network } = { ...DEFAULT_FILTER, ...criteria };
 
   const deploymentJson = deployments.find((deployment) => {
@@ -50,5 +91,10 @@ export const findDeployment = (
     return true;
   });
 
-  return deploymentJson ? mapJsonToDeploymentsFormatV1(deploymentJson) : undefined;
+  switch (format) {
+    case DeploymentFormats.SINGLETON:
+      return deploymentJson ? mapJsonToDeploymentsFormatV1(deploymentJson) : undefined;
+    case DeploymentFormats.MULTIPLE:
+      return deploymentJson ? mapJsonToDeploymentsFormatV2(deploymentJson) : undefined;
+  }
 };
