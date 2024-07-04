@@ -103,7 +103,7 @@ if [[ -z "$draft" ]] && [[ "$current" == "$latest" ]]; then
 		git checkout -b "$branch"
 		git commit -am "Bump Version to $newtag"
 		git push -u origin "$branch"
-		gh pr create --fill --reviewer safe-global/safe-protocol
+		gh pr create --fill
 	fi
 elif [[ "$current" != "$latest" ]]; then
 	# In this case, the current version is newer that the latest released
