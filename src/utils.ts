@@ -59,28 +59,29 @@ const mapJsonToDeploymentsFormatV2 = (deployment: SingletonDeploymentJSON): Sing
   return newJson;
 };
 
-type FindDeploymentFunc = {
-  (criteria: DeploymentFilter | undefined, deployments: SingletonDeploymentJSON[]): SingletonDeployment | undefined;
-  (
-    criteria: DeploymentFilter | undefined,
-    deployments: SingletonDeploymentJSON[],
-    format: DeploymentFormats.MULTIPLE,
-  ): SingletonDeploymentV2 | undefined;
-};
-
 /**
  * Finds a deployment that matches the given criteria.
+ * This function is implemented as a regular function to allow for overloading: https://github.com/microsoft/TypeScript/issues/33482
  *
  * @param {DeploymentFilter} [criteria=DEFAULT_FILTER] - The filter criteria to match deployments.
  * @param {SingletonDeploymentJSON[]} deployments - The list of deployment JSON objects to search.
  * @returns {SingletonDeployment | undefined} - The found deployment object or undefined if no match is found.
  */
-
-export const findDeployment: FindDeploymentFunc = (
+function findDeployment(
+  criteria: DeploymentFilter | undefined,
+  deployments: SingletonDeploymentJSON[],
+  format?: DeploymentFormats.SINGLETON,
+): SingletonDeployment | undefined;
+function findDeployment(
+  criteria: DeploymentFilter | undefined,
+  deployments: SingletonDeploymentJSON[],
+  format: DeploymentFormats.MULTIPLE,
+): SingletonDeploymentV2 | undefined;
+function findDeployment(
   criteria = DEFAULT_FILTER,
-  deployments,
-  format = DeploymentFormats.SINGLETON,
-): any => {
+  deployments: SingletonDeploymentJSON[],
+  format: DeploymentFormats = DeploymentFormats.SINGLETON,
+): SingletonDeployment | SingletonDeploymentV2 | undefined {
   const { version, released, network } = { ...DEFAULT_FILTER, ...criteria };
 
   const deploymentJson = deployments.find((deployment) => {
@@ -91,10 +92,13 @@ export const findDeployment: FindDeploymentFunc = (
     return true;
   });
 
-  switch (format) {
-    case DeploymentFormats.SINGLETON:
-      return deploymentJson ? mapJsonToDeploymentsFormatV1(deploymentJson) : undefined;
-    case DeploymentFormats.MULTIPLE:
-      return deploymentJson ? mapJsonToDeploymentsFormatV2(deploymentJson) : undefined;
+  if (!deploymentJson) return undefined;
+
+  if (format === DeploymentFormats.MULTIPLE) {
+    return mapJsonToDeploymentsFormatV2(deploymentJson);
+  } else {
+    return mapJsonToDeploymentsFormatV1(deploymentJson);
   }
-};
+}
+
+export { findDeployment };

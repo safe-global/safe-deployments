@@ -20,10 +20,20 @@ const factoryDeployments: SingletonDeploymentJSON[] = [
   ProxyFactory100,
 ];
 
+/**
+ * Finds the latest proxy factory deployment that matches the given filter.
+ * @param {DeploymentFilter} [filter] - The filter to apply when searching for the deployment.
+ * @returns {SingletonDeployment | undefined} - The found deployment or undefined if no deployment matches the filter.
+ */
 export const getProxyFactoryDeployment = (filter?: DeploymentFilter): SingletonDeployment | undefined => {
   return findDeployment(filter, factoryDeployments);
 };
 
+/**
+ * Finds all proxy factory deployments that match the given filter.
+ * @param {DeploymentFilter} [filter] - The filter to apply when searching for the deployments.
+ * @returns {SingletonDeploymentV2 | undefined} - The found deployments or undefined if no deployments match the filter.
+ */
 export const getProxyFactoryDeployments = (filter?: DeploymentFilter): SingletonDeploymentV2 | undefined => {
   return findDeployment(filter, factoryDeployments, DeploymentFormats.MULTIPLE);
 };

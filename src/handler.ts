@@ -13,8 +13,17 @@ import { findDeployment } from './utils';
 // This is a sorted array (by preference)
 const defaultCallbackHandlerDeployments: SingletonDeploymentJSON[] = [DefaultCallbackHandler130];
 
+/**
+ * Get the default callback handler deployment based on the provided filter.
+ * @param {DeploymentFilter} [filter] - Optional filter to apply to the deployment search.
+ * @returns {SingletonDeployment | undefined} - The found deployment or undefined if not found.
+ */
 export const getDefaultCallbackHandlerDeployment = (filter?: DeploymentFilter): SingletonDeployment | undefined => {
   return findDeployment(filter, defaultCallbackHandlerDeployments);
+};
+
+export const getDefaultCallbackHandlerDeployments = (filter?: DeploymentFilter): SingletonDeploymentV2 | undefined => {
+  return findDeployment(filter, defaultCallbackHandlerDeployments, DeploymentFormats.MULTIPLE);
 };
 
 // This is a sorted array (by preference)
@@ -23,29 +32,32 @@ const compatFallbackHandlerDeployments: SingletonDeploymentJSON[] = [
   CompatibilityFallbackHandler130,
 ];
 
+/**
+ * Get the compatibility fallback handler deployment based on the provided filter.
+ * @param {DeploymentFilter} [filter] - Optional filter to apply to the deployment search.
+ * @returns {SingletonDeployment | undefined} - The found deployment or undefined if not found.
+ */
 export const getCompatibilityFallbackHandlerDeployment = (
   filter?: DeploymentFilter,
 ): SingletonDeployment | undefined => {
   return findDeployment(filter, compatFallbackHandlerDeployments);
 };
 
-export const getCompatibilityFallbackHandlerDeploymentV2 = (
+/**
+ * Get all compatibility fallback handler deployments based on the provided filter.
+ * @param {DeploymentFilter} [filter] - Optional filter to apply to the deployment search.
+ * @returns {SingletonDeploymentV2 | undefined} - The found deployments in version 2 format or undefined if not found.
+ */
+export const getCompatibilityFallbackHandlerDeployments = (
   filter?: DeploymentFilter,
 ): SingletonDeploymentV2 | undefined => {
   return findDeployment(filter, compatFallbackHandlerDeployments, DeploymentFormats.MULTIPLE);
 };
 
-// This is a sorted array (by preference)
-const fallbackHandlerDeployments: SingletonDeploymentJSON[] = [
-  CompatibilityFallbackHandler141,
-  CompatibilityFallbackHandler130,
-  DefaultCallbackHandler130,
-];
-
-export const getFallbackHandlerDeployment = (filter?: DeploymentFilter): SingletonDeployment | undefined => {
-  return findDeployment(filter, fallbackHandlerDeployments);
-};
-
-export const getFallbackHandlerDeployments = (filter?: DeploymentFilter): SingletonDeploymentV2 | undefined => {
-  return findDeployment(filter, fallbackHandlerDeployments, DeploymentFormats.MULTIPLE);
-};
+/**
+ * Get the fallback handler deployment based on the provided filter. This method is an alias for `getCompatibilityFallbackHandlerDeployment`.
+ * Kept for backwards compatibility.
+ * @param {DeploymentFilter} [filter] - Optional filter to apply to the deployment search.
+ * @returns {SingletonDeployment | undefined} - The found deployment or undefined if not found.
+ */
+export const getFallbackHandlerDeployment = getCompatibilityFallbackHandlerDeployment;
