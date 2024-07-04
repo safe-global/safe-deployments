@@ -2,7 +2,9 @@
   "released": true,
   "contractName": "CreateCall",
   "version": "1.1.1",
-  "codeHash": "0x9de5afc9afd2bc0e329d9b4fa34955da45bb8e11587c645c5ff5287d7507adeb",
+  "codeHash": {
+    "canonical": "0x9de5afc9afd2bc0e329d9b4fa34955da45bb8e11587c645c5ff5287d7507adeb"
+  },
   "addresses": {
     "canonical": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A"
   },

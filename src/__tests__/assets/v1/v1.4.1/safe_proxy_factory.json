@@ -3,7 +3,9 @@
   "released": true,
   "contractName": "SafeProxyFactory",
   "version": "1.4.1",
-  "codeHash": "0x50c3cdc4074750a7a974204a716c999edd37482f907608d960b2b025ee0b3317",
+  "codeHash": {
+    "canonical": "0x50c3cdc4074750a7a974204a716c999edd37482f907608d960b2b025ee0b3317"
+  },
   "addresses": {
     "canonical": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67"
   },

@@ -3,7 +3,9 @@
   "released": true,
   "contractName": "SafeL2",
   "version": "1.4.1",
-  "codeHash": "0xb1f926978a0f44a2c0ec8fe822418ae969bd8c3f18d61e5103100339894f81ff",
+  "codeHash": {
+    "canonical": "0xb1f926978a0f44a2c0ec8fe822418ae969bd8c3f18d61e5103100339894f81ff"
+  },
   "addresses": {
     "canonical": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762"
   },

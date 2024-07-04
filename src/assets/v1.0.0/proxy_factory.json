@@ -2,7 +2,9 @@
   "released": true,
   "contractName": "ProxyFactory",
   "version": "1.0.0",
-  "codeHash": "0x84a375ad96ab395850d46cd601ed6354d3cf3fb67cec0caf18f34af5c9d1a7f0",
+  "codeHash": {
+    "canonical": "0x84a375ad96ab395850d46cd601ed6354d3cf3fb67cec0caf18f34af5c9d1a7f0"
+  },
   "addresses": {
     "canonical": "0x12302fE9c02ff50939BaAaaf415fc226C078613C"
   },

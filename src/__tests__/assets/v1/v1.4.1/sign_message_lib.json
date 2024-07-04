@@ -3,7 +3,9 @@
   "released": true,
   "contractName": "SignMessageLib",
   "version": "1.4.1",
-  "codeHash": "0x525c754a46b79e05543a59bb61e8de3c9eee0d955a59352409cbe67ea1077528",
+  "codeHash": {
+    "canonical": "0x525c754a46b79e05543a59bb61e8de3c9eee0d955a59352409cbe67ea1077528"
+  },
   "addresses": {
     "canonical": "0xd53cd0aB83D845Ac265BE939c57F53AD838012c9"
   },

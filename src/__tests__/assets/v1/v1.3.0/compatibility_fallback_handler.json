@@ -3,7 +3,11 @@
   "released": true,
   "contractName": "CompatibilityFallbackHandler",
   "version": "1.3.0",
-  "codeHash": "0x03e69f7ce809e81687c69b19a7d7cca45b6d551ffdec73d9bb87178476de1abf",
+  "codeHash": {
+    "canonical": "0x03e69f7ce809e81687c69b19a7d7cca45b6d551ffdec73d9bb87178476de1abf",
+    "eip155": "0x03e69f7ce809e81687c69b19a7d7cca45b6d551ffdec73d9bb87178476de1abf",
+    "zksync": "0x017e9a83d5513f503fb85274f4d1ad1811040d7caa31772750ffb08638c28fbb"
+  },
   "addresses": {
     "canonical": "0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4",
     "eip155": "0x017062a1dE2FE6b99BE3d9d37841FeD19F573804",

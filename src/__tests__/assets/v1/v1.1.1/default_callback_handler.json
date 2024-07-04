@@ -3,7 +3,9 @@
   "released": true,
   "contractName": "DefaultCallbackHandler",
   "version": "1.1.1",
-  "codeHash": "0x919a9f5dd111a01f7a8e4b1f5c6a972bb2d1441c67bdec71de6a09d0be92f5b9",
+  "codeHash": {
+    "canonical": "0x919a9f5dd111a01f7a8e4b1f5c6a972bb2d1441c67bdec71de6a09d0be92f5b9"
+  },
   "addresses": {
     "canonical": "0xd5D82B6aDDc9027B22dCA772Aa68D5d74cdBdF44"
   },

@@ -3,7 +3,11 @@
   "released": true,
   "contractName": "SimulateTxAccessor",
   "version": "1.3.0",
-  "codeHash": "0xb3fb9763869f2c09a2ac5a425d2dd6060bf7ef46b3899049d71a711e71e00f04",
+  "codeHash": {
+    "canonical": "0xb3fb9763869f2c09a2ac5a425d2dd6060bf7ef46b3899049d71a711e71e00f04",
+    "eip155": "0x66712e1d9161706f826d8d74a3cc03db0289b2530a1202f24d52986952b69a02",
+    "zksync": "0x18c486b76cb76981360e96ca4f90fc745fde6a8575b8c2b35ac98eab3856fd72"
+  },
   "addresses": {
     "canonical": "0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da",
     "eip155": "0x727a77a074D1E6c4530e814F89E618a3298FC044",

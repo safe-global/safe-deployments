@@ -3,7 +3,9 @@
   "released": true,
   "contractName": "Safe",
   "version": "1.4.1",
-  "codeHash": "0x1fe2df852ba3299d6534ef416eefa406e56ced995bca886ab7a553e6d0c5e1c4",
+  "codeHash": {
+    "canonical": "0x1fe2df852ba3299d6534ef416eefa406e56ced995bca886ab7a553e6d0c5e1c4"
+  },
   "addresses": {
     "canonical": "0x41675C099F32341bf84BFc5382aF534df5C7461a"
   },

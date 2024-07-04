@@ -8,7 +8,7 @@ export interface SingletonDeploymentJSON {
   released: boolean;
   contractName: string;
   version: string;
-  codeHash: string;
+  codeHash: Record<string, string>;
   networkAddresses: Record<string, string | string[]>;
   addresses: Record<string, string>;
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
@@ -20,7 +20,7 @@ export interface SingletonDeployment {
   released: boolean;
   contractName: string;
   version: string;
-  codeHash: string;
+  codeHash: Record<string, string>;
   addresses: Record<string, string>;
   networkAddresses: Record<string, string>;
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
@@ -31,7 +31,7 @@ export interface SingletonDeploymentV2 {
   released: boolean;
   contractName: string;
   version: string;
-  codeHash: string;
+  codeHash: Record<string, string>;
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   abi: any[];
   networkAddresses: Record<string, AddressType | AddressType[]>;

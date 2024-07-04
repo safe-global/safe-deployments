@@ -3,7 +3,11 @@
   "released": true,
   "contractName": "MultiSend",
   "version": "1.3.0",
-  "codeHash": "0x0208282bd262360d0320862c5ac70f375f5ed3b9d89a83a615b4d398415bdc83",
+  "codeHash": {
+    "canonical": "0x0208282bd262360d0320862c5ac70f375f5ed3b9d89a83a615b4d398415bdc83",
+    "eip155": "0x81db0e4afdf5178583537b58c5ad403bd47a4ac7f9bde2442ef3e341d433126a",
+    "zksync": "0xd9aa004a59b3738a108e747e578ae409b84e9f3ffd689d81b10f4d96000c5f5c"
+  },
   "addresses": {
     "canonical": "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761",
     "eip155": "0x998739BFdAAdde7C933B942a68053933098f9EDa",

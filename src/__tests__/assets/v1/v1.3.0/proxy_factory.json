@@ -3,7 +3,11 @@
   "released": true,
   "contractName": "GnosisSafeProxyFactory",
   "version": "1.3.0",
-  "codeHash": "0x337d7f54be11b6ed55fef7b667ea5488db53db8320a05d1146aa4bd169a39a9b",
+  "codeHash": {
+    "canonical": "0x337d7f54be11b6ed55fef7b667ea5488db53db8320a05d1146aa4bd169a39a9b",
+    "eip155": "0x337d7f54be11b6ed55fef7b667ea5488db53db8320a05d1146aa4bd169a39a9b",
+    "zksync": "0x55daa5d390d283edbc5fa835bd53befce45179c758feaac8c149a95850d0a6b6"
+  },
   "addresses": {
     "canonical": "0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2",
     "eip155": "0xC22834581EbC8527d974F8a1c97E1bEA4EF910BC",

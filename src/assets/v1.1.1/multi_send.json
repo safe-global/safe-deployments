@@ -2,7 +2,9 @@
   "released": true,
   "contractName": "MultiSend",
   "version": "1.1.1",
-  "codeHash": "0xe4e9b4d4c1e3ff06cd51afe0b51eb1b22c0bab51eab38d428ee74540a5ff603e",
+  "codeHash": {
+    "canonical": "0xe4e9b4d4c1e3ff06cd51afe0b51eb1b22c0bab51eab38d428ee74540a5ff603e"
+  },
   "addresses": {
     "canonical": "0x8D29bE29923b68abfDD21e541b9374737B49cdAD"
   },

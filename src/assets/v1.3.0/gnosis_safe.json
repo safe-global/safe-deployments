@@ -2,7 +2,11 @@
   "released": true,
   "contractName": "GnosisSafe",
   "version": "1.3.0",
-  "codeHash": "0xbba688fbdb21ad2bb58bc320638b43d94e7d100f6f3ebaab0a4e4de6304b1c2e",
+  "codeHash": {
+    "canonical": "0xbba688fbdb21ad2bb58bc320638b43d94e7d100f6f3ebaab0a4e4de6304b1c2e",
+    "eip155": "0xbba688fbdb21ad2bb58bc320638b43d94e7d100f6f3ebaab0a4e4de6304b1c2e",
+    "zksync": "0x551b7fdfd2dbcec4f785059e1ef6e0b40ca2e44d792158c4e825bc0b092f15e9"
+  },
   "addresses": {
     "canonical": "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552",
     "eip155": "0x69f4D1788e39c87893C980c06EdF4b7f686e2938",

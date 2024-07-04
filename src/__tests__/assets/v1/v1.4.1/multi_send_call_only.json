@@ -3,7 +3,9 @@
   "released": true,
   "contractName": "MultiSendCallOnly",
   "version": "1.4.1",
-  "codeHash": "0xecd5bd14a08c5d2122379900b2f272bdf107a7e92423c10dd5fe3254386c9939",
+  "codeHash": {
+    "canonical": "0xecd5bd14a08c5d2122379900b2f272bdf107a7e92423c10dd5fe3254386c9939"
+  },
   "addresses": {
     "canonical": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2"
   },

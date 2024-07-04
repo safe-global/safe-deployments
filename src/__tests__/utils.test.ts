@@ -23,7 +23,7 @@ describe('utils.ts', () => {
         },
         networkAddresses: { '1': 'canonical' },
         contractName: '',
-        codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+        codeHash: { canonical: '0x0000000000000000000000000000000000000000000000000000000000000000' },
         released: false,
       };
       const testReleasedDeploymentJson: SingletonDeploymentJSON = {
@@ -34,7 +34,7 @@ describe('utils.ts', () => {
         },
         networkAddresses: { '1': 'canonical' },
         contractName: '',
-        codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+        codeHash: { canonical: '0x0000000000000000000000000000000000000000000000000000000000000000' },
         released: true, // Default filter value
       };
       const testReleasedDeployment: SingletonDeployment = {
@@ -43,7 +43,7 @@ describe('utils.ts', () => {
           canonical: '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
         },
         networkAddresses: { '1': '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef' },
-        codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+        codeHash: { canonical: '0x0000000000000000000000000000000000000000000000000000000000000000' },
         released: true,
         abi: [],
         version: '',
@@ -82,7 +82,7 @@ describe('utils.ts', () => {
         },
         networkAddresses: { '1': 'canonical' },
         contractName: '',
-        codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+        codeHash: { canonical: '0x0000000000000000000000000000000000000000000000000000000000000000' },
         released: false,
       };
       const testReleasedDeploymentJson: SingletonDeploymentJSON = {
@@ -93,7 +93,7 @@ describe('utils.ts', () => {
         },
         networkAddresses: { '1': 'canonical' },
         contractName: '',
-        codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+        codeHash: { canonical: '0x0000000000000000000000000000000000000000000000000000000000000000' },
         released: true, // Default filter value
       };
       const testUnreleasedDeployment: SingletonDeployment = {
@@ -102,7 +102,7 @@ describe('utils.ts', () => {
           canonical: '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
         },
         networkAddresses: { '1': '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef' },
-        codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+        codeHash: { canonical: '0x0000000000000000000000000000000000000000000000000000000000000000' },
         released: false,
         abi: [],
         version: '',
@@ -179,7 +179,7 @@ describe('utils.ts', () => {
         },
         networkAddresses: { '1': 'canonical' },
         contractName: '',
-        codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+        codeHash: { canonical: '0x0000000000000000000000000000000000000000000000000000000000000000' },
         released: false,
       };
       const testReleasedDeploymentJson: SingletonDeploymentJSON = {
@@ -190,7 +190,7 @@ describe('utils.ts', () => {
         },
         networkAddresses: { '1': 'canonical' },
         contractName: '',
-        codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+        codeHash: { canonical: '0x0000000000000000000000000000000000000000000000000000000000000000' },
         released: true, // Default filter value
       };
       const testUnreleasedDeployment: SingletonDeployment = {
@@ -199,7 +199,7 @@ describe('utils.ts', () => {
           canonical: '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
         },
         networkAddresses: { '1': '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef' },
-        codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+        codeHash: { canonical: '0x0000000000000000000000000000000000000000000000000000000000000000' },
         released: false,
         abi: [],
         version: '',

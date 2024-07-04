@@ -1,0 +1,45 @@
+name: Review
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+  workflow_dispatch:
+
+env:
+  GH_TOKEN: ${{ github.token }}
+  PR_NUMBER: ${{ github.event.number }}
+  REPO: ${{ github.repository }}
+
+permissions:
+  pull-requests: write
+
+jobs:
+  review-check:
+    runs-on: ubuntu-latest
+    outputs:
+      review-result: ${{ steps.review-check-result.outputs.script_result }}
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        ref: 'main'
+    - name: Install Foundry
+      uses: foundry-rs/foundry-toolchain@v1
+    - name: Check PR
+      id: review-check-result
+      run: |
+        script_result=$(bash bin/github-review.sh ${PR_NUMBER} | tail -1)
+        echo "script_result=$script_result" >> $GITHUB_OUTPUT;
+
+  review-result:
+    runs-on: ubuntu-latest
+    needs: [review-check]
+    steps:
+    - uses: actions/checkout@v4
+    - name: Post Success Comment to the PR
+      if: needs.review-check.outputs.review-result == 'Network addresses & Code hashes are correct'
+      run: |
+        gh pr comment "$PR_NUMBER" --repo "$REPO" --body "✅ Success: Network addresses & Code hashes are correct"
+    - name: Post Failure Comment to the PR
+      if: needs.review-check.outputs.review-result != 'Network addresses & Code hashes are correct'
+      run: |
+        gh pr comment "$PR_NUMBER" --repo "$REPO" --body "⛔️ Error: Check the 'review-check::Check PR' log for more details"
+        exit 1

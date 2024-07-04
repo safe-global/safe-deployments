@@ -3,7 +3,9 @@
   "released": true,
   "contractName": "CompatibilityFallbackHandler",
   "version": "1.4.1",
-  "codeHash": "0x7c6007a5d711cea8dfd5d91f5940ec29c7f200fe511eb1fc1397b367af3c42f9",
+  "codeHash": {
+    "canonical": "0x7c6007a5d711cea8dfd5d91f5940ec29c7f200fe511eb1fc1397b367af3c42f9"
+  },
   "addresses": {
     "canonical": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99"
   },
