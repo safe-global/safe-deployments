@@ -7,7 +7,13 @@ import MultiSendCallOnly130 from './assets/v1.3.0/multi_send_call_only.json';
 import MultiSendCallOnly141 from './assets/v1.4.1/multi_send_call_only.json';
 import SignMessageLib130 from './assets/v1.3.0/sign_message_lib.json';
 import SignMessageLib141 from './assets/v1.4.1/sign_message_lib.json';
-import { DeploymentFilter, SingletonDeployment, SingletonDeploymentJSON } from './types';
+import {
+  DeploymentFilter,
+  DeploymentFormats,
+  SingletonDeployment,
+  SingletonDeploymentJSON,
+  SingletonDeploymentV2,
+} from './types';
 import { findDeployment } from './utils';
 
 // This is a sorted array (by preference, currently we use 111 in most cases)
@@ -17,11 +23,19 @@ export const getMultiSendDeployment = (filter?: DeploymentFilter): SingletonDepl
   return findDeployment(filter, multiSendDeployments);
 };
 
+export const getMultiSendDeployments = (filter?: DeploymentFilter): SingletonDeploymentV2 | undefined => {
+  return findDeployment(filter, multiSendDeployments, DeploymentFormats.MULTIPLE);
+};
+
 // This is a sorted array (by preference)
 const multiSendCallOnlyDeployments: SingletonDeploymentJSON[] = [MultiSendCallOnly141, MultiSendCallOnly130];
 
 export const getMultiSendCallOnlyDeployment = (filter?: DeploymentFilter): SingletonDeployment | undefined => {
   return findDeployment(filter, multiSendCallOnlyDeployments);
+};
+
+export const getMultiSendCallOnlyDeployments = (filter?: DeploymentFilter): SingletonDeploymentV2 | undefined => {
+  return findDeployment(filter, multiSendCallOnlyDeployments, DeploymentFormats.MULTIPLE);
 };
 
 // This is a sorted array (by preference)
@@ -31,8 +45,16 @@ export const getCreateCallDeployment = (filter?: DeploymentFilter): SingletonDep
   return findDeployment(filter, createCallDeployments);
 };
 
+export const getCreateCallDeployments = (filter?: DeploymentFilter): SingletonDeploymentV2 | undefined => {
+  return findDeployment(filter, createCallDeployments, DeploymentFormats.MULTIPLE);
+};
+
 const signMessageLibDeployments: SingletonDeploymentJSON[] = [SignMessageLib141, SignMessageLib130];
 
 export const getSignMessageLibDeployment = (filter?: DeploymentFilter): SingletonDeployment | undefined => {
   return findDeployment(filter, signMessageLibDeployments);
+};
+
+export const getSignMessageLibDeployments = (filter?: DeploymentFilter): SingletonDeploymentV2 | undefined => {
+  return findDeployment(filter, signMessageLibDeployments, DeploymentFormats.MULTIPLE);
 };

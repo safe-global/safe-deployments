@@ -1,7 +1,13 @@
 import DefaultCallbackHandler130 from './assets/v1.1.1/default_callback_handler.json';
 import CompatibilityFallbackHandler130 from './assets/v1.3.0/compatibility_fallback_handler.json';
 import CompatibilityFallbackHandler141 from './assets/v1.4.1/compatibility_fallback_handler.json';
-import { DeploymentFilter, SingletonDeployment, SingletonDeploymentJSON } from './types';
+import {
+  DeploymentFilter,
+  DeploymentFormats,
+  SingletonDeployment,
+  SingletonDeploymentJSON,
+  SingletonDeploymentV2,
+} from './types';
 import { findDeployment } from './utils';
 
 // This is a sorted array (by preference)
@@ -23,6 +29,12 @@ export const getCompatibilityFallbackHandlerDeployment = (
   return findDeployment(filter, compatFallbackHandlerDeployments);
 };
 
+export const getCompatibilityFallbackHandlerDeploymentV2 = (
+  filter?: DeploymentFilter,
+): SingletonDeploymentV2 | undefined => {
+  return findDeployment(filter, compatFallbackHandlerDeployments, DeploymentFormats.MULTIPLE);
+};
+
 // This is a sorted array (by preference)
 const fallbackHandlerDeployments: SingletonDeploymentJSON[] = [
   CompatibilityFallbackHandler141,
@@ -32,4 +44,8 @@ const fallbackHandlerDeployments: SingletonDeploymentJSON[] = [
 
 export const getFallbackHandlerDeployment = (filter?: DeploymentFilter): SingletonDeployment | undefined => {
   return findDeployment(filter, fallbackHandlerDeployments);
+};
+
+export const getFallbackHandlerDeployments = (filter?: DeploymentFilter): SingletonDeploymentV2 | undefined => {
+  return findDeployment(filter, fallbackHandlerDeployments, DeploymentFormats.MULTIPLE);
 };
