@@ -4,10 +4,15 @@ set -euo pipefail
 
 usage() {
     cat <<EOF
-This script creates a draft GitHub release on the current commit.
+Script for managing the GitHub release process.
+
+It provides functionality for automatically:
+ • Creating GitHub pull requests for bumping version numbers
+ • Drafting new GitHub releases
+ • Publishing GitHub releases once the version lands on NPM
 
 USAGE
-    bash bin/github-release.sh [-v|--verbose] [--no-push]
+    bash bin/github-release.sh [-v|--verbose] [-n|--dry-run]
 
 OPTIONS
     -v | --verbose      Verbose output
@@ -19,15 +24,15 @@ EXAMPLES
 EOF
 }
 
-verbose=n
-dryrun=n
+verbose="n"
+dryrun="n"
 while [[ $# -gt 0 ]]; do
 	case "$1" in
 	-v|--verbose)
-		verbose=y
+		verbose="y"
 		;;
 	-n|--dry-run)
-		dryrun=y
+		dryrun="y"
 		;;
 	*)
 		usage
@@ -45,47 +50,93 @@ log() {
 
 if [[ -n "$(git status --porcelain)" ]]; then
 	echo "ERROR: Dirty Git index, please commit all changes before continuing" 1>&2
-	#exit 1
+	if [[ "$dryrun" == "n" ]]; then
+		exit 1
+	fi
 fi
 if ! command -v gh &> /dev/null; then
 	echo "ERROR: Please install the 'gh' GitHub CLI" 1>&2
 	exit 1
 fi
 
-name=$(jq -r '.name' package.json)
-current=$(jq -r '.version' package.json)
-latest=$(npm view "$name" version)
+name="$(jq -r '.name' package.json)"
+current="$(jq -r '.version' package.json)"
+latest="$(npm view "$name" version)"
 
-if [[ -n "$(git tag -l --points-at HEAD | awk '$1 == "v'$latest'"')" ]]; then
-	log "no changes since latest release"
-	exit 0
-elif [[ "$current" == "$latest" ]]; then
-	log "bumping version"
-	bump="patch"
-else
-	log "reusing current version"
-	bump="$current"
+log "current: v$current"
+log "latest:  v$latest"
+
+if ! printf "%s\n" "$latest" "$current" | sort -C -V; then
+	echo "ERROR: Latest NPM version is newer than current version" 1>&2
+	exit 1
 fi
-tag=$(npm version "$bump" --allow-same-version --no-git-tag-version)
 
-if [[ "$dryrun" == "n" ]]; then
-	log "updating repository to $tag"
-	if [[ -n "$(git status --porcelain)" ]]; then
-		git commit -am "$tag"
-		git push origin
+tag="v$current"
+commit="$(git rev-parse HEAD)"
+draft="$(gh release view "$tag" --json isDraft,targetCommitish --jq 'if(.isDraft) then .targetCommitish else "" end' 2>/dev/null || true)"
+
+log "commit:  ${commit}"
+log "draft:   ${draft:-none}"
+
+if [[ -z "$draft" ]] && [[ "$current" == "$latest" ]]; then
+	# In this case, we have no existing draft, and the current version is
+	# the same as the latest release, so we need to create a new PR to bump
+	# the package version.
+	log "==> Bumping Version"
+
+	git fetch --tags --force --quiet
+	if [[ -n "$(git tag -l --points-at HEAD | awk '$1 == "'$tag'"')" ]]; then
+		log "no changes since latest release"
+		exit 0
 	fi
-fi
 
-log "generating NPM packaging"
-npm pack
-package="${name#@}-${tag#v}.tgz"
-package="${package//\//-}"
+	newtag="$(npm version patch --no-git-tag-version)"
+	log "bumping to $newtag"
 
-if [[ "$dryrun" == "n" ]]; then
-	log "creating draft release"
-	gh release delete "$tag" --yes &>/dev/null || true
-	gh release create "$tag" --draft --generate-notes --target "$(git rev-parse HEAD)" --title "$tag"
+	branch="bump/$newtag"
+	if git ls-remote --heads origin | grep "refs/heads/$branch\$" >/dev/null; then
+		log "version bump PR already exists"
+		exit 0
+	fi
+	if [[ "$dryrun" == "n" ]]; then
+		log "creating PR bumping version"
+		git checkout -b "$branch"
+		git commit -am "Bump Version to $newtag"
+		git push -u origin "$branch"
+		gh pr create --fill
+	fi
+elif [[ "$current" != "$latest" ]]; then
+	# In this case, the current version is newer that the latest released
+	# version on NPM, so we create or update the draft release to ensure it
+	# includes the latest version.
+	log "==> Drafting Release"
 
-	log "uploading ${package}"
-	gh release upload "$tag" "${package}"
+	if [[ "$commit" == "$draft" ]]; then
+		log "draft is already at latest commit"
+		exit 0
+	fi
+
+	log "generating NPM package"
+	npm pack
+	package="${name#@}-$current.tgz"
+	package="${package//\//-}"
+
+	if [[ "$dryrun" == "n" ]]; then
+		log "drafting release with NPM tarball"
+		if [[ -n "$draft" ]]; then
+			log "cleaning up existing draft"
+			gh release delete "$tag" --yes
+		fi
+		gh release create "$tag" --draft --generate-notes --target "$commit" --title "$tag" "$package"
+	fi
+else # if [[ -n "$draft" ]] && [[ "$current" == "$latest" ]]; then
+	# In this case, there is an existing draft, and the latest version is
+	# equal to it. Publish the draft release!
+	log "==> Publishing Release"
+
+	tag="v$current"
+	if [[ "$dryrun" == "n" ]]; then
+		log "publishing draft release"
+		gh release edit "$tag" --draft=false
+	fi
 fi

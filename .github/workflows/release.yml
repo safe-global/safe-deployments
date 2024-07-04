@@ -4,12 +4,11 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   release:
     runs-on: ubuntu-latest
-    env:
-      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
       - run: |
@@ -21,3 +20,5 @@ jobs:
       - run: |
           npm ci
           bash bin/github-release.sh --verbose
+        env:
+          GH_TOKEN: ${{ github.token }}
