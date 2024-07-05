@@ -146,15 +146,14 @@ echo "Verifying Deployment Asset"
 gh pr diff $pr --patch | git apply --include 'src/assets/v'$version'/**'
 
 # Getting default addresses, address on the chain and checking code hash.
-defaultAddresses=$(jq -r '.addresses' "$versionFiles")
 deploymentTypes=($(jq -r --arg c "$chainid" '.networkAddresses[$c]' "$versionFiles"))
 if [[ $deploymentTypes == "[" ]]; then
     deploymentTypes=($(jq -r --arg c "$chainid" '.networkAddresses[$c][]' "$versionFiles"))
 fi
 for file in "${versionFiles[@]}"; do
     for deploymentType in "${deploymentTypes[@]}"; do
-        defaultAddress=$(jq -r --arg t "$deploymentType" '.addresses[$t]' "$file")
-        defaultCodeHash=$(jq -r --arg t "$deploymentType" '.codeHash[$t]' "$file")
+        defaultAddress=$(jq -r --arg t "$deploymentType" '.deployments[$t].address' "$file")
+        defaultCodeHash=$(jq -r --arg t "$deploymentType" '.deployments[$t].codeHash' "$file")
         networkCodeHash=$(cast code $defaultAddress --rpc-url $rpc | tr -d '\n' | cast keccak)
         if [[ $defaultCodeHash != $networkCodeHash ]]; then
             echo "ERROR: "$file" ("$defaultAddress") code hash ("$defaultCodeHash") is not the same as the one created for the chain id ("$networkCodeHash")" 1>&2
