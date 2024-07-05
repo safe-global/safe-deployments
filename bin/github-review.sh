@@ -155,9 +155,7 @@ for file in "${versionFiles[@]}"; do
     for deploymentType in "${deploymentTypes[@]}"; do
         defaultAddress=$(jq -r --arg t "$deploymentType" '.addresses[$t]' "$file")
         defaultCodeHash=$(jq -r --arg t "$deploymentType" '.codeHash[$t]' "$file")
-        DEFAULTADDRESS=$defaultAddress RPCURL=$rpc npm run codehash
-        networkCodeHash=$(cat codehash.txt)
-        rm codehash.txt
+        networkCodeHash=$(cast code $defaultAddress --rpc-url $rpc | tr -d '\n' | cast keccak)
         if [[ $defaultCodeHash != $networkCodeHash ]]; then
             echo "ERROR: "$file" ("$defaultAddress") code hash ("$defaultCodeHash") is not the same as the one created for the chain id ("$networkCodeHash")" 1>&2
             exit 1
