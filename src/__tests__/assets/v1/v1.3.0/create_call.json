@@ -3,15 +3,19 @@
   "released": true,
   "contractName": "CreateCall",
   "version": "1.3.0",
-  "codeHash": {
-    "canonical": "0x8155d988823a4f6f1bcbc76a64af8e510c4ce68819290d43cf24956bd24dee82",
-    "eip155": "0x8155d988823a4f6f1bcbc76a64af8e510c4ce68819290d43cf24956bd24dee82",
-    "zksync": "0x98095337deb9718f4e5ccb1b25a53be5f5e0093502b29df9e857f5e3e12aa194"
-  },
-  "addresses": {
-    "canonical": "0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4",
-    "eip155": "0xB19D6FFc2182150F8Eb585b79D4ABcd7C5640A9d",
-    "zksync": "0xcB8e5E438c5c2b45FbE17B02Ca9aF91509a8ad56"
+  "deployments": {
+    "canonical": {
+      "address": "0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4",
+      "codeHash": "0x8155d988823a4f6f1bcbc76a64af8e510c4ce68819290d43cf24956bd24dee82"
+    },
+    "eip155": {
+      "address": "0xB19D6FFc2182150F8Eb585b79D4ABcd7C5640A9d",
+      "codeHash": "0x8155d988823a4f6f1bcbc76a64af8e510c4ce68819290d43cf24956bd24dee82"
+    },
+    "zksync": {
+      "address": "0xcB8e5E438c5c2b45FbE17B02Ca9aF91509a8ad56",
+      "codeHash": "0x98095337deb9718f4e5ccb1b25a53be5f5e0093502b29df9e857f5e3e12aa194"
+    }
   },
   "networkAddresses": {
     "1": "0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4",
