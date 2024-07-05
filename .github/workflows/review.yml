@@ -2,6 +2,8 @@ name: Review
 on:
   pull_request:
     types: [opened, edited, synchronize, reopened]
+    paths:
+      - 'src/assets/**'
   workflow_dispatch:
 
 env:
@@ -15,28 +17,12 @@ permissions:
 jobs:
   review-check:
     runs-on: ubuntu-latest
-    outputs:
-      deployment-changed: ${{ steps.deployment-file-check.outputs.check_result }}
     steps:
     - uses: actions/checkout@v4
       with:
         ref: 'main'
     - name: Install Foundry
       uses: foundry-rs/foundry-toolchain@v1
-    - name: Change in Deployment Files
-      id: deployment-file-check
-      run: |
-        check_result=$(gh pr diff ${PR_NUMBER} --name-only | grep -E 'src/assets/.*/.*\.json' || exit 0)
-        if [ -n "$check_result" ]; then
-          echo "check_result=true" >> "$GITHUB_OUTPUT"
-        fi
     - name: Check PR
-      if: steps.deployment-file-check.outputs.deployment-changed != 'true'
       run: |
-        script_result=$(bash bin/github-review.sh ${PR_NUMBER} | tail -1)
-        if [ "$script_result" != "Network addresses & Code hashes are correct" ]; then
-          echo "⛔️ Error: $script_result"
-          exit 1
-        else
-          echo "✅ Success: $script_result"
-        fi
+        bash bin/github-review.sh ${PR_NUMBER}
