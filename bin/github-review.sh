@@ -41,26 +41,26 @@ if ! [[ $1 =~ ^[0-9]+$ ]]; then
     exit 1
 fi
 pr=$1
-prChainID="$(gh pr view $pr | sed -nE 's/.*Chain_ID: ([0-9]+).*/\1/p')"
+prChainID="$(gh pr view $pr | sed -nE 's/^- Chain_ID: ([0-9]+).*$/\1/p')"
 if ! [[ $prChainID =~ ^[0-9]+$ ]]; then
     echo "ERROR: $prChainID is not a valid Chain ID number" 1>&2
     usage
     exit 1
 fi
 chainlistURL="https://chainlist.org/chain/$prChainID"
-if [[ "$(curl -s "$chainlistURL")" == 'nope' ]]; then
+if ! curl --fail -s -o /dev/null "$chainlistURL"; then
     echo "ERROR: Chainlist URL $chainlistURL doesn't exist" 1>&2
     usage
     exit 1
 fi
-rpc="$(gh pr view $pr | sed -nE 's/.*RPC_URL: (https?:\/\/[^ ]+).*/\1/p')"
-chainid="$(cast chain-id --rpc-url $rpc)"
+rpc="$(gh pr view $pr | sed -nE 's/^- RPC_URL: (https?:\/\/[^ ]+).*$/\1/p')"
+chainid="$(cast chain-id --rpc-url "$rpc")"
 if [[ $chainid != $prChainID ]]; then
     echo "ERROR: RPC $rpc doesn't match chain ID $prChainID" 1>&2
     usage
     exit 1
 fi
-version="$(gh pr view $pr | sed -nE 's/.*Contract_Version: (1\.[3-4]\.[0-1]).*/\1/p')"
+version="$(gh pr view $pr | sed -nE 's/^- Contract_Version: (1\.[3-4]\.[0-1]).*$/\1/p')"
 versionFiles=(src/assets/v$version/*.json)
 if [[ ${#versionFiles[@]} -eq 0 ]]; then
     echo "ERROR: Version $version doesn't exist" 1>&2
@@ -79,22 +79,22 @@ fi
 
 echo "Checking changes to assets files"
 fileLineChangeJSON=$(gh pr view $pr --json files) # This line fetches the JSON output of the files changed in the PR
-edgeCase=0
+isHighestChainID=0
 echo "$fileLineChangeJSON" | jq -r '.files[] | "\(.path) \(.additions) \(.deletions)"' | while read -r line; do
     path=$(echo $line | cut -d ' ' -f1)
     additions=$(echo $line | cut -d ' ' -f2)
     deletions=$(echo $line | cut -d ' ' -f3)
 
     # Now you can perform checks on $additions and $deletions as per your requirements
-    if [[ ($additions == 2 && $deletions == 1) ]]; then
-        edgeCase=1
-    elif [[ ($additions != 1 || $deletions != 0) ]]; then
+    if [[ ("$additions" == 2 && "$deletions" == 1) ]]; then
+        isHighestChainID=1
+    elif [[ ("$additions" != 1 || "$deletions" != 0) ]]; then
         echo "ERROR: $path has invalid changes" 1>&2
         exit 1
     fi
 done
 
-if [[ $edgeCase == 1 ]]; then
+if [[ $isHighestChainID == 1 ]]; then
     echo "Edge case when adding chain with the highest chain id number"
     diffPatchSeparated=($(gh pr diff $pr | grep -E '^[+-] '))
     # Adding three elements at a time together to compare from the output array
