@@ -18,10 +18,10 @@ EXAMPLES
 EOF
 }
 
-# if [[ -n "$(git status --porcelain)" ]]; then
-#     echo "ERROR: Dirty Git index, please commit all changes before continuing" 1>&2
-#     exit 1
-# fi
+if [[ -n "$(git status --porcelain)" ]]; then
+    echo "ERROR: Dirty Git index, please commit all changes before continuing" 1>&2
+    exit 1
+fi
 if ! command -v gh &> /dev/null; then
     echo "ERROR: Please install the 'gh' GitHub CLI" 1>&2
     exit 1
@@ -165,3 +165,5 @@ git restore --ignore-unmerged -- src/assets
 
 # NOTE/TODO
 # - We should still manually verify there is no removal of deployment types for a single chain.
+# - Getting the deployment version from the file path instead of the PR: https://github.com/safe-global/safe-deployments/pull/683#discussion_r1668557173
+# - Getting the RPC from the Chainlist website instead of looking based on the provided RPC: https://github.com/safe-global/safe-deployments/pull/683#discussion_r1668555849
