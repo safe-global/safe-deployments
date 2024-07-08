@@ -18,10 +18,10 @@ EXAMPLES
 EOF
 }
 
-if [[ -n "$(git status --porcelain)" ]]; then
-    echo "ERROR: Dirty Git index, please commit all changes before continuing" 1>&2
-    exit 1
-fi
+# if [[ -n "$(git status --porcelain)" ]]; then
+#     echo "ERROR: Dirty Git index, please commit all changes before continuing" 1>&2
+#     exit 1
+# fi
 if ! command -v gh &> /dev/null; then
     echo "ERROR: Please install the 'gh' GitHub CLI" 1>&2
     exit 1

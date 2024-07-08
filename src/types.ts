@@ -72,9 +72,6 @@ export interface SingletonDeploymentV2 {
   released: boolean;
   contractName: string;
   version: string;
-  // The address & hash of the contract code, where the key is the deployment type.
-  // There could be multiple deployment types: canonical, eip155, zksync
-  // Ex: deployments: { "canonical": { "codeHash": "0x1234", "address": "0x5678"}}
   deployments: Record<string, Record<string, string>>;
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   abi: any[];
