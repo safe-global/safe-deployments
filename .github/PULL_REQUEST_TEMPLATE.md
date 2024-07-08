@@ -10,8 +10,5 @@ Provide the Chain ID (Only 1 chain id per PR).
 Provide RPC URL for the chain (should be able to query atleast 10 requests per minute for automatic PR check).
 - RPC_URL: 
 
-What version (1.3.0/1.4.1) of contracts are deployed? NOTE: One issue per version and one pull request per version. Do not add `v` infront of the version.
-- Contract_Version: 
-
 Relevant information:
 Add any other relevant information like blockexplorer, any annotation...

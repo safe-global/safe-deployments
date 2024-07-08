@@ -60,7 +60,7 @@ if [[ $chainid != $prChainID ]]; then
     usage
     exit 1
 fi
-version="$(gh pr view $pr | sed -nE 's/^- Contract_Version: (1\.[3-4]\.[0-1]).*$/\1/p')"
+version="$(gh pr diff $pr --name-only | sed -nE 's/^src\/assets\/v(1\.[3-4]\.[0-1]).*$/\1/p' | head -n 1)"
 versionFiles=(src/assets/v$version/*.json)
 if [[ ${#versionFiles[@]} -eq 0 ]]; then
     echo "ERROR: Version $version doesn't exist" 1>&2
@@ -165,5 +165,4 @@ git restore --ignore-unmerged -- src/assets
 
 # NOTE/TODO
 # - We should still manually verify there is no removal of deployment types for a single chain.
-# - Getting the deployment version from the file path instead of the PR: https://github.com/safe-global/safe-deployments/pull/683#discussion_r1668557173
 # - Getting the RPC from the Chainlist website instead of looking based on the provided RPC: https://github.com/safe-global/safe-deployments/pull/683#discussion_r1668555849
