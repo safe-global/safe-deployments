@@ -146,10 +146,7 @@ echo "Verifying Deployment Asset"
 gh pr diff $pr --patch | git apply --include 'src/assets/v'$version'/**'
 
 # Getting default addresses, address on the chain and checking code hash.
-deploymentTypes=($(jq -r --arg c "$chainid" '.networkAddresses[$c]' "$versionFiles"))
-if [[ $deploymentTypes == "[" ]]; then
-    deploymentTypes=($(jq -r --arg c "$chainid" '.networkAddresses[$c][]' "$versionFiles"))
-fi
+deploymentTypes=($(jq -r --arg c "$chainid" '[.networkAddresses[$c]] | flatten | .[]' "$versionFiles"))
 for file in "${versionFiles[@]}"; do
     for deploymentType in "${deploymentTypes[@]}"; do
         defaultAddress=$(jq -r --arg t "$deploymentType" '.deployments[$t].address' "$file")
