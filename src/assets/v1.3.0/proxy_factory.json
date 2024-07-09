@@ -72,6 +72,10 @@
     "300": "canonical",
     "321": "canonical",
     "322": "canonical",
+    "324": "zksync",
+    "336": ["canonical", "eip155"],
+    "338": "eip155",
+    "369": "canonical",
     "420": "eip155",
     "424": "canonical",
     "570": "eip155",
@@ -252,7 +256,8 @@
     "1666600000": "eip155",
     "1666700000": "eip155",
     "11297108099": "canonical",
-    "11297108109": "canonical"
+    "11297108109": "canonical",
+    "88153591557": ["canonical", "eip155"]
   },
   "abi": [
     {
