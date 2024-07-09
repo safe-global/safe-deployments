@@ -30,7 +30,7 @@ export interface SingletonDeploymentJSON {
   // 1.3.0: canonical, eip155, zksync
   // 1.4.1: canonical, zksync
   // Ex: deployments: { "canonical": { "codeHash": "0x1234", "address": "0x5678"}}
-  deployments: Record<string, Record<string, string>>;
+  deployments: Record<string, Record<'address' | 'codeHash', string>>;
 
   // A record of network addresses, where the key is the network identifier and the value is either a single address type or an array of address types.
   networkAddresses: Record<string, string | string[]>;
@@ -58,7 +58,7 @@ export interface SingletonDeployment {
   // The address & hash of the contract code, where the key is the deployment type.
   // There could be multiple deployment types: canonical, eip155, zksync
   // Ex: deployments: { "canonical": { "codeHash": "0x1234", "address": "0x5678"}}
-  deployments: Record<string, Record<string, string>>;
+  deployments: Record<string, Record<'address' | 'codeHash', string>>;
 
   // A record of network addresses, where the key is the network identifier and the value is the address.
   networkAddresses: Record<string, string>;
@@ -72,7 +72,7 @@ export interface SingletonDeploymentV2 {
   released: boolean;
   contractName: string;
   version: string;
-  deployments: Record<string, Record<string, string>>;
+  deployments: Record<AddressType, Record<'address' | 'codeHash', string>>;
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   abi: any[];
   networkAddresses: Record<string, AddressType | AddressType[]>;
