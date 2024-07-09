@@ -21,20 +21,19 @@ export interface SingletonDeploymentJSON {
   // The version of the deployment.
   version: string;
 
-  // The hash of the contract code.
-  codeHash: string;
-
-  // A record of network addresses, where the key is the network identifier and the value is either a single address type or an array of address types.
-  networkAddresses: Record<string, string | string[]>;
-
-  // A record of addresses, where the key is the address type and the value is the address.
+  // The address & hash of the contract code, where the key is the deployment type.
+  // There could be multiple deployment types: canonical, eip155, zksync
   // Possible addresses per version:
   // 1.0.0: canonical
   // 1.1.1: canonical
   // 1.2.0: canonical
   // 1.3.0: canonical, eip155, zksync
   // 1.4.1: canonical, zksync
-  addresses: Record<string, string>;
+  // Ex: deployments: { "canonical": { "codeHash": "0x1234", "address": "0x5678"}}
+  deployments: Record<string, Record<'address' | 'codeHash', string>>;
+
+  // A record of network addresses, where the key is the network identifier and the value is either a single address type or an array of address types.
+  networkAddresses: Record<string, string | string[]>;
 
   // The ABI (Application Binary Interface) of the contract.
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
@@ -56,11 +55,10 @@ export interface SingletonDeployment {
   // The version of the deployment.
   version: string;
 
-  // The hash of the contract code.
-  codeHash: string;
-
-  // A record of addresses, where the key is the address type and the value is the address.
-  addresses: Record<string, string>;
+  // The address & hash of the contract code, where the key is the deployment type.
+  // There could be multiple deployment types: canonical, eip155, zksync
+  // Ex: deployments: { "canonical": { "codeHash": "0x1234", "address": "0x5678"}}
+  deployments: Record<string, Record<'address' | 'codeHash', string>>;
 
   // A record of network addresses, where the key is the network identifier and the value is the address.
   networkAddresses: Record<string, string>;
@@ -74,11 +72,10 @@ export interface SingletonDeploymentV2 {
   released: boolean;
   contractName: string;
   version: string;
-  codeHash: string;
+  deployments: Record<AddressType, Record<'address' | 'codeHash', string>>;
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   abi: any[];
   networkAddresses: Record<string, AddressType | AddressType[]>;
-  addresses: Partial<Record<AddressType, string>>;
 }
 
 export interface DeploymentFilter {

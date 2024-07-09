@@ -18,32 +18,38 @@ describe('utils.ts', () => {
       const testUnreleasedDeploymentJson: SingletonDeploymentJSON = {
         version: '',
         abi: [],
-        addresses: {
-          canonical: '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
+        deployments: {
+          canonical: {
+            address: '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
+            codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+          },
         },
         networkAddresses: { '1': 'canonical' },
         contractName: '',
-        codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
         released: false,
       };
       const testReleasedDeploymentJson: SingletonDeploymentJSON = {
         version: '',
         abi: [],
-        addresses: {
-          canonical: '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
+        deployments: {
+          canonical: {
+            address: '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
+            codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+          },
         },
         networkAddresses: { '1': 'canonical' },
         contractName: '',
-        codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
         released: true, // Default filter value
       };
       const testReleasedDeployment: SingletonDeployment = {
         defaultAddress: '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
-        addresses: {
-          canonical: '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
+        deployments: {
+          canonical: {
+            address: '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
+            codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+          },
         },
         networkAddresses: { '1': '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef' },
-        codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
         released: true,
         abi: [],
         version: '',
@@ -77,32 +83,38 @@ describe('utils.ts', () => {
       const testUnreleasedDeploymentJson: SingletonDeploymentJSON = {
         version: '',
         abi: [],
-        addresses: {
-          canonical: '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
+        deployments: {
+          canonical: {
+            address: '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
+            codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+          },
         },
         networkAddresses: { '1': 'canonical' },
         contractName: '',
-        codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
         released: false,
       };
       const testReleasedDeploymentJson: SingletonDeploymentJSON = {
         version: '',
         abi: [],
-        addresses: {
-          canonical: '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
+        deployments: {
+          canonical: {
+            address: '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
+            codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+          },
         },
         networkAddresses: { '1': 'canonical' },
         contractName: '',
-        codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
         released: true, // Default filter value
       };
       const testUnreleasedDeployment: SingletonDeployment = {
         defaultAddress: '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
-        addresses: {
-          canonical: '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
+        deployments: {
+          canonical: {
+            address: '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
+            codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+          },
         },
         networkAddresses: { '1': '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef' },
-        codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
         released: false,
         abi: [],
         version: '',
@@ -174,32 +186,38 @@ describe('utils.ts', () => {
       const testUnreleasedDeploymentJson: SingletonDeploymentJSON = {
         version: '',
         abi: [],
-        addresses: {
-          canonical: '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
+        deployments: {
+          canonical: {
+            address: '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
+            codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+          },
         },
         networkAddresses: { '1': 'canonical' },
         contractName: '',
-        codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
         released: false,
       };
       const testReleasedDeploymentJson: SingletonDeploymentJSON = {
         version: '',
         abi: [],
-        addresses: {
-          canonical: '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
+        deployments: {
+          canonical: {
+            address: '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
+            codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+          },
         },
         networkAddresses: { '1': 'canonical' },
         contractName: '',
-        codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
         released: true, // Default filter value
       };
       const testUnreleasedDeployment: SingletonDeployment = {
         defaultAddress: '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
-        addresses: {
-          canonical: '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
+        deployments: {
+          canonical: {
+            address: '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
+            codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+          },
         },
         networkAddresses: { '1': '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef' },
-        codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
         released: false,
         abi: [],
         version: '',

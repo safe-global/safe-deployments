@@ -3,11 +3,19 @@
   "released": true,
   "contractName": "SignMessageLib",
   "version": "1.3.0",
-  "codeHash": "0x3ac65dea3cc9dd0d7b7b800f834e3d73415b4e944bb94555c3e4a08fb137e918",
-  "addresses": {
-    "canonical": "0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2",
-    "eip155": "0x98FFBBF51bb33A056B08ddf711f289936AafF717",
-    "zksync": "0x357147caf9C0cCa67DfA0CF5369318d8193c8407"
+  "deployments": {
+    "canonical": {
+      "address": "0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2",
+      "codeHash": "0x3ac65dea3cc9dd0d7b7b800f834e3d73415b4e944bb94555c3e4a08fb137e918"
+    },
+    "eip155": {
+      "address": "0x98FFBBF51bb33A056B08ddf711f289936AafF717",
+      "codeHash": "0x3ac65dea3cc9dd0d7b7b800f834e3d73415b4e944bb94555c3e4a08fb137e918"
+    },
+    "zksync": {
+      "address": "0x357147caf9C0cCa67DfA0CF5369318d8193c8407",
+      "codeHash": "0x9da86f7e32ef976bd442a8eeb353e16d683b53e30e926ae7adce7c609f75b1fc"
+    }
   },
   "networkAddresses": {
     "1": "0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2",

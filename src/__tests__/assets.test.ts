@@ -51,8 +51,8 @@ describe('assets/', () => {
                 throw new Error(`Failed to read asset ${version}/${file}`);
               }
 
-              const { networkAddresses, addresses } = deploymentJson;
-              const canonicalAddressTypes = Object.keys(addresses);
+              const { networkAddresses, deployments } = deploymentJson;
+              const canonicalAddressTypes = Object.keys(deployments);
 
               for (const addressType of Object.values(networkAddresses)) {
                 if (Array.isArray(addressType)) {
@@ -71,9 +71,9 @@ describe('assets/', () => {
             if (!deploymentJson) {
               throw new Error(`Failed to read asset ${version}/${file}`);
             }
-            const { addresses } = deploymentJson;
+            const { deployments } = deploymentJson;
 
-            for (const addressType of Object.keys(addresses)) {
+            for (const addressType of Object.keys(deployments)) {
               expect(KNOWN_ADDRESS_TYPES).toContain(addressType);
             }
           });

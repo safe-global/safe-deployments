@@ -1,0 +1,28 @@
+name: Review
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+    paths:
+      - 'src/assets/**'
+  workflow_dispatch:
+
+env:
+  GH_TOKEN: ${{ github.token }}
+  PR_NUMBER: ${{ github.event.number }}
+  REPO: ${{ github.repository }}
+
+permissions:
+  pull-requests: write
+
+jobs:
+  review-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        ref: 'main'
+    - name: Install Foundry
+      uses: foundry-rs/foundry-toolchain@v1
+    - name: Check PR
+      run: |
+        bash bin/github-review.sh ${PR_NUMBER}
