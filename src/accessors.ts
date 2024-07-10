@@ -11,7 +11,10 @@ import {
 import { findDeployment } from './utils';
 
 // This is a sorted array (newest to oldest)
-const accessorDeployments: SingletonDeploymentJSON[] = [SimulateTxAccessor141, SimulateTxAccessor130];
+const accessorDeployments: SingletonDeploymentJSON[] = [
+  SimulateTxAccessor141 as SingletonDeploymentJSON,
+  SimulateTxAccessor130 as SingletonDeploymentJSON,
+];
 
 /**
  * Retrieves a single simulate transaction accessor deployment based on the provided filter.

@@ -4,6 +4,7 @@ import {
   SingletonDeploymentJSON,
   DeploymentFormats,
   SingletonDeploymentV2,
+  AddressType,
 } from './types';
 import semverSatisfies from 'semver/functions/satisfies';
 
@@ -24,11 +25,13 @@ const mapJsonToDeploymentsFormatV1 = (deployment: SingletonDeploymentJSON): Sing
   const defaultAddressType = Array.isArray(deployment.networkAddresses[DEFAULT_NETWORK_CHAIN_ID])
     ? deployment.networkAddresses[DEFAULT_NETWORK_CHAIN_ID][0]
     : deployment.networkAddresses[DEFAULT_NETWORK_CHAIN_ID];
-  const defaultAddress = deployment.addresses[defaultAddressType];
+  const defaultAddress = deployment.deployments[defaultAddressType].address;
   const networkAddresses = Object.fromEntries(
     Object.entries(deployment.networkAddresses).map(([chainId, addressTypes]) => [
       chainId,
-      Array.isArray(addressTypes) ? deployment.addresses[addressTypes[0]] : deployment.addresses[addressTypes],
+      Array.isArray(addressTypes)
+        ? deployment.deployments[addressTypes[0]].address
+        : deployment.deployments[addressTypes].address,
     ]),
   );
 
@@ -50,9 +53,9 @@ const mapJsonToDeploymentsFormatV2 = (deployment: SingletonDeploymentJSON): Sing
   newJson.networkAddresses = Object.fromEntries(
     Object.entries(deployment.networkAddresses).map(([chainId, addressTypes]) => [
       chainId,
-      Array.isArray(addressTypes)
-        ? addressTypes.map((addressType) => deployment.addresses[addressType])
-        : deployment.addresses[addressTypes],
+      (Array.isArray(addressTypes)
+        ? (addressTypes.map((addressType) => deployment.deployments[addressType].address) as AddressType[])
+        : deployment.deployments[addressTypes].address) as AddressType,
     ]),
   );
 
