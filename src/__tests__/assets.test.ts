@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
-import { SingletonDeploymentJSON } from '../types';
+import { SingletonDeploymentJSON, AddressType } from '../types';
 
-const KNOWN_ADDRESS_TYPES = ['canonical', 'eip155', 'zksync'];
+const KNOWN_ADDRESS_TYPES: AddressType[] = ['canonical', 'eip155', 'zksync'];
 
 function assetPath(...paths: string[]) {
   return path.join(__dirname, '..', 'assets', ...paths);
@@ -45,7 +45,7 @@ describe('assets/', () => {
               expect(keys).toEqual(sorted);
             });
 
-            it('networks should only contain canonical address types', async () => {
+            it('networks should only contain known address types', async () => {
               const deploymentJson = await readAssetJSON(version, file);
               if (!deploymentJson) {
                 throw new Error(`Failed to read asset ${version}/${file}`);

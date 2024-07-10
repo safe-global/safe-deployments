@@ -1,23 +1,11 @@
-import CreateCall130 from './assets/v1.3.0/create_call.json';
-import CreateCall141 from './assets/v1.4.1/create_call.json';
-import MultiSend111 from './assets/v1.1.1/multi_send.json';
-import MultiSend130 from './assets/v1.3.0/multi_send.json';
-import MultiSend141 from './assets/v1.4.1/multi_send.json';
-import MultiSendCallOnly130 from './assets/v1.3.0/multi_send_call_only.json';
-import MultiSendCallOnly141 from './assets/v1.4.1/multi_send_call_only.json';
-import SignMessageLib130 from './assets/v1.3.0/sign_message_lib.json';
-import SignMessageLib141 from './assets/v1.4.1/sign_message_lib.json';
 import {
-  DeploymentFilter,
-  DeploymentFormats,
-  SingletonDeployment,
-  SingletonDeploymentJSON,
-  SingletonDeploymentV2,
-} from './types';
+  _CREATE_CALL_DEPLOYMENTS,
+  _MULTI_SEND_CALL_ONLY_DEPLOYMENTS,
+  _MULTI_SEND_DEPLOYMENTS,
+  _SIGN_MESSAGE_LIB_DEPLOYMENTS,
+} from './deployments';
+import { DeploymentFilter, DeploymentFormats, SingletonDeployment, SingletonDeploymentV2 } from './types';
 import { findDeployment } from './utils';
-
-// This is a sorted array (by preference, currently we use 111 in most cases)
-const multiSendDeployments: SingletonDeploymentJSON[] = [MultiSend141, MultiSend130, MultiSend111];
 
 /**
  * Get the MultiSend deployment based on the provided filter.
@@ -25,7 +13,7 @@ const multiSendDeployments: SingletonDeploymentJSON[] = [MultiSend141, MultiSend
  * @returns {SingletonDeployment | undefined} - The matched deployment or undefined if not found.
  */
 export const getMultiSendDeployment = (filter?: DeploymentFilter): SingletonDeployment | undefined => {
-  return findDeployment(filter, multiSendDeployments);
+  return findDeployment(filter, _MULTI_SEND_DEPLOYMENTS);
 };
 
 /**
@@ -34,11 +22,8 @@ export const getMultiSendDeployment = (filter?: DeploymentFilter): SingletonDepl
  * @returns {SingletonDeploymentV2 | undefined} - The matched deployments or undefined if not found.
  */
 export const getMultiSendDeployments = (filter?: DeploymentFilter): SingletonDeploymentV2 | undefined => {
-  return findDeployment(filter, multiSendDeployments, DeploymentFormats.MULTIPLE);
+  return findDeployment(filter, _MULTI_SEND_DEPLOYMENTS, DeploymentFormats.MULTIPLE);
 };
-
-// This is a sorted array (by preference)
-const multiSendCallOnlyDeployments: SingletonDeploymentJSON[] = [MultiSendCallOnly141, MultiSendCallOnly130];
 
 /**
  * Get the MultiSendCallOnly deployment based on the provided filter.
@@ -46,7 +31,7 @@ const multiSendCallOnlyDeployments: SingletonDeploymentJSON[] = [MultiSendCallOn
  * @returns {SingletonDeployment | undefined} - The matched deployment or undefined if not found.
  */
 export const getMultiSendCallOnlyDeployment = (filter?: DeploymentFilter): SingletonDeployment | undefined => {
-  return findDeployment(filter, multiSendCallOnlyDeployments);
+  return findDeployment(filter, _MULTI_SEND_CALL_ONLY_DEPLOYMENTS);
 };
 
 /**
@@ -55,11 +40,8 @@ export const getMultiSendCallOnlyDeployment = (filter?: DeploymentFilter): Singl
  * @returns {SingletonDeploymentV2 | undefined} - The matched deployments or undefined if not found.
  */
 export const getMultiSendCallOnlyDeployments = (filter?: DeploymentFilter): SingletonDeploymentV2 | undefined => {
-  return findDeployment(filter, multiSendCallOnlyDeployments, DeploymentFormats.MULTIPLE);
+  return findDeployment(filter, _MULTI_SEND_CALL_ONLY_DEPLOYMENTS, DeploymentFormats.MULTIPLE);
 };
-
-// This is a sorted array (by preference)
-const createCallDeployments: SingletonDeploymentJSON[] = [CreateCall141, CreateCall130];
 
 /**
  * Get the CreateCall deployment based on the provided filter.
@@ -67,7 +49,7 @@ const createCallDeployments: SingletonDeploymentJSON[] = [CreateCall141, CreateC
  * @returns {SingletonDeployment | undefined} - The matched deployment or undefined if not found.
  */
 export const getCreateCallDeployment = (filter?: DeploymentFilter): SingletonDeployment | undefined => {
-  return findDeployment(filter, createCallDeployments);
+  return findDeployment(filter, _CREATE_CALL_DEPLOYMENTS);
 };
 
 /**
@@ -76,10 +58,8 @@ export const getCreateCallDeployment = (filter?: DeploymentFilter): SingletonDep
  * @returns {SingletonDeploymentV2 | undefined} - The matched deployments or undefined if not found.
  */
 export const getCreateCallDeployments = (filter?: DeploymentFilter): SingletonDeploymentV2 | undefined => {
-  return findDeployment(filter, createCallDeployments, DeploymentFormats.MULTIPLE);
+  return findDeployment(filter, _CREATE_CALL_DEPLOYMENTS, DeploymentFormats.MULTIPLE);
 };
-
-const signMessageLibDeployments: SingletonDeploymentJSON[] = [SignMessageLib141, SignMessageLib130];
 
 /**
  * Get the SignMessageLib deployment based on the provided filter.
@@ -87,7 +67,7 @@ const signMessageLibDeployments: SingletonDeploymentJSON[] = [SignMessageLib141,
  * @returns {SingletonDeployment | undefined} - The matched deployment or undefined if not found.
  */
 export const getSignMessageLibDeployment = (filter?: DeploymentFilter): SingletonDeployment | undefined => {
-  return findDeployment(filter, signMessageLibDeployments);
+  return findDeployment(filter, _SIGN_MESSAGE_LIB_DEPLOYMENTS);
 };
 
 /**
@@ -96,5 +76,5 @@ export const getSignMessageLibDeployment = (filter?: DeploymentFilter): Singleto
  * @returns {SingletonDeploymentV2 | undefined} - The matched deployments or undefined if not found.
  */
 export const getSignMessageLibDeployments = (filter?: DeploymentFilter): SingletonDeploymentV2 | undefined => {
-  return findDeployment(filter, signMessageLibDeployments, DeploymentFormats.MULTIPLE);
+  return findDeployment(filter, _SIGN_MESSAGE_LIB_DEPLOYMENTS, DeploymentFormats.MULTIPLE);
 };

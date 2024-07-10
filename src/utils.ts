@@ -25,13 +25,14 @@ const mapJsonToDeploymentsFormatV1 = (deployment: SingletonDeploymentJSON): Sing
   const defaultAddressType = Array.isArray(deployment.networkAddresses[DEFAULT_NETWORK_CHAIN_ID])
     ? deployment.networkAddresses[DEFAULT_NETWORK_CHAIN_ID][0]
     : deployment.networkAddresses[DEFAULT_NETWORK_CHAIN_ID];
-  const defaultAddress = deployment.deployments[defaultAddressType].address;
+  // The usage of non-null assertion below is safe, because we validate that the asset files are properly formed in tests
+  const defaultAddress = deployment.deployments[defaultAddressType]!.address;
   const networkAddresses = Object.fromEntries(
     Object.entries(deployment.networkAddresses).map(([chainId, addressTypes]) => [
       chainId,
       Array.isArray(addressTypes)
-        ? deployment.deployments[addressTypes[0]].address
-        : deployment.deployments[addressTypes].address,
+        ? deployment.deployments[addressTypes[0]]!.address
+        : deployment.deployments[addressTypes]!.address,
     ]),
   );
 
@@ -54,8 +55,9 @@ const mapJsonToDeploymentsFormatV2 = (deployment: SingletonDeploymentJSON): Sing
     Object.entries(deployment.networkAddresses).map(([chainId, addressTypes]) => [
       chainId,
       (Array.isArray(addressTypes)
-        ? (addressTypes.map((addressType) => deployment.deployments[addressType].address) as AddressType[])
-        : deployment.deployments[addressTypes].address) as AddressType,
+        ? // The usage of non-null assertion below is safe, because we validate that the asset files are properly formed in tests
+          (addressTypes.map((addressType) => deployment.deployments[addressType]!.address) as AddressType[])
+        : deployment.deployments[addressTypes]!.address) as AddressType,
     ]),
   );
 
