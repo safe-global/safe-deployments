@@ -63,7 +63,7 @@ export interface SingletonDeployment {
   // 1.3.0: canonical, eip155, zksync
   // 1.4.1: canonical, zksync
   // Ex: deployments: { "canonical": { "codeHash": "0x1234", "address": "0x5678"}}
-  deployments: AtLeastOne<Record<AddressType, Record<'address' | 'codeHash', string>>>;
+  deployments: AtLeastOne<Record<AddressType, { address: string, codeHash: string }>>;
 
   // A record of network addresses, where the key is the network identifier and the value is the address.
   networkAddresses: Record<string, string>;
