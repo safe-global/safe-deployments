@@ -1,15 +1,14 @@
-enum AddressType {
-  // The original address the contract was deployed on.
-  // Starting with 1.4.1, the contracts are deployed with an EIP155-compatible transaction.
-  CANONICAL = 'canonical',
+export type AddressType = 'canonical' | 'eip155' | 'zksync';
 
-  // An address that was deployed with a transaction compatible with the EIP155 standard.
-  // The type is only used for 1.3.0 deployments.
-  EIP155 = 'eip155',
+export const enum DeploymentFormats {
+  // The old format that only allows a single address for each network.
+  SINGLETON = 'singleton',
 
-  // An address that is deployed to the ZkSync VM networks.
-  ZKSYNC = 'zksync',
+  // The new format that allows multiple addresses for each network.
+  MULTIPLE = 'multiple',
 }
+
+type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> & U[keyof U];
 
 export interface SingletonDeploymentJSON {
   // Indicates if the deployment is released.
@@ -30,10 +29,10 @@ export interface SingletonDeploymentJSON {
   // 1.3.0: canonical, eip155, zksync
   // 1.4.1: canonical, zksync
   // Ex: deployments: { "canonical": { "codeHash": "0x1234", "address": "0x5678"}}
-  deployments: Record<string, Record<'address' | 'codeHash', string>>;
+  deployments: AtLeastOne<Record<AddressType, { address: string; codeHash: string }>>;
 
   // A record of network addresses, where the key is the network identifier and the value is either a single address type or an array of address types.
-  networkAddresses: Record<string, string | string[]>;
+  networkAddresses: Record<string, AddressType | AddressType[]>;
 
   // The ABI (Application Binary Interface) of the contract.
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
@@ -57,8 +56,14 @@ export interface SingletonDeployment {
 
   // The address & hash of the contract code, where the key is the deployment type.
   // There could be multiple deployment types: canonical, eip155, zksync
+  // Possible addresses per version:
+  // 1.0.0: canonical
+  // 1.1.1: canonical
+  // 1.2.0: canonical
+  // 1.3.0: canonical, eip155, zksync
+  // 1.4.1: canonical, zksync
   // Ex: deployments: { "canonical": { "codeHash": "0x1234", "address": "0x5678"}}
-  deployments: Record<string, Record<'address' | 'codeHash', string>>;
+  deployments: AtLeastOne<Record<AddressType, { address: string; codeHash: string }>>;
 
   // A record of network addresses, where the key is the network identifier and the value is the address.
   networkAddresses: Record<string, string>;
@@ -72,10 +77,10 @@ export interface SingletonDeploymentV2 {
   released: boolean;
   contractName: string;
   version: string;
-  deployments: Record<AddressType, Record<'address' | 'codeHash', string>>;
+  deployments: AtLeastOne<Record<AddressType, { address: string; codeHash: string }>>;
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   abi: any[];
-  networkAddresses: Record<string, AddressType | AddressType[]>;
+  networkAddresses: Record<string, string | string[]>;
 }
 
 export interface DeploymentFilter {
