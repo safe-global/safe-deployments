@@ -20,7 +20,7 @@ The addresses on the different networks and the abi files are available for each
 
 ## Usage
 
-It is possible to directly use the JSON files in the [assets folder](./src/assets/) that contain the addresses and abi definitions.
+It is possible to directly use the JSON files in the [assets folder](./src/assets/) that contain the addresses and ABI definitions.
 
 An alternative is using JavaScript library methods to query the correct deployment. The library supports different methods to get the deployment of a specific contract.
 
@@ -34,10 +34,12 @@ interface DeploymentFilter {
 }
 ```
 
-The method will return a `SingletonDeployment` object or `undefined` if no deployment was found for the specified filter.
+### V1 Methods (single deployments)
+
+Those methods will return a `SingletonDeployment` object or `undefined` if no deployment was found for the specified filter.
 
 ```ts
-interface SingletonDeployment {
+export interface SingletonDeployment {
   // The default address of the deployment.
   defaultAddress: string;
 
@@ -50,11 +52,16 @@ interface SingletonDeployment {
   // The version of the deployment.
   version: string;
 
-  // The hash of the contract code.
-  codeHash: string;
-
-  // A record of addresses, where the key is the address type and the value is the address.
-  addresses: Record<string, string>;
+  // The address & hash of the contract code, where the key is the deployment type.
+  // There could be multiple deployment types: canonical, eip155, zksync
+  // Possible addresses per version:
+  // 1.0.0: canonical
+  // 1.1.1: canonical
+  // 1.2.0: canonical
+  // 1.3.0: canonical, eip155, zksync
+  // 1.4.1: canonical, zksync
+  // Ex: deployments: { "canonical": { "codeHash": "0x1234", "address": "0x5678"}}
+  deployments: Record<string, { address: string; codeHash: string }>;
 
   // A record of network addresses, where the key is the network identifier and the value is the address.
   networkAddresses: Record<string, string>;
@@ -96,17 +103,101 @@ const multiSendLib = getMultiSendDeployment();
 const multiSendCallOnlyLib = getMultiSendCallOnlyDeployment();
 
 const createCallLib = getCreateCallDeployment();
+
+const signMessageLib = getSignMessageLibDeployment();
 ```
 
 - Handler
 
 ```ts
-// Returns recommended handler
-const fallbackHandler = getFallbackHandlerDeployment();
 
 const callbackHandler = getDefaultCallbackHandlerDeployment();
 
 const compatHandler = getCompatibilityFallbackHandlerDeployment();
+```
+
+### V2 Methods (multiple deployments)
+
+We added a new methods that allow multiple deployment addresses for a contract.
+
+Those methods will return a `SingletonDeployment` object or `undefined` if no deployment was found for the specified filter. Notice the difference in the `networkAddresses` field.
+
+```ts
+export interface SingletonDeployment {
+  // The default address of the deployment.
+  defaultAddress: string;
+
+  // Indicates if the deployment is released.
+  released: boolean;
+
+  // The name of the contract.
+  contractName: string;
+
+  // The version of the deployment.
+  version: string;
+
+  // The address & hash of the contract code, where the key is the deployment type.
+  // There could be multiple deployment types: canonical, eip155, zksync
+  // Possible addresses per version:
+  // 1.0.0: canonical
+  // 1.1.1: canonical
+  // 1.2.0: canonical
+  // 1.3.0: canonical, eip155, zksync
+  // 1.4.1: canonical, zksync
+  // Ex: deployments: { "canonical": { "codeHash": "0x1234", "address": "0x5678"}}
+  deployments: Record<string, { address: string; codeHash: string }>;
+
+  // A record of network addresses, where the key is the network identifier and the value is the address.
+  networkAddresses: Record<string, string | string[]>;
+
+  // The ABI (Application Binary Interface) of the contract.
+  abi: any[];
+}
+```
+
+- Safe
+
+```ts
+const safeSingleton = getSafeSingletonDeployments();
+
+// Returns latest contract version, even if not finally released yet
+const safeSingletonNightly = getSafeSingletonDeployments({ released: undefined });
+
+// Returns released contract version for specific network
+const safeSingletonGörli = getSafeSingletonDeployments({ network: '5' });
+
+// Returns released contract version for specific version
+const safeSingleton100 = getSafeSingletonDeployments({ version: '1.0.0' });
+
+// Version with additional events used on L2 networks
+const safeL2Singleton = getSafeL2SingletonDeployments();
+```
+
+- Factories
+
+```ts
+const proxyFactory = getProxyFactoryDeployments();
+```
+
+- Libraries
+
+```ts
+const multiSendLib = getMultiSendDeployments();
+
+const multiSendCallOnlyLib = getMultiSendCallOnlyDeployments();
+
+const createCallLib = getCreateCallDeployments();
+
+const signMessageLib = getSignMessageLibDeployments();
+```
+
+- Handler
+
+```ts
+
+const callbackHandler = getDefaultCallbackHandlerDeployments();
+
+const compatHandler = getCompatibilityFallbackHandlerDeployments();
 ```
 
 ## Release cycle
