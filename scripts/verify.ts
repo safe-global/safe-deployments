@@ -62,12 +62,12 @@ async function main() {
     const json: SingletonDeploymentJSON = JSON.parse(await fs.readFile(asset, 'utf-8'));
     debug(`${json.contractName} deployments:`);
 
-    const deployments = json.networkAddresses[options.chainId];
-    if (deployments === undefined) {
+    const networkAddresses = json.networkAddresses[options.chainId];
+    if (networkAddresses === undefined) {
       throw new Error(`missing ${json.contractName} deployment`);
     }
 
-    for (const deployment of [deployments].flat()) {
+    for (const deployment of [networkAddresses].flat()) {
       if (json.deployments[deployment] === undefined) {
         throw new Error(`invalid ${json.contractName} deployment "${deployment}"`);
       }
