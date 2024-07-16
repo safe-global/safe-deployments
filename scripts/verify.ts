@@ -10,6 +10,7 @@ type Options = {
   version: string;
   chainId: string;
   rpc: string;
+  verbose: boolean;
 };
 
 function parseOptions(): Options {
@@ -17,29 +18,40 @@ function parseOptions(): Options {
     version: { type: 'string' },
     chainId: { type: 'string' },
     rpc: { type: 'string' },
+    verbose: { type: 'boolean' },
   } as const;
   const { values } = util.parseArgs({ options });
 
-  for (const option of Object.keys(options) as Array<keyof typeof options>) {
+  for (const option of ['version', 'chainId', 'rpc'] as const) {
     if (values[option] === undefined) {
       throw new Error(`missing --${option} flag`);
     }
   }
 
-  return values as Options;
+  return {
+    ...(values as Options),
+    verbose: values.verbose === true,
+  };
 }
 
 async function main() {
   const options = parseOptions();
+  const debug = (...msg: unknown[]) => {
+    if (options.verbose) {
+      console.debug(...msg);
+    }
+  }
 
   await fetch(`https://chainlist.org/chain/${options.chainId}`).then((response) => {
     if (!response.ok) {
       throw new Error(`chain is not registered on Chainlist`);
     }
   });
+  debug(`chain ${options.chainId} exists on Chainlist`);
 
   const provider = new ethers.JsonRpcProvider(options.rpc);
   const { chainId } = await provider.getNetwork();
+  debug(`RPC reported chain ${chainId}`);
   if (`${chainId}` !== options.chainId) {
     throw new Error(`RPC chain ID ${chainId} does not match expected ${options.chainId}`);
   }
@@ -48,6 +60,7 @@ async function main() {
   for (const file of await fs.readdir(assets)) {
     const asset = path.join(assets, file);
     const json: SingletonDeploymentJSON = JSON.parse(await fs.readFile(asset, 'utf-8'));
+    debug(`${json.contractName} deployments:`);
 
     const deployments = json.networkAddresses[options.chainId];
     if (deployments === undefined) {
@@ -68,6 +81,8 @@ async function main() {
       if (codeHash !== expectedCodeHash) {
         throw new Error(`${json.contractName} code hash ${codeHash} does not match expected ${expectedCodeHash}`);
       }
+
+      debug(`• ${deployment} deployment OK`);
     }
   }
 }

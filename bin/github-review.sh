@@ -49,7 +49,7 @@ if [[ -z $rpc ]]; then
 fi
 version="$(gh pr diff $pr --name-only | sed -nE 's|^src/assets/v([0-9\.]*)/.*$|\1|p' | sort -u)"
 if [[ "$(echo "$version" | wc -w)" -ne 1 ]]; then
-    echo "ERROR: Exactly one version must be added per PR ($version)" 1>&2
+    echo "ERROR: Exactly one version must be added per PR" 1>&2
     exit 1
 fi
 versionFiles=(src/assets/v$version/*.json)
@@ -136,7 +136,7 @@ echo "Verifying Deployment Asset"
 gh pr diff $pr --patch | git apply --include 'src/assets/v'$version'/**' --verbose
 
 # Getting default addresses, address on the chain and checking code hash.
-npm run verify -s -- --version "v$version" --chainId "$chainid" --rpc "$rpc"
+npm run verify -s -- --version "v$version" --chainId "$chainid" --rpc "$rpc" --verbose
 echo "Network addresses & Code hashes are correct"
 
 git restore --ignore-unmerged -- src/assets
