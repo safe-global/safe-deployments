@@ -32,6 +32,7 @@ if ! command -v cast &> /dev/null; then
 fi
 
 if [[ "$#" -ne 1 ]]; then
+    echo "ERROR: Invalid number of arguments" 1>&2
     usage
     exit 1
 fi
@@ -42,6 +43,11 @@ if ! [[ $1 =~ ^[0-9]+$ ]]; then
 fi
 pr=$1
 prChainID="$(gh pr view $pr | sed -nE 's/^- Chain_ID: ([0-9]+).*$/\1/p')"
+if [[ -z $prChainID ]]; then
+    echo "ERROR: Chain ID not specified as per the PR Template" 1>&2
+    usage
+    exit 1
+fi
 if ! [[ $prChainID =~ ^[0-9]+$ ]]; then
     echo "ERROR: $prChainID is not a valid Chain ID number" 1>&2
     usage
@@ -54,6 +60,11 @@ if ! curl --fail -s -o /dev/null "$chainlistURL"; then
     exit 1
 fi
 rpc="$(gh pr view $pr | sed -nE 's/^- RPC_URL: (https?:\/\/[^ ]+).*$/\1/p')"
+if [[ -z $rpc ]]; then
+    echo "ERROR: RPC not specified as per the PR Template" 1>&2
+    usage
+    exit 1
+fi
 chainid="$(cast chain-id --rpc-url "$rpc")"
 if [[ $chainid != $prChainID ]]; then
     echo "ERROR: RPC $rpc doesn't match chain ID $prChainID" 1>&2
@@ -143,7 +154,7 @@ if [[ $isHighestChainID == 1 ]]; then
 fi
 
 echo "Verifying Deployment Asset"
-gh pr diff $pr --patch | git apply --include 'src/assets/v'$version'/**'
+gh pr diff $pr --patch | git apply --include 'src/assets/v'$version'/**' --verbose
 
 # Getting default addresses, address on the chain and checking code hash.
 deploymentTypes=($(jq -r --arg c "$chainid" '[.networkAddresses[$c]] | flatten | .[]' "$versionFiles"))
