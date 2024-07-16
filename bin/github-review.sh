@@ -26,10 +26,6 @@ if ! command -v gh &> /dev/null; then
     echo "ERROR: Please install the 'gh' GitHub CLI" 1>&2
     exit 1
 fi
-if ! command -v cast &> /dev/null; then
-    echo "ERROR: Please install the 'cast' tool included in the Foundry toolset" 1>&2
-    exit 1
-fi
 
 if [[ "$#" -ne 1 ]]; then
     echo "ERROR: Invalid number of arguments" 1>&2
@@ -38,44 +34,27 @@ if [[ "$#" -ne 1 ]]; then
 fi
 if ! [[ $1 =~ ^[0-9]+$ ]]; then
     echo "ERROR: $1 is not a valid GitHub PR number" 1>&2
-    usage
     exit 1
 fi
 pr=$1
-prChainID="$(gh pr view $pr | sed -nE 's/^- Chain_ID: ([0-9]+).*$/\1/p')"
-if [[ -z $prChainID ]]; then
+chainid="$(gh pr view $pr | sed -nE 's/^- Chain_ID: ([0-9]+).*$/\1/p')"
+if [[ -z $chainid ]]; then
     echo "ERROR: Chain ID not specified as per the PR Template" 1>&2
-    usage
     exit 1
 fi
-if ! [[ $prChainID =~ ^[0-9]+$ ]]; then
-    echo "ERROR: $prChainID is not a valid Chain ID number" 1>&2
-    usage
-    exit 1
-fi
-chainlistURL="https://chainlist.org/chain/$prChainID"
-if ! curl --fail -s -o /dev/null "$chainlistURL"; then
-    echo "ERROR: Chainlist URL $chainlistURL doesn't exist" 1>&2
-    usage
-    exit 1
-fi
-rpc="$(gh pr view $pr | sed -nE 's/^- RPC_URL: (https?:\/\/[^ ]+).*$/\1/p')"
+rpc="$(gh pr view $pr | sed -nE 's|^- RPC_URL: (https?://[^ ]+).*$|\1|p')"
 if [[ -z $rpc ]]; then
     echo "ERROR: RPC not specified as per the PR Template" 1>&2
-    usage
     exit 1
 fi
-chainid="$(cast chain-id --rpc-url "$rpc")"
-if [[ $chainid != $prChainID ]]; then
-    echo "ERROR: RPC $rpc doesn't match chain ID $prChainID" 1>&2
-    usage
+version="$(gh pr diff $pr --name-only | sed -nE 's|^src/assets/v([0-9\.]*)/.*$|\1|p' | sort -u)"
+if [[ "$(echo "$version" | wc -w)" -ne 1 ]]; then
+    echo "ERROR: Exactly one version must be added per PR" 1>&2
     exit 1
 fi
-version="$(gh pr diff $pr --name-only | sed -nE 's/^src\/assets\/v(1\.[3-4]\.[0-1]).*$/\1/p' | head -n 1)"
 versionFiles=(src/assets/v$version/*.json)
 if [[ ${#versionFiles[@]} -eq 0 ]]; then
     echo "ERROR: Version $version doesn't exist" 1>&2
-    usage
     exit 1
 fi
 
@@ -157,19 +136,7 @@ echo "Verifying Deployment Asset"
 gh pr diff $pr --patch | git apply --include 'src/assets/v'$version'/**' --verbose
 
 # Getting default addresses, address on the chain and checking code hash.
-deploymentTypes=($(jq -r --arg c "$chainid" '[.networkAddresses[$c]] | flatten | .[]' "$versionFiles"))
-for file in "${versionFiles[@]}"; do
-    for deploymentType in "${deploymentTypes[@]}"; do
-        defaultAddress=$(jq -r --arg t "$deploymentType" '.deployments[$t].address' "$file")
-        defaultCodeHash=$(jq -r --arg t "$deploymentType" '.deployments[$t].codeHash' "$file")
-        networkCodeHash=$(cast code "$defaultAddress" --rpc-url "$rpc" | tr -d '\n' | cast keccak)
-        if [[ $defaultCodeHash != $networkCodeHash ]]; then
-            echo "ERROR: "$file" ("$defaultAddress") code hash ("$defaultCodeHash") is not the same as the one created for the chain id ("$networkCodeHash")" 1>&2
-            exit 1
-        fi
-    done
-done
-
+npm run verify -s -- --version "v$version" --chainId "$chainid" --rpc "$rpc" --verbose
 echo "Network addresses & Code hashes are correct"
 
 git restore --ignore-unmerged -- src/assets
