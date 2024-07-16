@@ -1,6 +1,6 @@
 ## Add new chain
 
-> Template to provide information about the new chain. Only add extra information in the bottom section. Ensure that the contracts are deployed on the chain, if not deploy with [safe-contracts](https://github.com/safe-global/safe-contracts). Only 1 Chain ID, 1 Safe Version and 1 Deployment type per PR. This entire paragraph can be deleted.
+> Template to provide information about the new chain. Only add extra information in the bottom section. Ensure that the contracts are deployed on the chain, if not deploy with [safe-contracts](https://github.com/safe-global/safe-contracts). Only **one** chain ID, **one** Safe version and **one** deployment type per PR. This entire paragraph should be deleted.
 
 Please fill the following form:
 
