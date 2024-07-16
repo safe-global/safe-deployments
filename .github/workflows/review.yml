@@ -6,23 +6,22 @@ on:
       - 'src/assets/**'
   workflow_dispatch:
 
-env:
-  GH_TOKEN: ${{ github.token }}
-  PR_NUMBER: ${{ github.event.number }}
-  REPO: ${{ github.repository }}
-
 permissions:
   pull-requests: write
 
 jobs:
-  review-check:
+  review:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
       with:
-        ref: 'main'
-    - name: Install Foundry
-      uses: foundry-rs/foundry-toolchain@v1
-    - name: Check PR
+        ref: main
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+    - name: Review PR
+      env:
+        GH_TOKEN: ${{ github.token }}
       run: |
-        bash bin/github-review.sh ${PR_NUMBER}
+        npm ci
+        bash bin/github-review.sh ${{ github.event.number }}
