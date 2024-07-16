@@ -132,10 +132,13 @@ if [[ $isHighestChainID == 1 ]]; then
     done
 fi
 
-echo "Verifying Deployment Asset"
-gh pr diff $pr --patch | git apply --include 'src/assets/v'$version'/**' --verbose
+# Assume that if `GITHUB_HEAD_REF` is set, then we are running in CI and have already checked out
+# the deployment files, otherwise apply the patch on top of the current branch.
+if [[ -z "$GITHUB_HEAD_REF" ]]; then
+    gh pr diff $pr --patch | git apply --include 'src/assets/v'$version'/**' --verbose
+fi
 
-# Getting default addresses, address on the chain and checking code hash.
+echo "Verifying Deployment Asset"
 npm run verify -s -- --version "v$version" --chainId "$chainid" --rpc "$rpc" --verbose
 echo "Network addresses & Code hashes are correct"
 

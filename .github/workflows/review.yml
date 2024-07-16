@@ -14,8 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-      with:
-        ref: main
     - uses: actions/setup-node@v4
       with:
         node-version: 20
@@ -23,5 +21,10 @@ jobs:
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
+        git fetch origin main
+        if ! git diff --exit-code main -- bin/github-review.sh; then
+          echo "ERROR: GitHub review script is not up-to-date" 1>&2
+          exit 1
+        fi
         npm ci
         bash bin/github-review.sh ${{ github.event.number }}
