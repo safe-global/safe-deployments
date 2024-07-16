@@ -40,7 +40,7 @@ async function main() {
     if (options.verbose) {
       console.debug(...msg);
     }
-  }
+  };
 
   await fetch(`https://chainlist.org/chain/${options.chainId}`).then((response) => {
     if (!response.ok) {
