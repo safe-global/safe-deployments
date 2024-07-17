@@ -1,0 +1,26 @@
+# DO NOT MERGE
+#
+# This workflow file is created to help debug GH issue around publishing draft
+# PRs which are failing for whatever reason.
+
+name: GH
+on:
+  pull_request:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  gh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - env:
+          GH_DEBUG: 1
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release edit v1.37.2 --draft=false
