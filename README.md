@@ -9,7 +9,7 @@ The addresses on the different networks and the abi files are available for each
 
 ## Adding additional deployments:
 
-1. Follow the [deployment steps in the Safe contract repository](https://github.com/safe-global/safe-smart-contracts#deployments).
+1. Follow the [deployment steps in the Safe contract repository](https://github.com/safe-global/safe-smart-account/#deployments).
 2. Verify that the addresses match the expected address for each contract. You can find them under the "addresses" mapping in the respective JSON file in the [assets folder](./src/assets/).
 3. Create a PR adding the new deployment. Example PR can be found [here](https://github.com/safe-global/safe-deployments/pull/676).
 
