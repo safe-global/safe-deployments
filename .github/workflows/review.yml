@@ -21,8 +21,8 @@ jobs:
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
-        git fetch origin main
-        if ! git diff --exit-code main -- bin/github-review.sh; then
+        git fetch https://github.com/safe-global/safe-deployments.git main:safe-global-main
+        if ! git diff --exit-code safe-global-main -- bin/github-review.sh; then
           echo "ERROR: GitHub review script is not up-to-date" 1>&2
           exit 1
         fi
