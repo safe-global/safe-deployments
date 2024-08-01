@@ -27,6 +27,7 @@
     "14": "canonical",
     "16": "eip155",
     "18": "eip155",
+    "19": "eip155",
     "25": ["eip155", "canonical"],
     "28": "eip155",
     "30": "canonical",
