@@ -17,16 +17,25 @@
     }
   },
   "networkAddresses": {
-    "1": ["canonical", "eip155"],
+    "1": [
+      "canonical",
+      "eip155"
+    ],
     "3": "canonical",
     "4": "canonical",
     "5": "canonical",
-    "10": ["eip155", "canonical"],
+    "10": [
+      "eip155",
+      "canonical"
+    ],
     "11": "canonical",
     "12": "canonical",
     "18": "eip155",
-    "19": ["eip155", "canonical"],
-    "25": ["eip155", "canonical"],
+    "19": "eip155",
+    "25": [
+      "eip155",
+      "canonical"
+    ],
     "28": "eip155",
     "30": "canonical",
     "31": "canonical",
@@ -34,12 +43,24 @@
     "40": "canonical",
     "41": "canonical",
     "42": "canonical",
-    "43": ["eip155", "canonical"],
-    "44": ["eip155", "canonical"],
-    "46": ["eip155", "canonical"],
+    "43": [
+      "eip155",
+      "canonical"
+    ],
+    "44": [
+      "eip155",
+      "canonical"
+    ],
+    "46": [
+      "eip155",
+      "canonical"
+    ],
     "50": "canonical",
     "51": "canonical",
-    "56": ["canonical", "eip155"],
+    "56": [
+      "canonical",
+      "eip155"
+    ],
     "57": "eip155",
     "61": "eip155",
     "63": "eip155",
@@ -47,9 +68,15 @@
     "71": "canonical",
     "81": "eip155",
     "82": "eip155",
-    "83": ["eip155", "canonical"],
+    "83": [
+      "eip155",
+      "canonical"
+    ],
     "97": "canonical",
-    "100": ["canonical", "eip155"],
+    "100": [
+      "canonical",
+      "eip155"
+    ],
     "106": "eip155",
     "108": "eip155",
     "109": "eip155",
@@ -62,11 +89,23 @@
     "169": "canonical",
     "179": "eip155",
     "195": "eip155",
-    "196": ["eip155", "canonical"],
-    "204": ["eip155", "canonical"],
+    "196": [
+      "eip155",
+      "canonical"
+    ],
+    "204": [
+      "eip155",
+      "canonical"
+    ],
     "246": "canonical",
-    "250": ["canonical", "eip155"],
-    "252": ["eip155", "canonical"],
+    "250": [
+      "canonical",
+      "eip155"
+    ],
+    "252": [
+      "eip155",
+      "canonical"
+    ],
     "255": "eip155",
     "280": "zksync",
     "288": "eip155",
@@ -75,7 +114,10 @@
     "321": "canonical",
     "322": "canonical",
     "324": "zksync",
-    "336": ["canonical", "eip155"],
+    "336": [
+      "canonical",
+      "eip155"
+    ],
     "338": "eip155",
     "369": "canonical",
     "420": "eip155",
@@ -87,20 +129,32 @@
     "595": "eip155",
     "599": "eip155",
     "686": "eip155",
-    "690": ["eip155", "canonical"],
+    "690": [
+      "eip155",
+      "canonical"
+    ],
     "787": "eip155",
-    "919": ["canonical", "eip155"],
+    "919": [
+      "canonical",
+      "eip155"
+    ],
     "943": "canonical",
     "1001": "eip155",
     "1008": "canonical",
     "1030": "canonical",
     "1088": "eip155",
-    "1101": ["canonical", "eip155"],
+    "1101": [
+      "canonical",
+      "eip155"
+    ],
     "1111": "eip155",
     "1112": "eip155",
     "1115": "canonical",
     "1116": "canonical",
-    "1135": ["canonical", "eip155"],
+    "1135": [
+      "canonical",
+      "eip155"
+    ],
     "1230": "eip155",
     "1231": "eip155",
     "1284": "canonical",
@@ -125,8 +179,14 @@
     "2020": "canonical",
     "2021": "canonical",
     "2039": "canonical",
-    "2221": ["canonical", "eip155"],
-    "2222": ["canonical", "eip155"],
+    "2221": [
+      "canonical",
+      "eip155"
+    ],
+    "2222": [
+      "canonical",
+      "eip155"
+    ],
     "2331": "canonical",
     "2358": "eip155",
     "2810": "eip155",
@@ -143,26 +203,50 @@
     "4689": "eip155",
     "4918": "canonical",
     "4919": "canonical",
-    "5000": ["eip155", "canonical"],
+    "5000": [
+      "eip155",
+      "canonical"
+    ],
     "5001": "eip155",
-    "5003": ["eip155", "canonical"],
-    "5700": ["eip155", "canonical"],
+    "5003": [
+      "eip155",
+      "canonical"
+    ],
+    "5700": [
+      "eip155",
+      "canonical"
+    ],
     "6001": "canonical",
     "6102": "eip155",
-    "7000": ["eip155", "canonical"],
+    "7000": [
+      "eip155",
+      "canonical"
+    ],
     "7001": "eip155",
     "7332": "eip155",
     "7341": "canonical",
-    "7560": ["canonical", "eip155"],
+    "7560": [
+      "canonical",
+      "eip155"
+    ],
     "7700": "eip155",
     "8192": "eip155",
     "8194": "eip155",
     "8217": "eip155",
     "8329": "canonical",
-    "8453": ["eip155", "canonical"],
+    "8453": [
+      "eip155",
+      "canonical"
+    ],
     "8822": "eip155",
-    "9000": ["canonical", "eip155"],
-    "9001": ["canonical", "eip155"],
+    "9000": [
+      "canonical",
+      "eip155"
+    ],
+    "9001": [
+      "canonical",
+      "eip155"
+    ],
     "9728": "eip155",
     "10000": "eip155",
     "10001": "eip155",
@@ -182,8 +266,14 @@
     "13337": "canonical",
     "13371": "eip155",
     "13473": "eip155",
-    "17000": ["canonical", "eip155"],
-    "17069": ["eip155", "canonical"],
+    "17000": [
+      "canonical",
+      "eip155"
+    ],
+    "17069": [
+      "eip155",
+      "canonical"
+    ],
     "17172": "eip155",
     "18231": "canonical",
     "18233": "canonical",
@@ -191,13 +281,25 @@
     "23294": "eip155",
     "23295": "eip155",
     "28979": "canonical",
-    "34443": ["canonical", "eip155"],
+    "34443": [
+      "canonical",
+      "eip155"
+    ],
     "42161": "canonical",
     "42170": "canonical",
-    "42220": ["eip155", "canonical"],
+    "42220": [
+      "eip155",
+      "canonical"
+    ],
     "42793": "eip155",
-    "43113": ["canonical", "eip155"],
-    "43114": ["eip155", "canonical"],
+    "43113": [
+      "canonical",
+      "eip155"
+    ],
+    "43114": [
+      "eip155",
+      "canonical"
+    ],
     "43288": "eip155",
     "44787": "canonical",
     "45000": "canonical",
@@ -209,25 +311,46 @@
     "56288": "eip155",
     "57000": "eip155",
     "58008": "canonical",
-    "59140": ["canonical", "eip155"],
-    "59144": ["canonical", "eip155"],
+    "59140": [
+      "canonical",
+      "eip155"
+    ],
+    "59144": [
+      "canonical",
+      "eip155"
+    ],
     "71401": "eip155",
     "71402": "eip155",
     "73799": "canonical",
     "80001": "canonical",
     "80002": "canonical",
     "80084": "canonical",
-    "80085": ["canonical", "eip155"],
+    "80085": [
+      "canonical",
+      "eip155"
+    ],
     "81457": "canonical",
     "83291": "canonical",
     "84531": "eip155",
-    "84532": ["eip155", "canonical"],
+    "84532": [
+      "eip155",
+      "canonical"
+    ],
     "103454": "eip155",
     "111188": "canonical",
-    "128123": ["eip155", "canonical"],
-    "167000": ["eip155", "canonical"],
+    "128123": [
+      "eip155",
+      "canonical"
+    ],
+    "167000": [
+      "eip155",
+      "canonical"
+    ],
     "167008": "canonical",
-    "167009": ["eip155", "canonical"],
+    "167009": [
+      "eip155",
+      "canonical"
+    ],
     "200101": "canonical",
     "200202": "canonical",
     "200810": "canonical",
@@ -235,43 +358,85 @@
     "421611": "canonical",
     "421613": "canonical",
     "421614": "canonical",
-    "490000": ["canonical", "eip155"],
-    "534351": ["canonical", "eip155"],
+    "490000": [
+      "canonical",
+      "eip155"
+    ],
+    "534351": [
+      "canonical",
+      "eip155"
+    ],
     "534352": "canonical",
     "534353": "eip155",
     "555666": "canonical",
     "622277": "canonical",
-    "656476": ["eip155", "canonical"],
+    "656476": [
+      "eip155",
+      "canonical"
+    ],
     "660279": "canonical",
-    "713715": ["eip155", "canonical"],
+    "713715": [
+      "eip155",
+      "canonical"
+    ],
     "764984": "canonical",
     "810180": "zksync",
     "978657": "canonical",
-    "6038361": ["eip155", "canonical"],
+    "6038361": [
+      "eip155",
+      "canonical"
+    ],
     "7225878": "eip155",
-    "7777777": ["canonical", "eip155"],
-    "11155111": ["eip155", "canonical"],
+    "7777777": [
+      "canonical",
+      "eip155"
+    ],
+    "11155111": [
+      "eip155",
+      "canonical"
+    ],
     "11155420": "eip155",
     "12227332": "canonical",
-    "94204209": ["canonical", "eip155"],
-    "111557560": ["canonical", "eip155"],
-    "123420111": ["canonical", "eip155"],
+    "94204209": [
+      "canonical",
+      "eip155"
+    ],
+    "111557560": [
+      "canonical",
+      "eip155"
+    ],
+    "123420111": [
+      "canonical",
+      "eip155"
+    ],
     "161221135": "canonical",
     "168587773": "canonical",
     "222000222": "canonical",
     "245022926": "eip155",
     "245022934": "eip155",
     "333000333": "canonical",
-    "666666666": ["canonical", "eip155"],
-    "999999999": ["canonical", "eip155"],
-    "1313161554": ["canonical", "eip155"],
+    "666666666": [
+      "canonical",
+      "eip155"
+    ],
+    "999999999": [
+      "canonical",
+      "eip155"
+    ],
+    "1313161554": [
+      "canonical",
+      "eip155"
+    ],
     "1313161555": "canonical",
     "1666600000": "eip155",
     "1666700000": "eip155",
     "11297108099": "canonical",
     "11297108109": "canonical",
     "37714555429": "canonical",
-    "88153591557": ["canonical", "eip155"]
+    "88153591557": [
+      "canonical",
+      "eip155"
+    ]
   },
   "abi": [
     {
