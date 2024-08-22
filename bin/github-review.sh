@@ -3,6 +3,9 @@
 set -euo pipefail
 shopt -s nullglob
 
+tempfile=.temp-github-review.diff
+trap "rm -f $tempfile" EXIT
+
 usage() {
     cat <<EOF
 This script verifies the deployed contracts on a chain ID for a given PR.
@@ -70,7 +73,6 @@ fi
 echo "Checking changes to assets files"
 gh pr diff $pr > .temp-github-review.diff # This line fetches the diff output of the PR
 npm run review:diff -s -- --diffPatchFileName .temp-github-review.diff --verbose
-rm .temp-github-review.diff
 
 # Assume that if `GITHUB_HEAD_REF` is set, then we are running in CI and have already checked out
 # the deployment files, otherwise apply the patch on top of the current branch.

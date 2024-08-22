@@ -46,12 +46,10 @@ async function main() {
   let highestChainID = false;
   let additionalDeploymentToSameChainID = false;
 
-  for (const file of diffPatch) {
-    const { to, from, additions, deletions } = file;
-
+  for (const { to, from, additions, deletions } of diffPatch) {
     // Check to see if the file name was changed.
     if (to !== from) {
-      throw new Error(`ERROR: ${to} and ${from} are different`);
+      throw new Error(`ERROR: file renamed to ${to} from ${from}`);
     }
 
     debug(`Checking ${to} with ${additions} additions and ${deletions} deletions`);
@@ -68,29 +66,24 @@ async function main() {
 
   if (highestChainID) {
     debug('Highest chain ID deployment');
-    for (const file of diffPatch) {
-      const { chunks } = file;
-
-      for (const chunk of chunks) {
-        const { changes } = chunk;
+    for (const { chunks } of diffPatch) {
+      for (const { changes } of chunks) {
         let state = HighestChangeType.Initial;
-        let previousLine = '';
+        let expectedNextLine = '';
 
-        for (const change of changes) {
-          const { type, content } = change;
-
+        for (const { type, content } of changes) {
           if (type === 'del') {
             if (state !== HighestChangeType.Initial) {
               throw new Error('Removal is not in correct order');
             }
             state = HighestChangeType.Removal;
-            previousLine = '+'.concat(content.slice(1)).concat(',');
+            expectedNextLine = '+'.concat(content.slice(1)).concat(',');
           } else if (type === 'add') {
             if (state !== HighestChangeType.Removal && state !== HighestChangeType.Addition) {
               throw new Error('Addition is not in correct order');
             }
             if (state === HighestChangeType.Removal) {
-              if (content !== previousLine) {
+              if (content !== expectedNextLine) {
                 throw new Error('Previous highest chain ID removed');
               }
               state = HighestChangeType.Addition;
@@ -105,15 +98,9 @@ async function main() {
   if (additionalDeploymentToSameChainID) {
     debug('Additional deployment to same chain ID');
     let previousDeployment: string[] = [];
-    for (const file of diffPatch) {
-      const { chunks } = file;
-
-      for (const chunk of chunks) {
-        const { changes } = chunk;
-
-        for (const change of changes) {
-          const { type, content } = change;
-
+    for (const { chunks } of diffPatch) {
+      for (const { changes } of chunks) {
+        for (const { type, content } of changes) {
           if (type === 'del') {
             // Only one deployment was present.
             if (content.search('\\[') === -1) {
