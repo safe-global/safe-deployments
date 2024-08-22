@@ -4,7 +4,7 @@ import util from 'node:util';
 
 import { ethers } from 'ethers';
 
-import type { SingletonDeploymentJSON } from '../src/types';
+import type { SingletonDeploymentJSON } from '../../src/types';
 
 type Options = {
   version: string;

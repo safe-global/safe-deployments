@@ -68,9 +68,9 @@ if [[ -n "$(gh pr diff $pr --name-only | grep -v -e 'src/assets/v'$version'/.*\.
 fi
 
 echo "Checking changes to assets files"
-fileLineChangeJSON=$(gh pr view $pr --json files) # This line fetches the JSON output of the files changed in the PR
-diffPatchSeparated=$(gh pr diff $pr | grep -E '^[+-] ' | base64) # Sending multiple lines as a string through base64 encoding
-npm run verifyChanges -s -- --fileLineChange "$fileLineChangeJSON" --diffPatchSeparated "$diffPatchSeparated"  --verbose
+gh pr diff $pr > .temp-github-review.diff # This line fetches the diff output of the PR
+npm run review:diff -s -- --diffPatchFileName .temp-github-review.diff --verbose
+rm .temp-github-review.diff
 
 # Assume that if `GITHUB_HEAD_REF` is set, then we are running in CI and have already checked out
 # the deployment files, otherwise apply the patch on top of the current branch.
@@ -79,7 +79,7 @@ if [[ -z "$GITHUB_HEAD_REF" ]]; then
 fi
 
 echo "Verifying Deployment Asset"
-npm run verify -s -- --version "v$version" --chainId "$chainid" --rpc "$rpc" --verbose
+npm run review:verify-deployment -s -- --version "v$version" --chainId "$chainid" --rpc "$rpc" --verbose
 echo "Network addresses & Code hashes are correct"
 
 git restore --ignore-unmerged -- src/assets
