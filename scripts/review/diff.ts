@@ -1,17 +1,14 @@
 import util from 'node:util';
 import fs from 'node:fs/promises';
 import parseDiff from 'parse-diff';
+import assert from 'node:assert';
 
 type Options = {
   diffPatchFileName: string;
   verbose: boolean;
 };
 
-enum HighestChangeType {
-  Initial,
-  Removal,
-  Addition,
-}
+type Deployment = { [key: number]: string };
 
 function parseOptions(): Options {
   const options = {
@@ -67,55 +64,41 @@ async function main() {
   if (highestChainID) {
     debug('Highest chain ID deployment');
     for (const { chunks } of diffPatch) {
-      for (const { changes } of chunks) {
-        let state = HighestChangeType.Initial;
-        let expectedNextLine = '';
-
-        for (const { type, content } of changes) {
-          if (type === 'del') {
-            if (state !== HighestChangeType.Initial) {
-              throw new Error('Removal is not in correct order');
-            }
-            state = HighestChangeType.Removal;
-            expectedNextLine = '+'.concat(content.slice(1)).concat(',');
-          } else if (type === 'add') {
-            if (state !== HighestChangeType.Removal && state !== HighestChangeType.Addition) {
-              throw new Error('Addition is not in correct order');
-            }
-            if (state === HighestChangeType.Removal) {
-              if (content !== expectedNextLine) {
-                throw new Error('Previous highest chain ID removed');
-              }
-              state = HighestChangeType.Addition;
-            }
-          }
-        }
-      }
+      // Filter chunks as `changes` to only include items that are additions (add) or deletions (del).
+      const changes = chunks.flatMap(({ changes }) => changes.filter(({ type }) => type === 'add' || type === 'del'));
+      assert(changes.length === 3);
+      assert(changes.map((c) => c.type).join() === 'del,add,add');
+      assert(changes[0].content.slice(1) === changes[1].content.slice(1, -1));
     }
     debug('Highest chain ID deployment is valid');
   }
 
   if (additionalDeploymentToSameChainID) {
     debug('Additional deployment to same chain ID');
-    let previousDeployment: string[] = [];
     for (const { chunks } of diffPatch) {
-      for (const { changes } of chunks) {
-        for (const { type, content } of changes) {
-          if (type === 'del') {
-            // Only one deployment was present.
-            if (content.search('\\[') === -1) {
-              previousDeployment.push(content.split(':')[1].slice(1, -1));
-            } // Multiple deployments were present.
-            else {
-              previousDeployment = content.split(':')[1].slice(2, -2).split(',');
-            }
-          } else if (type === 'add') {
-            // Check if previous deployments were removed.
-            for (const deployment of previousDeployment) {
-              if (!content.includes(deployment)) {
-                throw new Error('Previous deployment were removed');
-              }
-            }
+      const changes = chunks.flatMap(({ changes }) => changes.filter(({ type }) => type === 'add' || type === 'del'));
+      assert(changes.length === 2);
+      assert(changes.map((c) => c.type).join() === 'del,add');
+
+      // Read values from old and new deployments.
+      const oldDeployments = Object.values(JSON.parse(`{${changes[0].content.slice(1, -1)}}`))[0];
+      const newDeployments = Object.values(JSON.parse(`{${changes[1].content.slice(1, -1)}}`))[0];
+
+      // New deployment should always be more than one.
+      if (typeof newDeployments !== 'object') {
+        throw new Error('New deployment is not correct');
+      }
+
+      // Only one deployment was present.
+      if (typeof oldDeployments === 'string') {
+        if (!Object.values(newDeployments as Deployment).includes(oldDeployments)) {
+          throw new Error('Previous deployment were removed');
+        }
+      } // Multiple deployments were present.
+      else if (typeof oldDeployments === 'object') {
+        for (const deployment of Object.values(oldDeployments as Deployment)) {
+          if (!Object.values(newDeployments as Deployment).includes(deployment)) {
+            throw new Error('Previous deployments were removed');
           }
         }
       }
