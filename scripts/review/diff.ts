@@ -8,7 +8,7 @@ type Options = {
   verbose: boolean;
 };
 
-type Deployments = { [chainID: number]: string | string[] };
+type Deployments = { [chainId: number]: string | string[] };
 
 function parseOptions(): Options {
   const options = {
@@ -98,17 +98,13 @@ async function main() {
         throw new Error('New deployment is not correct');
       }
 
-      // Only one deployment was present.
-      if (typeof oldDeploymentsValues === 'string') {
-        if (!newDeploymentsValues.includes(oldDeploymentsValues)) {
-          throw new Error('Previous deployment were removed');
-        }
-      } // Multiple deployments were present.
-      else if (Array.isArray(oldDeploymentsValues)) {
-        for (const deployment of oldDeploymentsValues) {
-          if (!newDeploymentsValues.includes(deployment)) {
-            throw new Error('Previous deployments were removed');
-          }
+      const nomalizedOldDeploymentValues = Array.isArray(oldDeploymentsValues)
+        ? oldDeploymentsValues
+        : [oldDeploymentsValues];
+
+      for (const deployment of nomalizedOldDeploymentValues) {
+        if (!newDeploymentsValues.includes(deployment)) {
+          throw new Error('Previous deployments were removed');
         }
       }
     }
