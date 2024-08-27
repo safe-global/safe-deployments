@@ -8,7 +8,7 @@ type Options = {
   verbose: boolean;
 };
 
-type Deployment = { [key: number]: string };
+type Deployments = { [chainID: number]: string | string[] };
 
 function parseOptions(): Options {
   const options = {
@@ -26,6 +26,10 @@ function parseOptions(): Options {
     ...(values as Options),
     verbose: values.verbose === true,
   };
+}
+
+function hasChangeTypes(changes: parseDiff.Chunk['changes'], types: string[]): boolean {
+  return changes.length === types.length && changes.every(({ type }, i) => type === types[i]);
 }
 
 async function main() {
@@ -66,9 +70,8 @@ async function main() {
     for (const { chunks } of diffPatch) {
       // Filter chunks as `changes` to only include items that are additions (add) or deletions (del).
       const changes = chunks.flatMap(({ changes }) => changes.filter(({ type }) => type === 'add' || type === 'del'));
-      assert(changes.length === 3);
-      assert(changes.map((c) => c.type).join() === 'del,add,add');
-      assert(changes[0].content.slice(1) === changes[1].content.slice(1, -1));
+      assert(hasChangeTypes(changes, ['del', 'add', 'add']));
+      assert(changes[0].content.replace(/^-(.*)/, '+$1,') === changes[1].content);
     }
     debug('Highest chain ID deployment is valid');
   }
@@ -77,27 +80,33 @@ async function main() {
     debug('Additional deployment to same chain ID');
     for (const { chunks } of diffPatch) {
       const changes = chunks.flatMap(({ changes }) => changes.filter(({ type }) => type === 'add' || type === 'del'));
-      assert(changes.length === 2);
-      assert(changes.map((c) => c.type).join() === 'del,add');
+      assert(hasChangeTypes(changes, ['del', 'add']));
 
       // Read values from old and new deployments.
-      const oldDeployments = Object.values(JSON.parse(`{${changes[0].content.slice(1, -1)}}`))[0];
-      const newDeployments = Object.values(JSON.parse(`{${changes[1].content.slice(1, -1)}}`))[0];
+      const oldDeployments = JSON.parse(`{${changes[0].content.slice(1, -1)}}`) as Deployments;
+      const [[oldDeploymentsKey, oldDeploymentsValues]] = Object.entries(oldDeployments);
+
+      const newDeployments = JSON.parse(`{${changes[1].content.slice(1, -1)}}`) as Deployments;
+      const [[newDeploymentsKey, newDeploymentsValues]] = Object.entries(newDeployments);
+
+      if (oldDeploymentsKey !== newDeploymentsKey) {
+        throw new Error('Chain ID is not the same');
+      }
 
       // New deployment should always be more than one.
-      if (typeof newDeployments !== 'object') {
+      if (!Array.isArray(newDeploymentsValues)) {
         throw new Error('New deployment is not correct');
       }
 
       // Only one deployment was present.
-      if (typeof oldDeployments === 'string') {
-        if (!Object.values(newDeployments as Deployment).includes(oldDeployments)) {
+      if (typeof oldDeploymentsValues === 'string') {
+        if (!newDeploymentsValues.includes(oldDeploymentsValues)) {
           throw new Error('Previous deployment were removed');
         }
       } // Multiple deployments were present.
-      else if (typeof oldDeployments === 'object') {
-        for (const deployment of Object.values(oldDeployments as Deployment)) {
-          if (!Object.values(newDeployments as Deployment).includes(deployment)) {
+      else if (Array.isArray(oldDeploymentsValues)) {
+        for (const deployment of oldDeploymentsValues) {
+          if (!newDeploymentsValues.includes(deployment)) {
             throw new Error('Previous deployments were removed');
           }
         }
