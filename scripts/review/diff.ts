@@ -44,8 +44,8 @@ async function main() {
   const diffPatchContent = await fs.readFile(options.diffPatchFileName, 'utf-8');
   const diffPatch = parseDiff(diffPatchContent);
 
-  let highestChainID = false;
-  let additionalDeploymentToSameChainID = false;
+  let highestChainId = false;
+  let additionalDeploymentToSameChainId = false;
 
   for (const { to, from, additions, deletions } of diffPatch) {
     // Check to see if the file name was changed.
@@ -57,15 +57,15 @@ async function main() {
 
     // Check to see if the changes are valid and set any edge case flags.
     if (additions === 2 && deletions === 1) {
-      highestChainID = true;
+      highestChainId = true;
     } else if (additions === 1 && deletions === 1) {
-      additionalDeploymentToSameChainID = true;
+      additionalDeploymentToSameChainId = true;
     } else if (additions !== 1 || deletions !== 0) {
       throw new Error(`ERROR: ${to} has invalid changes`);
     }
   }
 
-  if (highestChainID) {
+  if (highestChainId) {
     debug('Highest chain ID deployment');
     for (const { chunks } of diffPatch) {
       // Filter chunks as `changes` to only include items that are additions (add) or deletions (del).
@@ -76,7 +76,7 @@ async function main() {
     debug('Highest chain ID deployment is valid');
   }
 
-  if (additionalDeploymentToSameChainID) {
+  if (additionalDeploymentToSameChainId) {
     debug('Additional deployment to same chain ID');
     for (const { chunks } of diffPatch) {
       const changes = chunks.flatMap(({ changes }) => changes.filter(({ type }) => type === 'add' || type === 'del'));
