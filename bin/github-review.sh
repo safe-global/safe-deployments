@@ -3,6 +3,9 @@
 set -euo pipefail
 shopt -s nullglob
 
+tempfile=.temp-github-review.diff
+trap "rm -f $tempfile" EXIT
+
 usage() {
     cat <<EOF
 This script verifies the deployed contracts on a chain ID for a given PR.
@@ -68,69 +71,8 @@ if [[ -n "$(gh pr diff $pr --name-only | grep -v -e 'src/assets/v'$version'/.*\.
 fi
 
 echo "Checking changes to assets files"
-fileLineChangeJSON=$(gh pr view $pr --json files) # This line fetches the JSON output of the files changed in the PR
-isHighestChainID=0
-echo "$fileLineChangeJSON" | jq -r '.files[] | "\(.path) \(.additions) \(.deletions)"' | while read -r line; do
-    path=$(echo $line | cut -d ' ' -f1)
-    additions=$(echo $line | cut -d ' ' -f2)
-    deletions=$(echo $line | cut -d ' ' -f3)
-
-    # Now you can perform checks on $additions and $deletions as per your requirements
-    if [[ ("$additions" == 2 && "$deletions" == 1) ]]; then
-        isHighestChainID=1
-    elif [[ ("$additions" != 1 || "$deletions" != 0) ]]; then
-        echo "ERROR: $path has invalid changes" 1>&2
-        exit 1
-    fi
-done
-
-if [[ $isHighestChainID == 1 ]]; then
-    echo "Edge case when adding chain with the highest chain id number"
-    diffPatchSeparated=($(gh pr diff $pr | grep -E '^[+-] '))
-    # Adding three elements at a time together to compare from the output array
-    diffPatch=()
-    for ((i=0; i<${#diffPatchSeparated[@]}; i+=3)); do
-        diffPatch+=("${diffPatchSeparated[i]} ${diffPatchSeparated[i+1]} ${diffPatchSeparated[i+2]}")
-    done
-
-    # Initialize a counter
-    counter=1
-    # Initialize a flag to indicate if the previous pattern was correct
-    pattern_correct=true
-    # Read input line by line from the array
-    for line in "${diffPatch[@]}"; do
-        # Determine the line type based on the counter
-        case $((counter % 3)) in
-            1) # First line should start with '-'
-                if [[ $line != -* ]]; then
-                    pattern_correct=false
-                fi
-                # Store the first line to compare with the second line
-                first_line="$line"
-                ;;
-            2) # Second line should be the first line with a comma
-                expected_line="+${first_line:1},"
-                if [[ $line != $expected_line ]]; then
-                    pattern_correct=false
-                fi
-                ;;
-            0) # Third line should start with '+'
-                if [[ $line != +* ]]; then
-                    pattern_correct=false
-                fi
-                # Check the pattern for the set of three lines
-                if [ "$pattern_correct" = false ]; then
-                    echo "Unknown lines added or removed" 1>&2
-                    exit 1
-                fi
-                # Reset the pattern_correct flag for the next set of lines
-                pattern_correct=true
-                ;;
-        esac
-        # Increment the counter
-        ((counter++))
-    done
-fi
+gh pr diff $pr > .temp-github-review.diff # This line fetches the diff output of the PR
+npm run review:diff -s -- --diffPatchFileName .temp-github-review.diff --verbose
 
 # Assume that if `GITHUB_HEAD_REF` is set, then we are running in CI and have already checked out
 # the deployment files, otherwise apply the patch on top of the current branch.
@@ -139,7 +81,7 @@ if [[ -z "$GITHUB_HEAD_REF" ]]; then
 fi
 
 echo "Verifying Deployment Asset"
-npm run verify -s -- --version "v$version" --chainId "$chainid" --rpc "$rpc" --verbose
+npm run review:verify-deployment -s -- --version "v$version" --chainId "$chainid" --rpc "$rpc" --verbose
 echo "Network addresses & Code hashes are correct"
 
 git restore --ignore-unmerged -- src/assets
