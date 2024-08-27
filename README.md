@@ -206,7 +206,9 @@ const compatHandler = getCompatibilityFallbackHandlerDeployments();
 
 ## Notes
 
-A list of network information can be found at [chainid.network](https://chainid.network/)
+- v1 supports only one address per network, while v2 allows multiple addresses per network. To maintain compatibility with v1, the address order in v2 is arranged so that the first address matches the one used in v1.
+
+- A list of network information can be found at [chainid.network](https://chainid.network/)
 
 ## License
 
