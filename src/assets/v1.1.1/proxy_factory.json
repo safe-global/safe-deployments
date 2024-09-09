@@ -12,15 +12,12 @@
     "1": "canonical",
     "4": "canonical",
     "5": "canonical",
-    "10": "canonical",
     "42": "canonical",
     "88": "canonical",
     "100": "canonical",
     "137": "canonical",
     "246": "canonical",
-    "73799": "canonical",
-    "42161": "canonical",
-    "1313161554": "canonical"
+    "73799": "canonical"
   },
   "abi": [
     {
