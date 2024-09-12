@@ -97,8 +97,10 @@ describe('assets/', () => {
       }
 
       describe('networkAddresses', () => {
-        it('should contain the same networks in all files', async () => {
-          const files = versionFiles(version);
+        it('should contain the same networks in all files (exception for migration contracts)', async () => {
+          const filesWithMigration = versionFiles(version);
+          const migrationContracts = ['safe_migration.json', 'safe_to_l2_migration.json', 'safe_to_l2_setup.json'];
+          const files = filesWithMigration.filter((item) => !migrationContracts.includes(item));
           const networkCounts: Record<string, number> = {};
           for (const file of files) {
             const deploymentJson = await readAssetJSON(version, file);
