@@ -196,6 +196,7 @@
     "23294": "eip155",
     "23295": "eip155",
     "28979": "canonical",
+    "33401": "canonical",
     "34443": ["canonical", "eip155"],
     "41455": ["canonical", "eip155"],
     "42161": "canonical",
