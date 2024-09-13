@@ -52,7 +52,7 @@ function hasChangeTypes(changes: parseDiff.Chunk['changes'], types: string[]): b
  * and the next two changes should be additions (Current Highest Chain ID and the new Highest Chain ID).
  * The deleted content should be the same as the added content with a comma `,` at the end.
  */
-function highestChainID(changes: parseDiff.Chunk['changes']) {
+function asserthighestChainIDChanges(changes: parseDiff.Chunk['changes']) {
   assert(hasChangeTypes(changes, ['del', 'add', 'add']));
   assert(changes[0].content.replace(/^-(.*)/, '+$1,') === changes[1].content);
 }
@@ -119,7 +119,7 @@ async function main() {
     // Check to see if the changes are valid and set any edge case flags.
     const changes = chunks.flatMap(({ changes }) => changes.filter(({ type }) => type === 'add' || type === 'del'));
     if (additions === 2 && deletions === 1) {
-      highestChainID(changes);
+      asserthighestChainIDChanges(changes);
     } else if (additions === 1 && deletions === 1) {
       additionalDeploymentToSameChainId(changes);
     } else if (additions !== 1 || deletions !== 0) {
