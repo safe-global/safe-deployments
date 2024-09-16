@@ -11,7 +11,6 @@ type Options = {
 type Deployments = { [chainId: number]: string | string[] };
 
 /**
- *
  * This function parses the options from the command line arguments.
  */
 function parseOptions(): Options {
@@ -33,24 +32,22 @@ function parseOptions(): Options {
 }
 
 /**
+ * Check if the changes in the diff patch are of the given types.
  *
  * @param changes The changes in the diff patch.
  * @param types The types of changes to check.
- *
- * This function checks if the changes in the diff patch are of the given types.
  */
 function hasChangeTypes(changes: parseDiff.Chunk['changes'], types: string[]): boolean {
   return changes.length === types.length && changes.every(({ type }, i) => type === types[i]);
 }
 
 /**
- *
- * @param changes The changes in the diff patch.
- *
  * This function checks if the changes are for the highest chain ID.
  * If the changes are for the highest chain ID, the first change should be a deletion (current Highest Chain ID)
  * and the next two changes should be additions (Current Highest Chain ID and the new Highest Chain ID).
  * The deleted content should be the same as the added content with a comma `,` at the end.
+ *
+ * @param changes The changes in the diff patch.
  */
 function asserthighestChainIDChanges(changes: parseDiff.Chunk['changes']) {
   assert(hasChangeTypes(changes, ['del', 'add', 'add']));
@@ -58,13 +55,12 @@ function asserthighestChainIDChanges(changes: parseDiff.Chunk['changes']) {
 }
 
 /**
- *
- * @param changes The changes in the diff patch.
- *
  * This function checks if the changes are for additional deployments to the same chain ID.
  * If the changes are for additional deployments to the same chain ID, the first change should be a deletion (current deployments)
  * and the next change should be an addition (current and new deployments).
  * All the previous deployments should be present in the new deployments.
+ *
+ * @param changes The changes in the diff patch.
  */
 function additionalDeploymentToSameChainId(changes: parseDiff.Chunk['changes']) {
   assert(hasChangeTypes(changes, ['del', 'add']));
