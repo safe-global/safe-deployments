@@ -277,6 +277,7 @@
     "333000333": "canonical",
     "476462898": "canonical",
     "666666666": ["canonical", "eip155"],
+    "888888888": "canonical",
     "999999999": ["canonical", "eip155"],
     "1313161554": ["canonical", "eip155"],
     "1313161555": "canonical",
