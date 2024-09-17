@@ -119,6 +119,8 @@ case $command in
 				git push -u origin "$branch"
 				gh pr create --fill
 			fi
+		else
+			log "skipped version bump. Either a draft release already exists or the current version is not the latest."
 		fi
 		;;
 	"draft")
@@ -140,12 +142,10 @@ case $command in
 
 			if [[ "$dryrun" == "n" ]]; then
 				log "drafting release with NPM tarball"
-				if [[ -n "$draft" ]]; then
-					log "cleaning up existing draft"
-					gh release delete "$tag" --yes
-				fi
 				gh release create "$tag" --draft --generate-notes --target "$commit" --title "$tag" "$package"
 			fi
+		else
+			log "draft release not created. Either a draft release already exists or the current version equals the latest NPM release."
 		fi
 		;;
 	"publish")
@@ -159,6 +159,8 @@ case $command in
 				log "publishing draft release"
 				gh release edit "$tag" --draft=false
 			fi
+		else 
+			log "skipped release publishing. Either no draft release exists or the current version is not the latest NPM release."
 		fi
 		;;
 esac
