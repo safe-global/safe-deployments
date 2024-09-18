@@ -12,6 +12,8 @@ type Deployments = { [chainId: number]: string | string[] };
 
 /**
  * This function parses the options from the command line arguments.
+ *
+ * @returns The parsed options.
  */
 function parseOptions(): Options {
   const options = {
@@ -36,6 +38,8 @@ function parseOptions(): Options {
  *
  * @param changes The changes in the diff patch.
  * @param types The types of changes to check.
+ *
+ * @returns True if the changes are of the given types, false otherwise.
  */
 function hasChangeTypes(changes: parseDiff.Chunk['changes'], types: string[]): boolean {
   return changes.length === types.length && changes.every(({ type }, i) => type === types[i]);
