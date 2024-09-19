@@ -11,6 +11,7 @@
   "networkAddresses": {
     "1": "canonical",
     "1337": "canonical",
+    "42220": "canonical",
     "84532": "canonical",
     "11155111": "canonical"
   },
