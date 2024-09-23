@@ -1,4 +1,4 @@
-name: Release
+name: Draft Release
 on:
   workflow_dispatch:
 
@@ -19,6 +19,6 @@ jobs:
           node-version: 20
       - run: |
           npm ci
-          bash bin/github-release.sh --verbose
+          bash bin/github-release.sh --verbose draft
         env:
           GH_TOKEN: ${{ github.token }}
