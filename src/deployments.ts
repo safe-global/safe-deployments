@@ -76,6 +76,18 @@ import SignMessageLib141 from './assets/v1.4.1/sign_message_lib.json';
 
 const _SIGN_MESSAGE_LIB_DEPLOYMENTS = [SignMessageLib141, SignMessageLib130] as SingletonDeploymentJSON[];
 
+import SafeMigration141 from './assets/v1.4.1/safe_migration.json';
+
+const _SAFE_MIGRATION_DEPLOYMENTS = [SafeMigration141] as SingletonDeploymentJSON[];
+
+import SafeToL2Migration141 from './assets/v1.4.1/safe_to_l2_migration.json';
+
+const _SAFE_TO_L2_MIGRATION_DEPLOYMENTS = [SafeToL2Migration141] as SingletonDeploymentJSON[];
+
+import SafeToL2Setup141 from './assets/v1.4.1/safe_to_l2_setup.json';
+
+const _SAFE_TO_L2_SETUP_DEPLOYMENTS = [SafeToL2Setup141] as SingletonDeploymentJSON[];
+
 export {
   _ACCESSOR_DEPLOYMENTS,
   _FACTORY_DEPLOYMENTS,
@@ -87,4 +99,7 @@ export {
   _MULTI_SEND_CALL_ONLY_DEPLOYMENTS,
   _CREATE_CALL_DEPLOYMENTS,
   _SIGN_MESSAGE_LIB_DEPLOYMENTS,
+  _SAFE_MIGRATION_DEPLOYMENTS,
+  _SAFE_TO_L2_MIGRATION_DEPLOYMENTS,
+  _SAFE_TO_L2_SETUP_DEPLOYMENTS,
 };
