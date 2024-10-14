@@ -4,8 +4,12 @@
   "version": "1.4.1",
   "deployments": {
     "canonical": {
-      "address": "0x9b35Af71d77eaf8d7e40252370304687390A1A52",
-      "codeHash": "0x2b3060c55fcb8275653e99ad511a71f67ba76934ed66a7d74d6e68b52afff889"
+      "address": "0x474761AC5c317d93B76d8dc5388A9F38B5412E2C",
+      "codeHash": "0x6b4aac935b03f155e0687c018513b98fa71055d92756347e4d7341c38632c9b0"
+    },
+    "eip7702" :{
+      "address": "0x474761AC5c317d93B76d8dc5388A9F38B5412E2C",
+      "codeHash": "0x6b4aac935b03f155e0687c018513b98fa71055d92756347e4d7341c38632c9b0"
     }
   },
   "networkAddresses": {

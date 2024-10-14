@@ -4,8 +4,8 @@
   "version": "1.4.1",
   "deployments": {
     "canonical": {
-      "address": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-      "codeHash": "0xb1f926978a0f44a2c0ec8fe822418ae969bd8c3f18d61e5103100339894f81ff"
+      "address": "0xCfaA26AD40bFC7E3b1642E1888620FC402b95dAB",
+      "codeHash": "0x22806daad27e56513420a615edcfb3b044432e70c9ba9e13466af517e802b811"
     },
     "eip7702": {
         "address": "0xCfaA26AD40bFC7E3b1642E1888620FC402b95dAB",
@@ -150,7 +150,7 @@
     "1511670449": "canonical",
     "1666600000": "canonical",
     "1666700000": "canonical",
-    "7011893082": "eip7702",
+    "7011893082": "canonical",
     "88153591557": "canonical",
     "123420000220": "canonical"
   },
