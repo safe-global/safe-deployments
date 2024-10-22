@@ -59,7 +59,7 @@
     "114": "canonical",
     "122": "canonical",
     "123": "canonical",
-    "137": "canonical",
+    "137": ["canonical", "eip155"],
     "148": "eip155",
     "155": "eip155",
     "169": "canonical",
