@@ -1,6 +1,7 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import util from 'node:util';
+import { setTimeout } from 'node:timers/promises';
 
 import { ethers } from 'ethers';
 
@@ -84,7 +85,7 @@ async function main() {
 
       debug(`• ${deployment} deployment OK`);
     }
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await setTimeout(1000);
   }
 }
 
