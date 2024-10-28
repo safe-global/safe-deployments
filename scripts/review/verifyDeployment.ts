@@ -1,7 +1,7 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import util from 'node:util';
-import { setTimeout } from 'node:timers/promises';
+import { setTimeout as sleep } from 'node:timers/promises';
 
 import { ethers } from 'ethers';
 
@@ -85,7 +85,7 @@ async function main() {
 
       debug(`• ${deployment} deployment OK`);
     }
-    await setTimeout(1000);
+    await sleep(1000);
   }
 }
 
