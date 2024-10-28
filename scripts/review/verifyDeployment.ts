@@ -84,6 +84,7 @@ async function main() {
 
       debug(`• ${deployment} deployment OK`);
     }
+    await new Promise((resolve) => setTimeout(resolve, 1000));
   }
 }
 
