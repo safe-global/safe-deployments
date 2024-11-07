@@ -39,6 +39,10 @@ while [[ $# -gt 0 ]]; do
 		dryrun="y"
 		;;
 	bump|draft|publish)
+		if [[ -n "$command" ]]; then
+			usage
+			exit 1
+		fi
 		command="$1"
 		;;
 	*)
