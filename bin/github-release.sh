@@ -39,6 +39,10 @@ while [[ $# -gt 0 ]]; do
 		dryrun="y"
 		;;
 	bump|draft|publish)
+		if [[ -n "$command" ]]; then
+			usage
+			exit 1
+		fi
 		command="$1"
 		;;
 	*)
@@ -90,77 +94,82 @@ draft="$(gh release view "$tag" --json isDraft,targetCommitish --jq 'if(.isDraft
 log "commit:  ${commit}"
 log "draft:   ${draft:-none}"
 
+command_bump () {
+	log "==> Bumping Version"
+
+	if [[ -n "$draft" ]] || [[ "$current" != "$latest" ]]; then
+		log "already on unreleased version"
+		exit 0
+	fi
+
+	git fetch --tags --force --quiet
+	if [[ -n "$(git tag -l --points-at HEAD | awk '$1 == "'$tag'"')" ]]; then
+		log "no changes since latest release"
+		exit 0
+	fi
+
+	newtag="$(npm version patch --no-git-tag-version)"
+	log "bumping to $newtag"
+
+	branch="bump/$newtag"
+	if git ls-remote --heads origin | grep "refs/heads/$branch\$" >/dev/null; then
+		log "version bump PR already exists"
+		exit 0
+	fi
+
+	if [[ "$dryrun" == "n" ]]; then
+		log "creating PR bumping version"
+		git checkout -b "$branch"
+		git commit -am "Bump Version to $newtag"
+		git push -u origin "$branch"
+		gh pr create --fill
+	fi
+}
+
+command_draft() {
+	log "==> Drafting Release"
+
+	if [[ "$current" == "$latest" ]]; then
+		log "no new version to draft release for"
+		exit 0
+	fi
+
+	if [[ "$commit" == "$draft" ]]; then
+		log "draft is already at latest commit"
+		exit 0
+	fi
+
+	log "generating NPM package"
+	npm pack
+	package="${name#@}-$current.tgz"
+	package="${package//\//-}"
+
+	if [[ "$dryrun" == "n" ]]; then
+		log "drafting release with NPM tarball"
+		if [[ -n "$draft" ]]; then
+			log "cleaning up existing draft"
+			gh release delete "$tag" --yes
+		fi
+		gh release create "$tag" --draft --generate-notes --target "$commit" --title "$tag" "$package"
+	fi
+}
+
+command_publish() {
+	log "==> Publishing Release"
+
+	if [[ -z "$draft" ]] || [[ "$current" != "$latest" ]]; then
+		log "nothing to publish"
+		exit 0
+	fi
+
+	if [[ "$dryrun" == "n" ]]; then
+		log "publishing draft release"
+		gh release edit "$tag" --draft=false
+	fi
+}
+
 case $command in
-	"bump")
-		if [[ -z "$draft" ]] && [[ "$current" == "$latest" ]]; then
-			# In this case, we have no existing draft, and the current version is
-			# the same as the latest release, so we need to create a new PR to bump
-			# the package version.
-			log "==> Bumping Version"
-
-			git fetch --tags --force --quiet
-			if [[ -n "$(git tag -l --points-at HEAD | awk '$1 == "'$tag'"')" ]]; then
-				log "no changes since latest release"
-				exit 0
-			fi
-
-			newtag="$(npm version patch --no-git-tag-version)"
-			log "bumping to $newtag"
-
-			branch="bump/$newtag"
-			if git ls-remote --heads origin | grep "refs/heads/$branch\$" >/dev/null; then
-				log "version bump PR already exists"
-				exit 0
-			fi
-			if [[ "$dryrun" == "n" ]]; then
-				log "creating PR bumping version"
-				git checkout -b "$branch"
-				git commit -am "Bump Version to $newtag"
-				git push -u origin "$branch"
-				gh pr create --fill
-			fi
-		else
-			log "skipped version bump. Either a draft release already exists or the current version is not the latest."
-		fi
-		;;
-	"draft")
-		if [[ -z "$draft" ]] && [[ "$current" != "$latest" ]]; then
-			# In this case, the current version is newer that the latest released
-			# version on NPM, so we create or update the draft release to ensure it
-			# includes the latest version.
-			log "==> Drafting Release"
-
-			if [[ "$commit" == "$draft" ]]; then
-				log "draft is already at latest commit"
-				exit 0
-			fi
-
-			log "generating NPM package"
-			npm pack
-			package="${name#@}-$current.tgz"
-			package="${package//\//-}"
-
-			if [[ "$dryrun" == "n" ]]; then
-				log "drafting release with NPM tarball"
-				gh release create "$tag" --draft --generate-notes --target "$commit" --title "$tag" "$package"
-			fi
-		else
-			log "draft release not created. Either a draft release already exists or the current version equals the latest NPM release."
-		fi
-		;;
-	"publish")
-		if [[ -n "$draft" ]] && [[ "$current" == "$latest" ]]; then
-			# In this case, there is an existing draft, and the latest version is
-			# equal to it. Publish the draft release!
-			log "==> Publishing Release"
-
-			tag="v$current"
-			if [[ "$dryrun" == "n" ]]; then
-				log "publishing draft release"
-				gh release edit "$tag" --draft=false
-			fi
-		else 
-			log "skipped release publishing. Either no draft release exists or the current version is not the latest NPM release."
-		fi
-		;;
+	bump) command_bump ;;
+	draft) command_draft ;;
+	publish) command_publish ;;
 esac
