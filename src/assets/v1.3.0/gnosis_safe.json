@@ -270,6 +270,7 @@
     "656476": ["eip155", "canonical"],
     "660279": "canonical",
     "713715": ["eip155", "canonical"],
+    "763373": "eip155",
     "764984": "canonical",
     "808813": "eip155",
     "810180": "zksync",
