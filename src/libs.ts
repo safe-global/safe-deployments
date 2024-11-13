@@ -3,6 +3,9 @@ import {
   _MULTI_SEND_CALL_ONLY_DEPLOYMENTS,
   _MULTI_SEND_DEPLOYMENTS,
   _SIGN_MESSAGE_LIB_DEPLOYMENTS,
+  _SAFE_MIGRATION_DEPLOYMENTS,
+  _SAFE_TO_L2_MIGRATION_DEPLOYMENTS,
+  _SAFE_TO_L2_SETUP_DEPLOYMENTS,
 } from './deployments';
 import { DeploymentFilter, DeploymentFormats, SingletonDeployment, SingletonDeploymentV2 } from './types';
 import { findDeployment } from './utils';
@@ -77,4 +80,58 @@ export const getSignMessageLibDeployment = (filter?: DeploymentFilter): Singleto
  */
 export const getSignMessageLibDeployments = (filter?: DeploymentFilter): SingletonDeploymentV2 | undefined => {
   return findDeployment(filter, _SIGN_MESSAGE_LIB_DEPLOYMENTS, DeploymentFormats.MULTIPLE);
+};
+
+/**
+ * Get the SafeMigration deployment based on the provided filter.
+ * @param {DeploymentFilter} [filter] - The filter criteria for the deployment.
+ * @returns {SingletonDeployment | undefined} - The matched deployment or undefined if not found.
+ */
+export const getSafeMigrationDeployment = (filter?: DeploymentFilter): SingletonDeployment | undefined => {
+  return findDeployment(filter, _SAFE_MIGRATION_DEPLOYMENTS);
+};
+
+/**
+ * Get all SafeMigration deployments based on the provided filter.
+ * @param {DeploymentFilter} [filter] - The filter criteria for the deployments.
+ * @returns {SingletonDeploymentV2 | undefined} - The matched deployments or undefined if not found.
+ */
+export const getSafeMigrationDeployments = (filter?: DeploymentFilter): SingletonDeploymentV2 | undefined => {
+  return findDeployment(filter, _SAFE_MIGRATION_DEPLOYMENTS, DeploymentFormats.MULTIPLE);
+};
+
+/**
+ * Get the SafeToL2Migration deployment based on the provided filter.
+ * @param {DeploymentFilter} [filter] - The filter criteria for the deployment.
+ * @returns {SingletonDeployment | undefined} - The matched deployment or undefined if not found.
+ */
+export const getSafeToL2MigrationDeployment = (filter?: DeploymentFilter): SingletonDeployment | undefined => {
+  return findDeployment(filter, _SAFE_TO_L2_MIGRATION_DEPLOYMENTS);
+};
+
+/**
+ * Get all SafeToL2Migration deployments based on the provided filter.
+ * @param {DeploymentFilter} [filter] - The filter criteria for the deployments.
+ * @returns {SingletonDeploymentV2 | undefined} - The matched deployments or undefined if not found.
+ */
+export const getSafeToL2MigrationDeployments = (filter?: DeploymentFilter): SingletonDeploymentV2 | undefined => {
+  return findDeployment(filter, _SAFE_TO_L2_MIGRATION_DEPLOYMENTS, DeploymentFormats.MULTIPLE);
+};
+
+/**
+ * Get the SafeToL2Setup deployment based on the provided filter.
+ * @param {DeploymentFilter} [filter] - The filter criteria for the deployment.
+ * @returns {SingletonDeployment | undefined} - The matched deployment or undefined if not found.
+ */
+export const getSafeToL2SetupDeployment = (filter?: DeploymentFilter): SingletonDeployment | undefined => {
+  return findDeployment(filter, _SAFE_TO_L2_SETUP_DEPLOYMENTS);
+};
+
+/**
+ * Get all SafeToL2Setup deployments based on the provided filter.
+ * @param {DeploymentFilter} [filter] - The filter criteria for the deployments.
+ * @returns {SingletonDeploymentV2 | undefined} - The matched deployments or undefined if not found.
+ */
+export const getSafeToL2SetupDeployments = (filter?: DeploymentFilter): SingletonDeploymentV2 | undefined => {
+  return findDeployment(filter, _SAFE_TO_L2_SETUP_DEPLOYMENTS, DeploymentFormats.MULTIPLE);
 };

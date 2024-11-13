@@ -7,7 +7,7 @@ Please fill the following form:
 Provide the Chain ID (Only 1 chain id per PR).
 - Chain_ID: 
 
-Provide RPC URL for the chain (should be able to query atleast 10 requests per minute for automatic PR check).
+Provide RPC URL for the chain (should be able to query atleast 3+ requests per second for automatic PR check).
 - RPC_URL: 
 
 Relevant information:

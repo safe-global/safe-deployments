@@ -12,7 +12,7 @@ It provides functionality for automatically:
  • Publishing GitHub releases once the version lands on NPM
 
 USAGE
-    bash bin/github-release.sh [-v|--verbose] [-n|--dry-run]
+    bash bin/github-release.sh [-v|--verbose] [-n|--dry-run] [bump|draft|publish]
 
 OPTIONS
     -v | --verbose      Verbose output
@@ -20,12 +20,16 @@ OPTIONS
                         release GitHub.
 
 EXAMPLES
-    bash bin/github-release.sh
+    bash bin/github-release.sh bump
+    bash bin/github-release.sh draft
+    bash bin/github-release.sh publish
 EOF
 }
 
 verbose="n"
 dryrun="n"
+command=""
+
 while [[ $# -gt 0 ]]; do
 	case "$1" in
 	-v|--verbose)
@@ -34,6 +38,13 @@ while [[ $# -gt 0 ]]; do
 	-n|--dry-run)
 		dryrun="y"
 		;;
+	bump|draft|publish)
+		if [[ -n "$command" ]]; then
+			usage
+			exit 1
+		fi
+		command="$1"
+		;;
 	*)
 		usage
 		exit 1
@@ -41,6 +52,11 @@ while [[ $# -gt 0 ]]; do
 	esac
 	shift
 done
+
+if [[ -z "$command" ]]; then
+    usage
+    exit 1
+fi
 
 log() {
 	if [[ "$verbose" == "y" ]]; then
@@ -78,11 +94,13 @@ draft="$(gh release view "$tag" --json isDraft,targetCommitish --jq 'if(.isDraft
 log "commit:  ${commit}"
 log "draft:   ${draft:-none}"
 
-if [[ -z "$draft" ]] && [[ "$current" == "$latest" ]]; then
-	# In this case, we have no existing draft, and the current version is
-	# the same as the latest release, so we need to create a new PR to bump
-	# the package version.
+command_bump () {
 	log "==> Bumping Version"
+
+	if [[ -n "$draft" ]] || [[ "$current" != "$latest" ]]; then
+		log "already on unreleased version"
+		exit 0
+	fi
 
 	git fetch --tags --force --quiet
 	if [[ -n "$(git tag -l --points-at HEAD | awk '$1 == "'$tag'"')" ]]; then
@@ -98,6 +116,7 @@ if [[ -z "$draft" ]] && [[ "$current" == "$latest" ]]; then
 		log "version bump PR already exists"
 		exit 0
 	fi
+
 	if [[ "$dryrun" == "n" ]]; then
 		log "creating PR bumping version"
 		git checkout -b "$branch"
@@ -105,11 +124,15 @@ if [[ -z "$draft" ]] && [[ "$current" == "$latest" ]]; then
 		git push -u origin "$branch"
 		gh pr create --fill
 	fi
-elif [[ "$current" != "$latest" ]]; then
-	# In this case, the current version is newer that the latest released
-	# version on NPM, so we create or update the draft release to ensure it
-	# includes the latest version.
+}
+
+command_draft() {
 	log "==> Drafting Release"
+
+	if [[ "$current" == "$latest" ]]; then
+		log "no new version to draft release for"
+		exit 0
+	fi
 
 	if [[ "$commit" == "$draft" ]]; then
 		log "draft is already at latest commit"
@@ -129,14 +152,24 @@ elif [[ "$current" != "$latest" ]]; then
 		fi
 		gh release create "$tag" --draft --generate-notes --target "$commit" --title "$tag" "$package"
 	fi
-else # if [[ -n "$draft" ]] && [[ "$current" == "$latest" ]]; then
-	# In this case, there is an existing draft, and the latest version is
-	# equal to it. Publish the draft release!
+}
+
+command_publish() {
 	log "==> Publishing Release"
 
-	tag="v$current"
+	if [[ -z "$draft" ]] || [[ "$current" != "$latest" ]]; then
+		log "nothing to publish"
+		exit 0
+	fi
+
 	if [[ "$dryrun" == "n" ]]; then
 		log "publishing draft release"
 		gh release edit "$tag" --draft=false
 	fi
-fi
+}
+
+case $command in
+	bump) command_bump ;;
+	draft) command_draft ;;
+	publish) command_publish ;;
+esac

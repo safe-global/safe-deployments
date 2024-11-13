@@ -97,8 +97,11 @@ describe('assets/', () => {
       }
 
       describe('networkAddresses', () => {
-        it('should contain the same networks in all files', async () => {
-          const files = versionFiles(version);
+        it('should contain the same networks in all files (exception for v1.4.1 migration contracts)', async () => {
+          const filesWithMigration = versionFiles(version);
+          const migrationContracts =
+            version === 'v1.4.1' ? ['safe_migration.json', 'safe_to_l2_migration.json', 'safe_to_l2_setup.json'] : [];
+          const files = filesWithMigration.filter((item) => !migrationContracts.includes(item));
           const networkCounts: Record<string, number> = {};
           for (const file of files) {
             const deploymentJson = await readAssetJSON(version, file);
@@ -112,6 +115,41 @@ describe('assets/', () => {
           }
           for (const [network, count] of Object.entries(networkCounts)) {
             expect([network, count]).toEqual([network, files.length]);
+          }
+        });
+
+        it('should contain the migration contracts networks in all other files', async () => {
+          const files = versionFiles(version);
+          const filesWithMigration =
+            version === 'v1.4.1' ? ['safe_migration.json', 'safe_to_l2_migration.json', 'safe_to_l2_setup.json'] : [];
+          const filesWithoutMigration = files.filter((item) => !filesWithMigration.includes(item));
+          const networkCountsWithMigration: Record<string, number> = {};
+          for (const file of filesWithMigration) {
+            const deploymentJson = await readAssetJSON(version, file);
+            if (!deploymentJson) {
+              throw new Error(`Failed to read asset ${version}/${file}`);
+            }
+            const { networkAddresses } = deploymentJson;
+            for (const network of Object.keys(networkAddresses)) {
+              networkCountsWithMigration[network] = (networkCountsWithMigration[network] ?? 0) + 1;
+            }
+          }
+          const networkCountsWithoutMigration: Record<string, number> = {};
+          for (const file of filesWithoutMigration) {
+            const deploymentJson = await readAssetJSON(version, file);
+            if (!deploymentJson) {
+              throw new Error(`Failed to read asset ${version}/${file}`);
+            }
+            const { networkAddresses } = deploymentJson;
+            for (const network of Object.keys(networkAddresses)) {
+              networkCountsWithoutMigration[network] = (networkCountsWithoutMigration[network] ?? 0) + 1;
+            }
+          }
+          for (const [network, count] of Object.entries(networkCountsWithMigration)) {
+            expect([network, count + networkCountsWithoutMigration[network]]).toEqual([
+              network,
+              filesWithMigration.length + filesWithoutMigration.length,
+            ]);
           }
         });
 

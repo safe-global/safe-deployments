@@ -1,10 +1,11 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import util from 'node:util';
+import { setTimeout as sleep } from 'node:timers/promises';
 
 import { ethers } from 'ethers';
 
-import type { SingletonDeploymentJSON } from '../src/types';
+import type { SingletonDeploymentJSON } from '../../src/types';
 
 type Options = {
   version: string;
@@ -84,6 +85,7 @@ async function main() {
 
       debug(`• ${deployment} deployment OK`);
     }
+    await sleep(1000);
   }
 }
 
