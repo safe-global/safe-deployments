@@ -45,7 +45,7 @@ if [[ -z $chainid ]]; then
     echo "ERROR: Chain ID not specified as per the PR Template" 1>&2
     exit 1
 fi
-rpc="$(gh pr view $pr | sed -nE 's|^- RPC_URL: (https?://[^ ]+).*$|\1|p')"
+rpc="$(gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/ethereum-lists/chains/contents/_data/chains/eip155-$chainid.json | jq -r .content | base64 --decode | jq -r '.rpc[0]')"
 if [[ -z $rpc ]]; then
     echo "ERROR: RPC not specified as per the PR Template" 1>&2
     exit 1
