@@ -47,7 +47,7 @@ if [[ -z $chainid ]]; then
 fi
 rpc="$(gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/ethereum-lists/chains/contents/_data/chains/eip155-$chainid.json | jq -r .content | base64 --decode | jq -r '.rpc[0]')"
 if [[ -z $rpc ]]; then
-    echo "ERROR: RPC not specified as per the PR Template" 1>&2
+    echo "ERROR: RPC not fetched correctly from the ethereum-lists" 1>&2
     exit 1
 fi
 version="$(gh pr diff $pr --name-only | sed -nE 's|^src/assets/v([0-9\.]*)/.*$|\1|p' | sort -u)"
