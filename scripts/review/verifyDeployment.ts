@@ -43,8 +43,12 @@ async function main() {
     }
   };
 
+  debug('Parsed options:');
+  debug(options);
+
   await fetch(`https://chainlist.org/chain/${options.chainId}`).then((response) => {
     if (!response.ok) {
+      debug(response);
       throw new Error(`chain is not registered on Chainlist`);
     }
   });
