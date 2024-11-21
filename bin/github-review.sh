@@ -45,9 +45,10 @@ if [[ -z $chainid ]]; then
     echo "ERROR: Chain ID not specified as per the PR Template" 1>&2
     exit 1
 fi
-rpc="$(gh pr view $pr | sed -nE 's|^- RPC_URL: (https?://[^ ]+).*$|\1|p')"
+chainInfo="https://raw.githubusercontent.com/ethereum-lists/chains/refs/heads/master/_data/chains/eip155-$chainid.json"  
+rpc="$(curl -sfL "$chainInfo" | jq -r '.rpc[0]')" 
 if [[ -z $rpc ]]; then
-    echo "ERROR: RPC not specified as per the PR Template" 1>&2
+    echo "ERROR: RPC not fetched correctly from the ethereum-lists" 1>&2
     exit 1
 fi
 version="$(gh pr diff $pr --name-only | sed -nE 's|^src/assets/v([0-9\.]*)/.*$|\1|p' | sort -u)"
