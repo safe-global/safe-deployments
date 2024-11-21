@@ -1,6 +1,6 @@
 {
   "name": "@safe-global/safe-deployments",
-  "version": "1.37.17",
+  "version": "1.37.18",
   "description": "Collection of Safe singleton deployments",
   "homepage": "https://github.com/safe-global/safe-deployments/",
   "license": "MIT",
