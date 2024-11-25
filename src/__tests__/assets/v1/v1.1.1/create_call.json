@@ -1,0 +1,90 @@
+{
+  "defaultAddress": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
+  "released": true,
+  "contractName": "CreateCall",
+  "version": "1.1.1",
+  "deployments": {
+    "canonical": {
+      "address": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
+      "codeHash": "0x9de5afc9afd2bc0e329d9b4fa34955da45bb8e11587c645c5ff5287d7507adeb"
+    }
+  },
+  "networkAddresses": {
+    "1": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
+    "4": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
+    "5": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
+    "42": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
+    "88": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
+    "100": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
+    "246": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
+    "73799": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A"
+  },
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "newContract",
+          "type": "address"
+        }
+      ],
+      "name": "ContractCreation",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "value",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "deploymentData",
+          "type": "bytes"
+        }
+      ],
+      "name": "performCreate",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "newContract",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "value",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "deploymentData",
+          "type": "bytes"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "salt",
+          "type": "bytes32"
+        }
+      ],
+      "name": "performCreate2",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "newContract",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]
+}

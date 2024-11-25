@@ -1,14 +1,19 @@
 {
-  "defaultAddress": "0x12302fE9c02ff50939BaAaaf415fc226C078613C",
   "released": true,
   "contractName": "ProxyFactory",
   "version": "1.0.0",
+  "deployments": {
+    "canonical": {
+      "address": "0x12302fE9c02ff50939BaAaaf415fc226C078613C",
+      "codeHash": "0x84a375ad96ab395850d46cd601ed6354d3cf3fb67cec0caf18f34af5c9d1a7f0"
+    }
+  },
   "networkAddresses": {
-    "1": "0x12302fE9c02ff50939BaAaaf415fc226C078613C",
-    "4": "0x12302fE9c02ff50939BaAaaf415fc226C078613C",
-    "5": "0x12302fE9c02ff50939BaAaaf415fc226C078613C",
-    "42": "0x12302fE9c02ff50939BaAaaf415fc226C078613C",
-    "100": "0x12302fE9c02ff50939BaAaaf415fc226C078613C"
+    "1": "canonical",
+    "4": "canonical",
+    "5": "canonical",
+    "42": "canonical",
+    "100": "canonical"
   },
   "abi": [
     {
