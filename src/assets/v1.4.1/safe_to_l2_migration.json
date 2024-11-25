@@ -1,0 +1,225 @@
+{
+  "released": true,
+  "contractName": "SafeToL2Migration",
+  "version": "1.4.1",
+  "deployments": {
+    "canonical": {
+      "address": "0xfF83F6335d8930cBad1c0D439A841f01888D9f69",
+      "codeHash": "0xa83e7be2fa20c96dc9575e3937239d552f3831ea437d7c96397eec8736f0cba0"
+    }
+  },
+  "networkAddresses": {
+    "1": "canonical",
+    "10": "canonical",
+    "56": "canonical",
+    "81": "canonical",
+    "88": "canonical",
+    "100": "canonical",
+    "137": "canonical",
+    "196": "canonical",
+    "314": "canonical",
+    "480": "canonical",
+    "970": "canonical",
+    "995": "canonical",
+    "1101": "canonical",
+    "1337": "canonical",
+    "1516": "canonical",
+    "1924": "canonical",
+    "2187": "canonical",
+    "2442": "canonical",
+    "2818": "canonical",
+    "5000": "canonical",
+    "5115": "canonical",
+    "8453": "canonical",
+    "9700": "canonical",
+    "10081": "canonical",
+    "13746": "canonical",
+    "42161": "canonical",
+    "42220": "canonical",
+    "42421": "canonical",
+    "43114": "canonical",
+    "44787": "canonical",
+    "59144": "canonical",
+    "81457": "canonical",
+    "84532": "canonical",
+    "534352": "canonical",
+    "743111": "canonical",
+    "3441006": "canonical",
+    "11155111": "canonical",
+    "1313161554": "canonical"
+  },
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "singleton",
+          "type": "address"
+        }
+      ],
+      "name": "ChangedMasterCopy",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "value",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum Enum.Operation",
+          "name": "operation",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "safeTxGas",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "baseGas",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "gasPrice",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "gasToken",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address payable",
+          "name": "refundReceiver",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes",
+          "name": "signatures",
+          "type": "bytes"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes",
+          "name": "additionalInfo",
+          "type": "bytes"
+        }
+      ],
+      "name": "SafeMultiSigTransaction",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "initiator",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address[]",
+          "name": "owners",
+          "type": "address[]"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "threshold",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "initializer",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "fallbackHandler",
+          "type": "address"
+        }
+      ],
+      "name": "SafeSetup",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "MIGRATION_SINGLETON",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "l2Singleton",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "fallbackHandler",
+          "type": "address"
+        }
+      ],
+      "name": "migrateFromV111",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "l2Singleton",
+          "type": "address"
+        }
+      ],
+      "name": "migrateToL2",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]
+}

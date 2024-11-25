@@ -1,0 +1,84 @@
+{
+  "released": true,
+  "contractName": "SafeToL2Setup",
+  "version": "1.4.1",
+  "deployments": {
+    "canonical": {
+      "address": "0xBD89A1CE4DDe368FFAB0eC35506eEcE0b1fFdc54",
+      "codeHash": "0x2f25df28caf984366ee584e13241707e85dcd5a6ea0c14267928dafc1fd6274b"
+    }
+  },
+  "networkAddresses": {
+    "1": "canonical",
+    "10": "canonical",
+    "56": "canonical",
+    "81": "canonical",
+    "88": "canonical",
+    "100": "canonical",
+    "137": "canonical",
+    "196": "canonical",
+    "314": "canonical",
+    "480": "canonical",
+    "970": "canonical",
+    "995": "canonical",
+    "1101": "canonical",
+    "1337": "canonical",
+    "1516": "canonical",
+    "1924": "canonical",
+    "2187": "canonical",
+    "2442": "canonical",
+    "2818": "canonical",
+    "5000": "canonical",
+    "5115": "canonical",
+    "8453": "canonical",
+    "9700": "canonical",
+    "10081": "canonical",
+    "13746": "canonical",
+    "42161": "canonical",
+    "42220": "canonical",
+    "42421": "canonical",
+    "43114": "canonical",
+    "44787": "canonical",
+    "59144": "canonical",
+    "81457": "canonical",
+    "84532": "canonical",
+    "534352": "canonical",
+    "743111": "canonical",
+    "3441006": "canonical",
+    "11155111": "canonical",
+    "1313161554": "canonical"
+  },
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "singleton",
+          "type": "address"
+        }
+      ],
+      "name": "ChangedMasterCopy",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "l2Singleton",
+          "type": "address"
+        }
+      ],
+      "name": "setupToL2",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]
+}

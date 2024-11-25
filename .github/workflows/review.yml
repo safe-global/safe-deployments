@@ -1,0 +1,30 @@
+name: Review
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+    paths:
+      - 'src/assets/**'
+  workflow_dispatch:
+
+permissions:
+  pull-requests: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+    - name: Review PR
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        git fetch https://github.com/safe-global/safe-deployments.git main:safe-global-main
+        if ! git diff --exit-code safe-global-main -- bin/github-review.sh; then
+          echo "ERROR: GitHub review script is not up-to-date" 1>&2
+          exit 1
+        fi
+        npm ci
+        bash bin/github-review.sh ${{ github.event.number }}

@@ -9,9 +9,11 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js 18
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 18
-      - run: yarn && yarn test
+          node-version: 20
+      - run: |
+          npm ci
+          npm test
+          npm run lint
