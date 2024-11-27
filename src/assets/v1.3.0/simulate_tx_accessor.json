@@ -126,6 +126,7 @@
     "1807": "canonical",
     "1890": "canonical",
     "1891": "canonical",
+    "1924": ["canonical", "eip155"],
     "1984": "canonical",
     "1998": "canonical",
     "2001": "canonical",
@@ -304,7 +305,8 @@
     "11297108099": "canonical",
     "11297108109": "canonical",
     "37714555429": "canonical",
-    "88153591557": ["canonical", "eip155"]
+    "88153591557": ["canonical", "eip155"],
+    "920637907288165": "canonical"
   },
   "abi": [
     {
