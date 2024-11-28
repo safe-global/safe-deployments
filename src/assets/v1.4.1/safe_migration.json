@@ -28,6 +28,7 @@
     "2187": "canonical",
     "2442": "canonical",
     "2818": "canonical",
+    "4061": "canonical",
     "5000": "canonical",
     "5115": "canonical",
     "8453": "canonical",
@@ -42,11 +43,14 @@
     "59144": "canonical",
     "81457": "canonical",
     "84532": "canonical",
+    "98864": "canonical",
+    "98865": "canonical",
     "534352": "canonical",
     "743111": "canonical",
     "3441006": "canonical",
     "11155111": "canonical",
-    "1313161554": "canonical"
+    "1313161554": "canonical",
+    "1570754601": "canonical"
   },
   "abi": [
     {
