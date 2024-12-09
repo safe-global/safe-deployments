@@ -39,6 +39,7 @@
     "43": ["eip155", "canonical"],
     "44": ["eip155", "canonical"],
     "46": ["eip155", "canonical"],
+    "4661": "canonical",
     "50": "canonical",
     "51": "canonical",
     "56": ["canonical", "eip155"],
