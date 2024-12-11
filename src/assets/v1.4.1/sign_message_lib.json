@@ -6,6 +6,10 @@
     "canonical": {
       "address": "0xd53cd0aB83D845Ac265BE939c57F53AD838012c9",
       "codeHash": "0x525c754a46b79e05543a59bb61e8de3c9eee0d955a59352409cbe67ea1077528"
+    },
+    "eip7702": {
+      "address": "0xDB94695bB4E974adfCD116351aF427937AD3a4b5",
+      "codeHash": "0x1dcf1b02354bbf38e66dc111f6ba8865e9dadab23f2e94aab446a8f82e5f0de1"
     }
   },
   "networkAddresses": {
@@ -133,6 +137,7 @@
     "9999999": "canonical",
     "11155111": "canonical",
     "11155420": "canonical",
+    "12121211": "eip7702",
     "52164803": "canonical",
     "94204209": "canonical",
     "111557560": "canonical",
@@ -146,6 +151,7 @@
     "1511670449": "canonical",
     "1666600000": "canonical",
     "1666700000": "canonical",
+    "7042905162": "eip7702",
     "88153591557": "canonical",
     "123420000220": "canonical"
   },
