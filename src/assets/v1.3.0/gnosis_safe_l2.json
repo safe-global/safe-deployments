@@ -110,6 +110,7 @@
     "1101": ["canonical", "eip155"],
     "1111": "eip155",
     "1112": "eip155",
+    "1114": "canonical",
     "1115": "canonical",
     "1116": "canonical",
     "1135": ["canonical", "eip155"],
