@@ -226,6 +226,7 @@
     "34443": ["canonical", "eip155"],
     "35441": "canonical",
     "35443": "canonical",
+    "37111": "zksync",
     "41455": ["canonical", "eip155"],
     "42161": ["canonical", "eip155"],
     "42170": "canonical",
