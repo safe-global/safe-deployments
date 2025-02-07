@@ -263,6 +263,7 @@
     "80002": "canonical",
     "80084": "canonical",
     "80085": ["canonical", "eip155"],
+    "80094": ["canonical", "eip155"],
     "81457": ["canonical", "eip155"],
     "83291": "canonical",
     "84531": "eip155",
