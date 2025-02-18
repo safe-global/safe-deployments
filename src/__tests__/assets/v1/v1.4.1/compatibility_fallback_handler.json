@@ -1,0 +1,447 @@
+{
+  "defaultAddress": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+  "released": true,
+  "contractName": "CompatibilityFallbackHandler",
+  "version": "1.4.1",
+  "deployments": {
+    "canonical": {
+      "address": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+      "codeHash": "0x7c6007a5d711cea8dfd5d91f5940ec29c7f200fe511eb1fc1397b367af3c42f9"
+    }
+  },
+  "networkAddresses": {
+    "1": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "5": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "10": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "25": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "31": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "40": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "41": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "56": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "71": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "97": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "100": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "137": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "155": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "169": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "250": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "252": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "255": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "336": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "338": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "369": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "530": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "690": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "919": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "1030": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "1101": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "1111": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "1112": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "1135": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "1284": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "1285": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "1287": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "1329": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "1337": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "1442": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "1625": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "1729": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "2000": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "2039": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "2358": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "2810": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "3636": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "3776": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "4002": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "4157": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "4202": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "4337": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "4653": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "5000": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "5003": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "6001": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "7000": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "7001": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "7171": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "7560": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "7771": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "8192": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "8194": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "8453": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "9001": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "10242": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "10243": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "11235": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "13337": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "17000": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "17069": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "18233": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "23294": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "23295": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "32769": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "33101": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "34443": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "42161": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "42220": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "43114": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "54211": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "59140": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "59141": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "59144": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "80001": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "80085": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "81457": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "84531": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "84532": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "90001": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "105105": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "111188": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "167000": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "167009": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "205205": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "444444": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "534351": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "534352": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "555666": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "713715": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "6038361": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "7225878": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "7777777": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "11155111": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "11155420": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "94204209": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "111557560": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "123420111": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "168587773": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "666666666": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "999999999": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "1313161554": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "1313161555": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "1666600000": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "1666700000": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+    "88153591557": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99"
+  },
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "contract Safe",
+          "name": "safe",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes",
+          "name": "message",
+          "type": "bytes"
+        }
+      ],
+      "name": "encodeMessageDataForSafe",
+      "outputs": [
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "message",
+          "type": "bytes"
+        }
+      ],
+      "name": "getMessageHash",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "contract Safe",
+          "name": "safe",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes",
+          "name": "message",
+          "type": "bytes"
+        }
+      ],
+      "name": "getMessageHashForSafe",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getModules",
+      "outputs": [
+        {
+          "internalType": "address[]",
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "_dataHash",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes",
+          "name": "_signature",
+          "type": "bytes"
+        }
+      ],
+      "name": "isValidSignature",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "",
+          "type": "bytes4"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "_data",
+          "type": "bytes"
+        },
+        {
+          "internalType": "bytes",
+          "name": "_signature",
+          "type": "bytes"
+        }
+      ],
+      "name": "isValidSignature",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "",
+          "type": "bytes4"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "name": "onERC1155BatchReceived",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "",
+          "type": "bytes4"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "name": "onERC1155Received",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "",
+          "type": "bytes4"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "name": "onERC721Received",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "",
+          "type": "bytes4"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "targetContract",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes",
+          "name": "calldataPayload",
+          "type": "bytes"
+        }
+      ],
+      "name": "simulate",
+      "outputs": [
+        {
+          "internalType": "bytes",
+          "name": "response",
+          "type": "bytes"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes4",
+          "name": "interfaceId",
+          "type": "bytes4"
+        }
+      ],
+      "name": "supportsInterface",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        },
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "name": "tokensReceived",
+      "outputs": [],
+      "stateMutability": "pure",
+      "type": "function"
+    }
+  ]
+}

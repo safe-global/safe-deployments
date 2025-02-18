@@ -1,0 +1,211 @@
+{
+  "released": true,
+  "contractName": "SafeMigration",
+  "version": "1.4.1",
+  "deployments": {
+    "canonical": {
+      "address": "0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6",
+      "codeHash": "0xc00d7921460cd5a05393e7772e634bd7d212f356356aa3a77f0120a9b8e25e99"
+    }
+  },
+  "networkAddresses": {
+    "1": "canonical",
+    "10": "canonical",
+    "39": "canonical",
+    "44": "canonical",
+    "56": "canonical",
+    "81": "canonical",
+    "88": "canonical",
+    "100": "canonical",
+    "122": "canonical",
+    "130": "canonical",
+    "133": "canonical",
+    "137": "canonical",
+    "146": "canonical",
+    "177": "canonical",
+    "181": "canonical",
+    "196": "canonical",
+    "314": "canonical",
+    "466": "canonical",
+    "478": "canonical",
+    "480": "canonical",
+    "545": "canonical",
+    "747": "canonical",
+    "938": "canonical",
+    "970": "canonical",
+    "995": "canonical",
+    "1001": "canonical",
+    "1101": "canonical",
+    "1125": "canonical",
+    "1337": "canonical",
+    "1516": "canonical",
+    "1663": "canonical",
+    "1750": "canonical",
+    "1923": "canonical",
+    "1924": "canonical",
+    "2187": "canonical",
+    "2442": "canonical",
+    "2818": "canonical",
+    "3501": "canonical",
+    "4061": "canonical",
+    "4661": "canonical",
+    "5000": "canonical",
+    "5115": "canonical",
+    "5611": "canonical",
+    "7200": "canonical",
+    "8217": "canonical",
+    "8408": "canonical",
+    "8453": "canonical",
+    "9700": "canonical",
+    "10081": "canonical",
+    "10242": "canonical",
+    "13746": "canonical",
+    "33139": "canonical",
+    "42161": "canonical",
+    "42220": "canonical",
+    "42421": "canonical",
+    "43111": "canonical",
+    "43114": "canonical",
+    "44787": "canonical",
+    "47763": "canonical",
+    "57000": "canonical",
+    "57054": "canonical",
+    "57073": "canonical",
+    "59144": "canonical",
+    "80094": "canonical",
+    "81457": "canonical",
+    "84532": "canonical",
+    "98864": "canonical",
+    "98865": "canonical",
+    "175188": "canonical",
+    "314159": "canonical",
+    "381931": "canonical",
+    "534352": "canonical",
+    "743111": "canonical",
+    "839999": "canonical",
+    "984122": "canonical",
+    "1501869": "canonical",
+    "3441006": "canonical",
+    "11155111": "canonical",
+    "12227332": "canonical",
+    "253368190": "canonical",
+    "1313161554": "canonical",
+    "1570754601": "canonical"
+  },
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "safeSingleton",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "safeL2Singleton",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "fallbackHandler",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "singleton",
+          "type": "address"
+        }
+      ],
+      "name": "ChangedMasterCopy",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "MIGRATION_SINGLETON",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "SAFE_FALLBACK_HANDLER",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "SAFE_L2_SINGLETON",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "SAFE_SINGLETON",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "migrateL2Singleton",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "migrateL2WithFallbackHandler",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "migrateSingleton",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "migrateWithFallbackHandler",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]
+}
