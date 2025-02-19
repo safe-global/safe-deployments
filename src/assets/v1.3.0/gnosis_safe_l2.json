@@ -111,6 +111,7 @@
     "787": "eip155",
     "919": ["canonical", "eip155"],
     "943": "canonical",
+	"999": "canonical",
     "1001": "eip155",
     "1008": "canonical",
     "1030": "canonical",
