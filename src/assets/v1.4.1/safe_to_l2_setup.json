@@ -4,8 +4,8 @@
   "version": "1.4.1",
   "deployments": {
     "canonical": {
-      "address": "0xBD89A1CE4DDe368FFAB0eC35506eEcE0b1fFdc54",
-      "codeHash": "0x2f25df28caf984366ee584e13241707e85dcd5a6ea0c14267928dafc1fd6274b"
+      "address": "0x0a9DE008be40436F3dc1078aaeC9b4786094f079",
+      "codeHash": "be318cbbf31d4314caa473f4ac0ebe927319072ef06013fa5d5273a0dee8a7cd"
     }
   },
   "networkAddresses": {
@@ -108,14 +108,14 @@
   "abi": [
     {
       "inputs": [],
-      "stateMutability": "nonpayable",
+      "stateMutability": "payable",
       "type": "constructor"
     },
     {
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
+          "indexed": true,
           "internalType": "address",
           "name": "singleton",
           "type": "address"
@@ -134,7 +134,7 @@
       ],
       "name": "setupToL2",
       "outputs": [],
-      "stateMutability": "nonpayable",
+      "stateMutability": "payable",
       "type": "function"
     }
   ]
