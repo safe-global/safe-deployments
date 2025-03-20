@@ -9,7 +9,8 @@
     },
     "zksync": {
       "address": "0x309D0B190FeCCa8e1D5D8309a16F7e3CB133E885",
-      "codehash": "0x0100004bb025372ae0d1d8ad55fda46cd91257332cb1bd893b82f1a72fa3d832"
+      "codehash": "0xcb372f27aba6983e7b54997ebb4a75c35876b2a279238ab914c5415de1e95137",
+      "zksolcExtcodehash": "0x0100004bb025372ae0d1d8ad55fda46cd91257332cb1bd893b82f1a72fa3d832"
     }
   },
   "networkAddresses": {
