@@ -6,6 +6,10 @@
     "canonical": {
       "address": "0xd53cd0aB83D845Ac265BE939c57F53AD838012c9",
       "codeHash": "0x525c754a46b79e05543a59bb61e8de3c9eee0d955a59352409cbe67ea1077528"
+    },
+    "zksync": {
+      "address": "0xAca1ec0a1A575CDCCF1DC3d5d296202Eb6061888",
+      "codeHash": "0x3e762bdca5f7d61c70e7ad1d1cb7b999481954543e7c29540e757d3e7004aa6b"
     }
   },
   "networkAddresses": {
@@ -40,6 +44,7 @@
     "196": "canonical",
     "204": "canonical",
     "228": "canonical",
+    "232": "zksync",
     "250": "canonical",
     "252": "canonical",
     "255": "canonical",
