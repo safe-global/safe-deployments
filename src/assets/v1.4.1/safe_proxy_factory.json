@@ -9,7 +9,7 @@
     },
     "zksync": {
       "address": "0xc329D02fd8CB2fc13aa919005aF46320794a8629",
-      "codehash": "0xa4915e4a50124b5dce3c9adc34cce8108fc5dbda97d443534699621d6e0013ba"
+      "codeHash": "0xa4915e4a50124b5dce3c9adc34cce8108fc5dbda97d443534699621d6e0013ba"
     }
   },
   "networkAddresses": {
