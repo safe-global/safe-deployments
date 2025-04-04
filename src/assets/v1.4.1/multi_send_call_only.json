@@ -6,6 +6,10 @@
     "canonical": {
       "address": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
       "codeHash": "0xecd5bd14a08c5d2122379900b2f272bdf107a7e92423c10dd5fe3254386c9939"
+    },
+    "zksync": {
+      "address": "0x0408EF011960d02349d50286D20531229BCef773",
+      "codeHash": "0x44c70b30fed5c3a07358a52c2fb028f651031010ef99e4d8c3b45c208e88a264"
     }
   },
   "networkAddresses": {
@@ -38,6 +42,9 @@
     "177": "canonical",
     "181": "canonical",
     "196": "canonical",
+    "204": "canonical",
+    "228": "canonical",
+    "232": "zksync",
     "250": "canonical",
     "252": "canonical",
     "255": "canonical",
@@ -55,6 +62,7 @@
     "747": "canonical",
     "919": "canonical",
     "938": "canonical",
+    "964": "canonical",
     "970": "canonical",
     "995": "canonical",
     "1001": "canonical",
@@ -70,6 +78,7 @@
     "1315": "canonical",
     "1329": "canonical",
     "1337": "canonical",
+    "1424": "canonical",
     "1442": "canonical",
     "1516": "canonical",
     "1625": "canonical",
@@ -84,6 +93,7 @@
     "2039": "canonical",
     "2187": "canonical",
     "2192": "canonical",
+    "2345": "canonical",
     "2358": "canonical",
     "2424": "canonical",
     "2442": "canonical",
@@ -138,6 +148,7 @@
     "17000": "canonical",
     "17069": "canonical",
     "18233": "canonical",
+    "18880": "canonical",
     "23294": "canonical",
     "23295": "canonical",
     "32769": "canonical",
@@ -185,6 +196,7 @@
     "534351": "canonical",
     "534352": "canonical",
     "555666": "canonical",
+    "560048": "canonical",
     "713715": "canonical",
     "743111": "canonical",
     "839999": "canonical",
@@ -198,6 +210,7 @@
     "11155111": "canonical",
     "11155420": "canonical",
     "12227332": "canonical",
+    "21000000": "canonical",
     "52164803": "canonical",
     "94204209": "canonical",
     "111557560": "canonical",
@@ -215,6 +228,7 @@
     "1570754601": "canonical",
     "1666600000": "canonical",
     "1666700000": "canonical",
+    "1952959480": "canonical",
     "88153591557": "canonical",
     "123420000220": "canonical"
   },

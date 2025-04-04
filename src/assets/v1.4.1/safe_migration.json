@@ -6,6 +6,10 @@
     "canonical": {
       "address": "0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6",
       "codeHash": "0xc00d7921460cd5a05393e7772e634bd7d212f356356aa3a77f0120a9b8e25e99"
+    },
+    "zksync": {
+      "address": "0x817756C6c555A94BCEE39eB5a102AbC1678b09A7",
+      "codeHash": "0x6815c12fbdeb438fb0fb1e1484ac190ca2fc98065b93f95db846596c3c0eee70"
     }
   },
   "networkAddresses": {
@@ -26,6 +30,9 @@
     "177": "canonical",
     "181": "canonical",
     "196": "canonical",
+    "204": "canonical",
+    "228": "canonical",
+    "232": "zksync",
     "314": "canonical",
     "466": "canonical",
     "478": "canonical",
@@ -33,6 +40,7 @@
     "545": "canonical",
     "747": "canonical",
     "938": "canonical",
+    "964": "canonical",
     "970": "canonical",
     "995": "canonical",
     "1001": "canonical",
@@ -40,6 +48,7 @@
     "1125": "canonical",
     "1315": "canonical",
     "1337": "canonical",
+    "1424": "canonical",
     "1516": "canonical",
     "1663": "canonical",
     "1740": "canonical",
@@ -47,6 +56,7 @@
     "1923": "canonical",
     "1924": "canonical",
     "2187": "canonical",
+    "2345": "canonical",
     "2424": "canonical",
     "2442": "canonical",
     "2818": "canonical",
@@ -69,6 +79,7 @@
     "10242": "canonical",
     "11011": "canonical",
     "13746": "canonical",
+    "18880": "canonical",
     "33139": "canonical",
     "42161": "canonical",
     "42220": "canonical",
@@ -92,6 +103,7 @@
     "314159": "canonical",
     "381931": "canonical",
     "534352": "canonical",
+    "560048": "canonical",
     "743111": "canonical",
     "839999": "canonical",
     "984122": "canonical",
@@ -99,11 +111,13 @@
     "3441006": "canonical",
     "11155111": "canonical",
     "12227332": "canonical",
+    "21000000": "canonical",
     "253368190": "canonical",
     "994873017": "canonical",
     "1313161554": "canonical",
     "1417429182": "canonical",
-    "1570754601": "canonical"
+    "1570754601": "canonical",
+    "1952959480": "canonical"
   },
   "abi": [
     {
