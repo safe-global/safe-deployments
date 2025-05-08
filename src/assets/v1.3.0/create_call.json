@@ -257,7 +257,7 @@
     "45000": "canonical",
     "47763": "canonical",
     "47805": "canonical",
-    "48899": ["canonical", "eip155"],
+    "48899": ["eip155", "canonical"],
     "48900": ["canonical", "eip155"],
     "53456": "canonical",
     "53457": "canonical",
