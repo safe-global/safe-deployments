@@ -158,7 +158,7 @@
     "2019": "canonical",
     "2020": "canonical",
     "2021": "canonical",
-    "2039": "canonical",
+    "2039": ["canonical", "eip155"],
     "2192": ["canonical", "eip155"],
     "2221": ["canonical", "eip155"],
     "2222": ["canonical", "eip155"],
