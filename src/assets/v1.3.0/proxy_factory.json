@@ -234,7 +234,7 @@
     "12357": "canonical",
     "12553": "canonical",
     "13337": "canonical",
-    "13371": "eip155",
+    "13371": ["eip155", "canonical"],
     "13473": "eip155",
     "13746": "canonical",
     "14800": "eip155",
