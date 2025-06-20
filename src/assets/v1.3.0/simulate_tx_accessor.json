@@ -91,7 +91,7 @@
     "324": "zksync",
     "336": ["canonical", "eip155"],
     "338": "eip155",
-    "360": "eip155",
+    "360": ["eip155", "canonical"],
     "369": "canonical",
     "388": "zksync",
     "418": "canonical",
