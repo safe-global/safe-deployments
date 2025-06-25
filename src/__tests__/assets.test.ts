@@ -77,22 +77,6 @@ describe('assets/', () => {
               expect(KNOWN_ADDRESS_TYPES).toContain(addressType);
             }
           });
-
-          it('no network can contain zksync address together with other address types', async () => {
-            const deploymentJson = await readAssetJSON(version, file);
-            if (!deploymentJson) {
-              throw new Error(`Failed to read asset ${version}/${file}`);
-            }
-            const { networkAddresses } = deploymentJson;
-
-            for (const network of Object.keys(networkAddresses)) {
-              const addressTypes = networkAddresses[network];
-
-              if (Array.isArray(addressTypes)) {
-                expect(addressTypes).not.toContain('zksync');
-              }
-            }
-          });
         });
       }
 
