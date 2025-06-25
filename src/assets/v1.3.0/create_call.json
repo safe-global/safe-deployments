@@ -226,7 +226,7 @@
     "10242": "eip155",
     "10243": "eip155",
     "10849": "canonical",
-    "11011": "eip155",
+    "11011": ["eip155", "canonical"],
     "11111": "canonical",
     "11124": "zksync",
     "11235": "canonical",
