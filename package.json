@@ -19,6 +19,7 @@
     "lint:fix:ts": "npm run lint:ts -- --fix",
     "lint:fix:json": "prettier -w src/assets/*/*.json",
     "review:verify-deployment": "ts-node scripts/review/verifyDeployment.ts",
+    "deployment:add": "ts-node scripts/deployment/add.ts",
     "review:diff": "ts-node scripts/review/diff.ts",
     "prepack": "npm run build",
     "test": "jest"
