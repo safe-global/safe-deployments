@@ -115,7 +115,6 @@ async function main() {
           // Add the tag if it doesn't exist in the array
           if (!json.networkAddresses[options.chainId].includes(options.tag)) {
             json.networkAddresses[options.chainId].push(options.tag);
-            // Sort the array alphabetically
             json.networkAddresses[options.chainId];
           }
         } else {
