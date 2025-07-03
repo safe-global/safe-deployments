@@ -1,13 +1,19 @@
-import ProxyFactory130 from './assets/v1/v1.3.0/proxy_factory.json';
-import ProxyFactory141 from './assets/v1/v1.4.1/safe_proxy_factory.json';
+import SafeProxyFactory from '../assets/v1.5.0/safe_proxy_factory.json';
 import { getProxyFactoryDeployment } from '../factories';
 
 describe('factories.ts', () => {
   describe('getProxyFactoryDeployment', () => {
     it('should find the latest deployment first', () => {
       const result = getProxyFactoryDeployment();
-      expect(result).toMatchObject(ProxyFactory141);
-      expect(result).not.toBe(ProxyFactory130);
+      expect(result).toMatchObject({
+        defaultAddress: SafeProxyFactory.deployments.canonical.address,
+        contractName: 'SafeProxyFactory',
+        version: '1.5.0',
+        networkAddresses: {
+          ['1']: SafeProxyFactory.deployments.canonical.address,
+        },
+        abi: SafeProxyFactory.abi,
+      });
     });
   });
 });

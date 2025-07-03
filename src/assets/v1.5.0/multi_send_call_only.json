@@ -1,0 +1,31 @@
+{
+  "released": true,
+  "contractName": "MultiSendCallOnly",
+  "version": "1.5.0",
+  "deployments": {
+    "canonical": {
+      "address": "0xA83c336B20401Af773B6219BA5027174338D1836",
+      "codeHash": "0xcdbdcec38d2f1c7d961b0029ff8416b7e86e9974d6f0e9c9580c7d17fcfb6663"
+    }
+  },
+  "networkAddresses": {
+    "1": "canonical"
+  },
+  "abi": [
+    [
+      {
+        "inputs": [
+          {
+            "internalType": "bytes",
+            "name": "transactions",
+            "type": "bytes"
+          }
+        ],
+        "name": "multiSend",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+      }
+    ]
+  ]
+}

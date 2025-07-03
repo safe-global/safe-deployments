@@ -1,0 +1,84 @@
+{
+  "released": true,
+  "contractName": "CreateCall",
+  "version": "1.5.0",
+  "deployments": {
+    "canonical": {
+      "address": "0x2Ef5ECfbea521449E4De05EDB1ce63B75eDA90B4",
+      "codeHash": "0x6b7d8d29bdf7004c4617d95041923774f3f7e74b056bff55c1861c9ec92ce54f"
+    }
+  },
+  "networkAddresses": {
+    "1": "canonical"
+  },
+  "abi": [
+    [
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "newContract",
+            "type": "address"
+          }
+        ],
+        "name": "ContractCreation",
+        "type": "event"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bytes",
+            "name": "deploymentData",
+            "type": "bytes"
+          }
+        ],
+        "name": "performCreate",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "newContract",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bytes",
+            "name": "deploymentData",
+            "type": "bytes"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "salt",
+            "type": "bytes32"
+          }
+        ],
+        "name": "performCreate2",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "newContract",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      }
+    ]
+  ]
+}
