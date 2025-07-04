@@ -1,11 +1,3 @@
-import SafeL2141 from './assets/v1/v1.4.1/safe_l2.json';
-import Safe141 from './assets/v1/v1.4.1/safe.json';
-
-import GnosisSafeL2130 from './assets/v1/v1.3.0/gnosis_safe_l2.json';
-import GnosisSafe130 from './assets/v1/v1.3.0/gnosis_safe.json';
-import GnosisSafe120 from './assets/v1/v1.2.0/gnosis_safe.json';
-import GnosisSafe111 from './assets/v1/v1.1.1/gnosis_safe.json';
-import GnosisSafe100 from './assets/v1/v1.0.0/gnosis_safe.json';
 import { findDeployment } from '../utils';
 import { _SAFE_DEPLOYMENTS, _SAFE_L2_DEPLOYMENTS } from '../deployments';
 import { SingletonDeployment, SingletonDeploymentJSON, DeploymentFormats, SingletonDeploymentV2 } from '../types';
@@ -21,7 +13,7 @@ describe('utils.ts', () => {
           abi: [],
           deployments: {
             canonical: {
-              address: '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
+              address: '0xdeaddeaddeaddeaddeaddeaddeaddeaddeaddead',
               codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
             },
           },
@@ -69,28 +61,13 @@ describe('utils.ts', () => {
         expect(findDeployment({ network: '1' }, testDeployments)).toMatchObject(testReleasedDeployment);
       });
 
-      it('should return the correct deployment (filtered by version)', () => {
-        // Chronological deployments
-        expect(findDeployment({ version: '1.3.0' }, _SAFE_DEPLOYMENTS)).toMatchObject(GnosisSafe130);
-        expect(findDeployment({ version: '1.2.0' }, _SAFE_DEPLOYMENTS)).toMatchObject(GnosisSafe120);
-        expect(findDeployment({ version: '1.1.1' }, _SAFE_DEPLOYMENTS)).toMatchObject(GnosisSafe111);
-        expect(findDeployment({ version: '1.0.0' }, _SAFE_DEPLOYMENTS)).toMatchObject(GnosisSafe100);
-        // Incorrect filter:
-        expect(findDeployment({ version: '2.0.0' }, _SAFE_DEPLOYMENTS)).toBeUndefined();
-
-        // L2 deployments
-        expect(findDeployment({ version: '1.3.0+L2' }, _SAFE_L2_DEPLOYMENTS)).toMatchObject(GnosisSafeL2130);
-        // Incorrect filter:
-        expect(findDeployment({ version: '2.0.0+L2' }, _SAFE_L2_DEPLOYMENTS)).toBeUndefined();
-      });
-
       it('should return the correct deployment (filtered by released flag)', () => {
         const testUnreleasedDeploymentJson: SingletonDeploymentJSON = {
           version: '',
           abi: [],
           deployments: {
             canonical: {
-              address: '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
+              address: '0xdeaddeaddeaddeaddeaddeaddeaddeaddeaddead',
               codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
             },
           },
@@ -112,6 +89,20 @@ describe('utils.ts', () => {
           released: true, // Default filter value
         };
         const testUnreleasedDeployment: SingletonDeployment = {
+          defaultAddress: '0xdeaddeaddeaddeaddeaddeaddeaddeaddeaddead',
+          deployments: {
+            canonical: {
+              address: '0xdeaddeaddeaddeaddeaddeaddeaddeaddeaddead',
+              codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+            },
+          },
+          networkAddresses: { '1': '0xdeaddeaddeaddeaddeaddeaddeaddeaddeaddead' },
+          released: false,
+          abi: [],
+          version: '',
+          contractName: '',
+        };
+        const testReleasedDeployment: SingletonDeployment = {
           defaultAddress: '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
           deployments: {
             canonical: {
@@ -120,64 +111,91 @@ describe('utils.ts', () => {
             },
           },
           networkAddresses: { '1': '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef' },
-          released: false,
+          released: true,
           abi: [],
           version: '',
           contractName: '',
         };
-
         const testDeployments = [testUnreleasedDeploymentJson, testReleasedDeploymentJson];
 
-        // Chronological deployments
-        expect(findDeployment({ released: true }, _SAFE_DEPLOYMENTS)).toMatchObject(Safe141);
-
-        // Reverse chronological deployments
-        expect(findDeployment({ released: true }, _safeDeploymentsReverse)).toMatchObject(GnosisSafe100);
-        // Released flag set to false:
         expect(findDeployment({ released: false }, testDeployments)).toMatchObject(testUnreleasedDeployment);
+        expect(findDeployment({ released: true }, testDeployments)).toMatchObject(testReleasedDeployment);
 
-        // L2 deployments
-        expect(findDeployment({ released: true }, _SAFE_L2_DEPLOYMENTS)).toMatchObject(SafeL2141);
+        expect(findDeployment({ released: true }, _SAFE_DEPLOYMENTS)).toMatchObject({
+          contractName: 'Safe',
+          version: '1.5.0',
+        });
+        expect(findDeployment({ released: true }, _safeDeploymentsReverse)).toMatchObject({
+          contractName: 'GnosisSafe',
+          version: '1.0.0',
+        });
+        expect(findDeployment({ released: true }, _SAFE_L2_DEPLOYMENTS)).toMatchObject({
+          contractName: 'SafeL2',
+          version: '1.5.0',
+        });
       });
 
       it('should return the correct deployment (filtered by network)', () => {
         // Reverse chronological deployments
-        expect(findDeployment({ network: '1' }, _safeDeploymentsReverse)).toMatchObject(GnosisSafe100);
-        expect(findDeployment({ network: '73799' }, _safeDeploymentsReverse)).toMatchObject(GnosisSafe111);
-        expect(findDeployment({ network: '11297108109' }, _safeDeploymentsReverse)).toMatchObject(GnosisSafe130);
+        expect(findDeployment({ network: '1' }, _safeDeploymentsReverse)).toMatchObject({
+          contractName: 'GnosisSafe',
+          version: '1.0.0',
+        });
+        expect(findDeployment({ network: '73799' }, _safeDeploymentsReverse)).toMatchObject({
+          contractName: 'GnosisSafe',
+          version: '1.1.1',
+        });
+        expect(findDeployment({ network: '11297108109' }, _safeDeploymentsReverse)).toMatchObject({
+          contractName: 'GnosisSafe',
+          version: '1.3.0',
+        });
         // Incorrect filter:
         expect(findDeployment({ network: '0' }, _safeDeploymentsReverse)).toBeUndefined();
 
         // L2 deployments
-        expect(findDeployment({ network: '100' }, _SAFE_L2_DEPLOYMENTS)).toMatchObject(SafeL2141);
+        expect(findDeployment({ network: '1' }, _SAFE_L2_DEPLOYMENTS)).toMatchObject({
+          contractName: 'SafeL2',
+          version: '1.5.0',
+        });
         // Incorrect filter:
         expect(findDeployment({ network: '0' }, _SAFE_L2_DEPLOYMENTS)).toBeUndefined();
       });
+
       it('should return the correct deployment (filtered by version and released)', () => {
         // Chronological deployments
-        expect(findDeployment({ version: '1.3.0', released: true }, _SAFE_DEPLOYMENTS)).toMatchObject(GnosisSafe130);
-        expect(findDeployment({ version: '1.2.0', released: true }, _SAFE_DEPLOYMENTS)).toMatchObject(GnosisSafe120);
-        expect(findDeployment({ version: '1.1.1', released: true }, _SAFE_DEPLOYMENTS)).toMatchObject(GnosisSafe111);
-        expect(findDeployment({ version: '1.0.0', released: true }, _SAFE_DEPLOYMENTS)).toMatchObject(GnosisSafe100);
+        expect(findDeployment({ version: '1.3.0', released: true }, _SAFE_DEPLOYMENTS)).toMatchObject({
+          contractName: 'GnosisSafe',
+          version: '1.3.0',
+          released: true,
+        });
+        expect(findDeployment({ version: '1.2.0', released: true }, _SAFE_DEPLOYMENTS)).toMatchObject({
+          contractName: 'GnosisSafe',
+          version: '1.2.0',
+          released: true,
+        });
+        expect(findDeployment({ version: '1.1.1', released: true }, _SAFE_DEPLOYMENTS)).toMatchObject({
+          contractName: 'GnosisSafe',
+          version: '1.1.1',
+          released: true,
+        });
+        expect(findDeployment({ version: '1.0.0', released: true }, _SAFE_DEPLOYMENTS)).toMatchObject({
+          contractName: 'GnosisSafe',
+          version: '1.0.0',
+          released: true,
+        });
         // Incorrect filter:
         expect(findDeployment({ version: '1.0.0', released: false }, _SAFE_DEPLOYMENTS)).toBeUndefined();
 
         // L2 deployments
-        expect(
-          findDeployment(
-            {
-              version: '1.3.0',
-              released: true,
-            },
-            _SAFE_L2_DEPLOYMENTS,
-          ),
-        ).toMatchObject(GnosisSafeL2130);
-        expect(findDeployment({ version: '1.3.0+L2', released: true }, _SAFE_L2_DEPLOYMENTS)).toMatchObject(
-          GnosisSafeL2130,
-        );
+        expect(findDeployment({ version: '1.3.0', released: true }, _SAFE_L2_DEPLOYMENTS)).toMatchObject({
+          contractName: 'GnosisSafeL2',
+          version: '1.3.0',
+          released: true,
+        });
         // Incorrect filter:
-        expect(findDeployment({ version: '1.3.0+L2', released: false }, _SAFE_L2_DEPLOYMENTS)).toBeUndefined();
+        expect(findDeployment({ version: '1.3.0', released: false }, _SAFE_L2_DEPLOYMENTS)).toBeUndefined();
       });
+
       it('should return the correct deployment (filtered by version and network)', () => {
         // Reverse chronological deployments
         expect(
@@ -188,7 +206,10 @@ describe('utils.ts', () => {
             },
             _safeDeploymentsReverse,
           ),
-        ).toMatchObject(GnosisSafe100);
+        ).toMatchObject({
+          contractName: 'GnosisSafe',
+          version: '1.0.0',
+        });
         expect(
           findDeployment(
             {
@@ -197,7 +218,10 @@ describe('utils.ts', () => {
             },
             _safeDeploymentsReverse,
           ),
-        ).toMatchObject(GnosisSafe111);
+        ).toMatchObject({
+          contractName: 'GnosisSafe',
+          version: '1.1.1',
+        });
         expect(
           findDeployment(
             {
@@ -206,7 +230,10 @@ describe('utils.ts', () => {
             },
             _safeDeploymentsReverse,
           ),
-        ).toMatchObject(GnosisSafe120);
+        ).toMatchObject({
+          contractName: 'GnosisSafe',
+          version: '1.2.0',
+        });
         expect(
           findDeployment(
             {
@@ -215,7 +242,10 @@ describe('utils.ts', () => {
             },
             _safeDeploymentsReverse,
           ),
-        ).toMatchObject(GnosisSafe130);
+        ).toMatchObject({
+          contractName: 'GnosisSafe',
+          version: '1.3.0',
+        });
         // Incorrect filter:
         expect(findDeployment({ version: '1.3.0', network: '0' }, _safeDeploymentsReverse)).toBeUndefined();
 
@@ -228,13 +258,14 @@ describe('utils.ts', () => {
             },
             _SAFE_L2_DEPLOYMENTS,
           ),
-        ).toMatchObject(GnosisSafeL2130);
-        expect(findDeployment({ version: '1.3.0+L2', network: '100' }, _SAFE_L2_DEPLOYMENTS)).toMatchObject(
-          GnosisSafeL2130,
-        );
+        ).toMatchObject({
+          contractName: 'GnosisSafeL2',
+          version: '1.3.0',
+        });
         // Incorrect filter:
-        expect(findDeployment({ version: '1.3.0+L2', network: '0' }, _SAFE_L2_DEPLOYMENTS)).toBeUndefined();
+        expect(findDeployment({ version: '1.3.0', network: '0' }, _SAFE_L2_DEPLOYMENTS)).toBeUndefined();
       });
+
       it('should return the correct deployment (filtered by released and network)', () => {
         const testUnreleasedDeploymentJson: SingletonDeploymentJSON = {
           version: '',
@@ -283,6 +314,10 @@ describe('utils.ts', () => {
           testReleasedDeploymentJson,
         ];
 
+        expect(findDeployment({ released: false, network: '1' }, testDeployments)).toMatchObject(
+          testUnreleasedDeployment,
+        );
+
         // Reverse chronological deployments
         expect(
           findDeployment(
@@ -292,39 +327,57 @@ describe('utils.ts', () => {
             },
             _safeDeploymentsReverse,
           ),
-        ).toMatchObject(GnosisSafe100);
-        expect(findDeployment({ released: true, network: '246' }, _safeDeploymentsReverse)).toMatchObject(
-          GnosisSafe111,
-        );
-        expect(findDeployment({ released: true, network: '11297108109' }, _safeDeploymentsReverse)).toMatchObject(
-          GnosisSafe130,
-        );
+        ).toMatchObject({
+          contractName: 'GnosisSafe',
+          version: '1.0.0',
+        });
+        expect(findDeployment({ released: true, network: '246' }, _safeDeploymentsReverse)).toMatchObject({
+          contractName: 'GnosisSafe',
+          version: '1.1.1',
+        });
+        expect(findDeployment({ released: true, network: '11297108109' }, _safeDeploymentsReverse)).toMatchObject({
+          contractName: 'GnosisSafe',
+          version: '1.3.0',
+        });
         // Incorrect filter:
         expect(findDeployment({ released: true, network: '0' }, _safeDeploymentsReverse)).toBeUndefined();
-        expect(findDeployment({ released: false, network: '1' }, testDeployments)).toMatchObject(
-          testUnreleasedDeployment,
-        );
 
         // L2 deployments
-        expect(findDeployment({ released: true, network: '100' }, _SAFE_L2_DEPLOYMENTS)).toMatchObject(SafeL2141);
+        expect(findDeployment({ released: true, network: '1' }, _SAFE_L2_DEPLOYMENTS)).toMatchObject({
+          contractName: 'SafeL2',
+          version: '1.5.0',
+        });
         // Incorrect filter:
         expect(findDeployment({ released: true, network: '0' }, _SAFE_L2_DEPLOYMENTS)).toBeUndefined();
         expect(findDeployment({ released: false, network: '100' }, testDeployments)).toBeUndefined();
       });
+
       it('should return the correct deployment (filtered by version, released and network)', () => {
         // Reverse chronological deployments
         expect(
           findDeployment({ version: '1.0.0', released: true, network: '1' }, _safeDeploymentsReverse),
-        ).toMatchObject(GnosisSafe100);
+        ).toMatchObject({
+          contractName: 'GnosisSafe',
+          version: '1.0.0',
+        });
         expect(
           findDeployment({ version: '1.1.1', released: true, network: '246' }, _safeDeploymentsReverse),
-        ).toMatchObject(GnosisSafe111);
+        ).toMatchObject({
+          contractName: 'GnosisSafe',
+          version: '1.1.1',
+        });
         expect(
           findDeployment({ version: '1.2.0', released: true, network: '73799' }, _safeDeploymentsReverse),
-        ).toMatchObject(GnosisSafe120);
+        ).toMatchObject({
+          contractName: 'GnosisSafe',
+          version: '1.2.0',
+        });
         expect(
           findDeployment({ version: '1.3.0', released: true, network: '11297108109' }, _safeDeploymentsReverse),
-        ).toMatchObject(GnosisSafe130);
+        ).toMatchObject({
+          contractName: 'GnosisSafe',
+          version: '1.3.0',
+        });
         // Incorrect filter:
         expect(
           findDeployment({ version: '1.3.0', released: false, network: '11297108109' }, _safeDeploymentsReverse),
@@ -338,27 +391,20 @@ describe('utils.ts', () => {
 
         // L2 deployments
         expect(
-          findDeployment(
-            {
-              version: '1.3.0',
-              released: true,
-              network: '100',
-            },
-            _SAFE_L2_DEPLOYMENTS,
-          ),
-        ).toMatchObject(GnosisSafeL2130);
-        expect(
-          findDeployment({ version: '1.3.0+L2', released: true, network: '100' }, _SAFE_L2_DEPLOYMENTS),
-        ).toMatchObject(GnosisSafeL2130);
+          findDeployment({ version: '1.3.0', released: true, network: '100' }, _SAFE_L2_DEPLOYMENTS),
+        ).toMatchObject({
+          contractName: 'GnosisSafeL2',
+          version: '1.3.0',
+        });
         // Incorrect filter:
         expect(
-          findDeployment({ version: '1.3.0+L2', released: false, network: '100' }, _SAFE_L2_DEPLOYMENTS),
+          findDeployment({ version: '1.3.0', released: false, network: '100' }, _SAFE_L2_DEPLOYMENTS),
         ).toBeUndefined();
         expect(
-          findDeployment({ version: '1.3.0+L2', released: true, network: '0' }, _SAFE_L2_DEPLOYMENTS),
+          findDeployment({ version: '1.3.0', released: true, network: '0' }, _SAFE_L2_DEPLOYMENTS),
         ).toBeUndefined();
         expect(
-          findDeployment({ version: '2.0.0+L2', released: true, network: '100' }, _SAFE_L2_DEPLOYMENTS),
+          findDeployment({ version: '2.0.0', released: true, network: '100' }, _SAFE_L2_DEPLOYMENTS),
         ).toBeUndefined();
       });
     });

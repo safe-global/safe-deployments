@@ -1,0 +1,36 @@
+{
+  "released": true,
+  "contractName": "MultiSend",
+  "version": "1.5.0",
+  "deployments": {
+    "canonical": {
+      "address": "0x218543288004CD07832472D464648173c77D7eB7",
+      "codeHash": "0xca1147a12963172a93910c5cb2bfa5ad0e941c7f03fc7eb017dd06a8ea4e5604"
+    }
+  },
+  "networkAddresses": {
+    "1": "canonical"
+  },
+  "abi": [
+    [
+      {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "bytes",
+            "name": "transactions",
+            "type": "bytes"
+          }
+        ],
+        "name": "multiSend",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+      }
+    ]
+  ]
+}
