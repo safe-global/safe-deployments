@@ -9,7 +9,8 @@
     }
   },
   "networkAddresses": {
-    "1": "canonical"
+    "1": "canonical",
+    "11155111": "canonical"
   },
   "abi": [
     [
