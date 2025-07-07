@@ -137,6 +137,7 @@
     "1329": "canonical",
     "1337": "eip155",
     "1424": "canonical",
+    "1439": "canonical",
     "1442": "eip155",
     "1480": "eip155",
     "1513": ["eip155", "canonical"],
