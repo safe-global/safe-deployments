@@ -16,7 +16,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
       - run: |
           npm ci
           bash bin/github-release.sh --verbose publish
