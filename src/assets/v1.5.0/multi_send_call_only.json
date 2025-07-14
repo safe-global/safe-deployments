@@ -13,20 +13,18 @@
     "11155111": "canonical"
   },
   "abi": [
-    [
-      {
-        "inputs": [
-          {
-            "internalType": "bytes",
-            "name": "transactions",
-            "type": "bytes"
-          }
-        ],
-        "name": "multiSend",
-        "outputs": [],
-        "stateMutability": "payable",
-        "type": "function"
-      }
-    ]
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "transactions",
+          "type": "bytes"
+        }
+      ],
+      "name": "multiSend",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    }
   ]
 }
