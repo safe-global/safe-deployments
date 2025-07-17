@@ -56,7 +56,7 @@ async function main() {
   if (!Array.isArray(chainlist)) {
     throw new Error('Invalid response format from DefiLlama chainlist');
   }
-  const chainExists = chainlist.some((chain) => chain.chainId === Number(options.chainId));
+  const chainExists = chainlist.some((chain) => `${chain.chainId}` === options.chainId);
   if (!chainExists) {
     throw new Error(`Chain ${options.chainId} is not registered on DefiLlama's ChainList`);
   }
