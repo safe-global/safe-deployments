@@ -47,15 +47,26 @@ if [[ -z $chainid ]]; then
 fi
 
 # Fetch RPC from DefiLlama's chainlist
-chainlist="$(curl -sfL 'https://chainlist.org/rpcs.json')"
-if [[ -z $chainlist ]]; then
-    echo "ERROR: Failed to fetch chainlist from DefiLlama" 1>&2
+chainlist_response=$(curl -sfL 'https://chainlist.org/rpcs.json' || echo "CURL_ERROR:$?")
+if [[ $chainlist_response == CURL_ERROR:* ]]; then
+    error_code=${chainlist_response#CURL_ERROR:}
+    echo "ERROR: Failed to fetch chainlist from DefiLlama (curl error $error_code)" 1>&2
+    exit 1
+fi
+
+# Parse the chainlist response
+if ! chainlist=$(echo "$chainlist_response" | jq -e '.'); then
+    echo "ERROR: Invalid JSON response from DefiLlama's chainlist" 1>&2
     exit 1
 fi
 
 # Extract RPC for the specified chain ID using jq
-rpc="$(echo "$chainlist" | jq -r ".[] | select(.chainId == $chainid) | .rpc[0].url")"
-if [[ -z $rpc ]]; then
+if ! rpc=$(echo "$chainlist" | jq -r ".[] | select(.chainId == $chainid) | .rpc[0].url"); then
+    echo "ERROR: Failed to parse RPC from chainlist response" 1>&2
+    exit 1
+fi
+
+if [[ -z $rpc || $rpc == "null" ]]; then
     echo "ERROR: RPC not found for chain ID $chainid in DefiLlama's chainlist" 1>&2
     exit 1
 fi
