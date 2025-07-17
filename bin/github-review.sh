@@ -61,13 +61,21 @@ if ! chainlist=$(echo "$chainlist_response" | jq -e '.'); then
 fi
 
 # Extract RPC for the specified chain ID using jq
+# First check if the chain exists and has an RPC
+chain_exists=$(echo "$chainlist" | jq -r "map(select(.chainId == $chainid and (.rpc | length > 0))) | length > 0")
+if [[ $chain_exists != "true" ]]; then
+    echo "ERROR: RPC not found for chain ID $chainid in DefiLlama's chainlist" 1>&2
+    exit 1
+fi
+
+# Then get the RPC
 if ! rpc=$(echo "$chainlist" | jq -r ".[] | select(.chainId == $chainid) | .rpc[0].url"); then
     echo "ERROR: Failed to parse RPC from chainlist response" 1>&2
     exit 1
 fi
 
 if [[ -z $rpc || $rpc == "null" ]]; then
-    echo "ERROR: RPC not found for chain ID $chainid in DefiLlama's chainlist" 1>&2
+    echo "ERROR: No valid RPC URL found for chain ID $chainid in DefiLlama's chainlist" 1>&2
     exit 1
 fi
 
