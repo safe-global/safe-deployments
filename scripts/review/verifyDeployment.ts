@@ -58,7 +58,7 @@ async function main() {
   }
   const chainExists = chainlist.some((chain) => chain.chainId === Number(options.chainId));
   if (!chainExists) {
-    throw new Error(`Chain ${options.chainId} is not registered on DefiLlama's chainlist`);
+    throw new Error(`Chain ${options.chainId} is not registered on DefiLlama's ChainList`);
   }
   debug(`chain ${options.chainId} exists on DefiLlama's chainlist`);
 
