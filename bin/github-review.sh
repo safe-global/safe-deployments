@@ -69,7 +69,7 @@ if [[ $chain_exists != "true" ]]; then
 fi
 
 # Then get the RPC
-if ! rpc=$(echo "$chainlist" | jq -r ".[] | select(.chainId == $chainid) | .rpc[0].url"); then
+if ! rpc=$(echo "$chainlist" | jq --arg C "$chainid" -r '.[] | select((.chainId | tostring) == $C) | .rpc[0].url'); then
     echo "ERROR: Failed to parse RPC from chainlist response" 1>&2
     exit 1
 fi
