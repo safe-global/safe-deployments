@@ -60,7 +60,7 @@ async function main() {
   if (!chainExists) {
     throw new Error(`Chain ${options.chainId} is not registered on DefiLlama's ChainList`);
   }
-  debug(`chain ${options.chainId} exists on DefiLlama's chainlist`);
+  debug(`chain ${options.chainId} exists on DefiLlama's ChainList`);
 
   const provider = new ethers.JsonRpcProvider(options.rpc);
   const { chainId } = await provider.getNetwork();
