@@ -49,7 +49,7 @@ async function main() {
   // Verify chain exists in DefiLlama's chainlist
   const response = await fetch('https://chainlist.org/rpcs.json');
   if (!response.ok) {
-    debug(response);
+    debug(`fetching chain list failed with HTTP status ${response.status}`);
     throw new Error(`Failed to fetch chainlist from DefiLlama`);
   }
   const chainlist = (await response.json()) as Array<{ chainId: number; rpcs: string[] }>;
