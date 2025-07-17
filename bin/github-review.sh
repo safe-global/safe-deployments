@@ -56,7 +56,7 @@ fi
 
 # Parse the chainlist response
 if ! chainlist=$(echo "$chainlist_response" | jq -e '.'); then
-    echo "ERROR: Invalid JSON response from DefiLlama's chainlist" 1>&2
+    echo "ERROR: RPC not found for chain ID $chainid in DefiLlama's ChainList" 1>&2
     exit 1
 fi
 
