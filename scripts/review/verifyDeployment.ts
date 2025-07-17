@@ -46,13 +46,21 @@ async function main() {
   debug('Parsed options:');
   debug(options);
 
-  await fetch(`https://chainlist.org/chain/${options.chainId}`).then((response) => {
-    if (!response.ok) {
-      debug(response);
-      throw new Error(`chain is not registered on Chainlist`);
-    }
-  });
-  debug(`chain ${options.chainId} exists on Chainlist`);
+  // Verify chain exists in DefiLlama's chainlist
+  const response = await fetch('https://chainlist.org/rpcs.json');
+  if (!response.ok) {
+    debug(response);
+    throw new Error(`Failed to fetch chainlist from DefiLlama`);
+  }
+  const chainlist = (await response.json()) as Array<{ chainId: number; rpcs: string[] }>;
+  if (!Array.isArray(chainlist)) {
+    throw new Error('Invalid response format from DefiLlama chainlist');
+  }
+  const chainExists = chainlist.some((chain) => chain.chainId === Number(options.chainId));
+  if (!chainExists) {
+    throw new Error(`Chain ${options.chainId} is not registered on DefiLlama's chainlist`);
+  }
+  debug(`chain ${options.chainId} exists on DefiLlama's chainlist`);
 
   const provider = new ethers.JsonRpcProvider(options.rpc);
   const { chainId } = await provider.getNetwork();
