@@ -61,24 +61,11 @@ if ! chainlist=$(echo "$chainlist_response" | jq -e '.'); then
 fi
 
 # Extract RPC for the specified chain ID using jq
-# First check if the chain exists and has an RPC
-chain_exists=$(echo "$chainlist" | jq -r "map(select(.chainId == $chainid and (.rpc | length > 0))) | length > 0")
-if [[ $chain_exists != "true" ]]; then
-    echo "ERROR: RPC not found for chain ID $chainid in DefiLlama's chainlist" 1>&2
+rpc="$(echo "$chainlist" | jq --arg C "$chainid" -r '.[] | select((.chainId | tostring) == $C) | .rpc[0].url')"
+if [[ -z $rpc ]]; then
+    echo "ERROR: Chain is not listed on DefiLlama's ChainList" 1>&2
     exit 1
 fi
-
-# Then get the RPC
-if ! rpc=$(echo "$chainlist" | jq --arg C "$chainid" -r '.[] | select((.chainId | tostring) == $C) | .rpc[0].url'); then
-    echo "ERROR: Failed to parse RPC from chainlist response" 1>&2
-    exit 1
-fi
-
-if [[ -z $rpc || $rpc == "null" ]]; then
-    echo "ERROR: No valid RPC URL found for chain ID $chainid in DefiLlama's chainlist" 1>&2
-    exit 1
-fi
-
 version="$(gh pr diff $pr --name-only | sed -nE 's|^src/assets/v([0-9\.]*)/.*$|\1|p' | sort -u)"
 if [[ "$(echo "$version" | wc -w)" -ne 1 ]]; then
     echo "ERROR: Exactly one version must be added per PR" 1>&2
