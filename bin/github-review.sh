@@ -47,10 +47,8 @@ if [[ -z $chainid ]]; then
 fi
 
 # Fetch RPC from DefiLlama's chainlist
-chainlist_response=$(curl -sfL 'https://chainlist.org/rpcs.json' || echo "CURL_ERROR:$?")
-if [[ $chainlist_response == CURL_ERROR:* ]]; then
-    error_code=${chainlist_response#CURL_ERROR:}
-    echo "ERROR: Failed to fetch chainlist from DefiLlama (curl error $error_code)" 1>&2
+if ! chainlist_response="$(curl -sfL 'https://chainlist.org/rpcs.json')"; then
+    echo "ERROR: Failed to fetch DeFiLlama ChainList" 1>&2
     exit 1
 fi
 
