@@ -1,24 +1,44 @@
 import { DeploymentFilter, DeploymentFormats, SingletonDeployment, SingletonDeploymentV2 } from './types';
 import { findDeployment } from './utils';
-import { _DEFAULT_CALLBACK_HANDLER_DEPLOYMENTS, _COMPAT_FALLBACK_HANDLER_DEPLOYMENTS } from './deployments';
+import {
+  _TOKEN_CALLBACK_HANDLER_DEPLOYMENTS,
+  _COMPAT_FALLBACK_HANDLER_DEPLOYMENTS,
+  _EXTENSIBLE_FALLBACK_HANDLER_DEPLOYMENTS,
+} from './deployments';
 
 /**
- * Get the default callback handler deployment based on the provided filter.
+ * Get the token callback handler deployment based on the provided filter.
  * @param {DeploymentFilter} [filter] - Optional filter to apply to the deployment search.
  * @returns {SingletonDeployment | undefined} - The found deployment or undefined if not found.
  */
-export const getDefaultCallbackHandlerDeployment = (filter?: DeploymentFilter): SingletonDeployment | undefined => {
-  return findDeployment(filter, _DEFAULT_CALLBACK_HANDLER_DEPLOYMENTS);
+export const getTokenCallbackHandlerDeployment = (filter?: DeploymentFilter): SingletonDeployment | undefined => {
+  return findDeployment(filter, _TOKEN_CALLBACK_HANDLER_DEPLOYMENTS);
 };
+
+/**
+ * Get the default callback handler deployment based on the provided filter.
+ * Note that this is an alias to `getTokenCallbackHandlerDeployment` for API backwards compatibility.
+ * @param {DeploymentFilter} [filter] - Optional filter to apply to the deployment search.
+ * @returns {SingletonDeployment | undefined} - The found deployment or undefined if not found.
+ */
+export const getDefaultCallbackHandlerDeployment = getTokenCallbackHandlerDeployment;
 
 /**
  * Get all default callback handler deployments based on the provided filter.
  * @param {DeploymentFilter} [filter] - Optional filter to apply to the deployment search.
  * @returns {SingletonDeploymentV2 | undefined} - The found deployments in version 2 format or undefined if not found.
  */
-export const getDefaultCallbackHandlerDeployments = (filter?: DeploymentFilter): SingletonDeploymentV2 | undefined => {
-  return findDeployment(filter, _DEFAULT_CALLBACK_HANDLER_DEPLOYMENTS, DeploymentFormats.MULTIPLE);
+export const getTokenCallbackHandlerDeployments = (filter?: DeploymentFilter): SingletonDeploymentV2 | undefined => {
+  return findDeployment(filter, _TOKEN_CALLBACK_HANDLER_DEPLOYMENTS, DeploymentFormats.MULTIPLE);
 };
+
+/**
+ * Get all default callback handler deployments based on the provided filter.
+ * Note that this is an alias to `getTokenCallbackHandlerDeployments` for API backwards compatibility.
+ * @param {DeploymentFilter} [filter] - Optional filter to apply to the deployment search.
+ * @returns {SingletonDeploymentV2 | undefined} - The found deployments in version 2 format or undefined if not found.
+ */
+export const getDefaultCallbackHandlerDeployments = getTokenCallbackHandlerDeployments;
 
 /**
  * Get the compatibility fallback handler deployment based on the provided filter.
@@ -40,6 +60,26 @@ export const getCompatibilityFallbackHandlerDeployments = (
   filter?: DeploymentFilter,
 ): SingletonDeploymentV2 | undefined => {
   return findDeployment(filter, _COMPAT_FALLBACK_HANDLER_DEPLOYMENTS, DeploymentFormats.MULTIPLE);
+};
+
+/**
+ * Get the extensible fallback handler deployment based on the provided filter.
+ * @param {DeploymentFilter} [filter] - Optional filter to apply to the deployment search.
+ * @returns {SingletonDeployment | undefined} - The found deployment or undefined if not found.
+ */
+export const getExtensibleFallbackHandlerDeployment = (filter?: DeploymentFilter): SingletonDeployment | undefined => {
+  return findDeployment(filter, _EXTENSIBLE_FALLBACK_HANDLER_DEPLOYMENTS);
+};
+
+/**
+ * Get all extensible fallback handler deployments based on the provided filter.
+ * @param {DeploymentFilter} [filter] - Optional filter to apply to the deployment search.
+ * @returns {SingletonDeploymentV2 | undefined} - The found deployments in version 2 format or undefined if not found.
+ */
+export const getExtensibleFallbackHandlerDeployments = (
+  filter?: DeploymentFilter,
+): SingletonDeploymentV2 | undefined => {
+  return findDeployment(filter, _EXTENSIBLE_FALLBACK_HANDLER_DEPLOYMENTS, DeploymentFormats.MULTIPLE);
 };
 
 /**

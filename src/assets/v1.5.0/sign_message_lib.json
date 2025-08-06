@@ -1,0 +1,65 @@
+{
+  "released": true,
+  "contractName": "SignMessageLib",
+  "version": "1.5.0",
+  "deployments": {
+    "canonical": {
+      "address": "0x4FfeF8222648872B3dE295Ba1e49110E61f5b5aa",
+      "codeHash": "0xd61840855da008da59a00fc03fb71455b4f70bdca1f56f9504f072ed8d90c50e"
+    }
+  },
+  "networkAddresses": {
+    "1": "canonical",
+    "1995": "canonical",
+    "5424": "canonical",
+    "9302": "canonical",
+    "11155111": "canonical"
+  },
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "msgHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "SignMsg",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "message",
+          "type": "bytes"
+        }
+      ],
+      "name": "getMessageHash",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "_data",
+          "type": "bytes"
+        }
+      ],
+      "name": "signMessage",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]
+}

@@ -22,10 +22,12 @@ The addresses on the different networks and the abi files are available for each
 - [1.2.0](https://contractscan.xyz/bundle?name=Safe+1.2.0&addresses=0x6851d6fdfafd08c0295c392436245e5bc78b0185)
 - 1.3.0
   - [Canonical](https://contractscan.xyz/bundle?name=Safe+1.3.0&addresses=0xf48f2b2d2a534e402487b3ee7c18c33aec0fe5e4,0x7cbb62eaa69f79e6873cd1ecb2392971036cfaa4,0xd9db270c1b5e3bd161e8c8503c55ceabee709552,0x3e5c63644e683549055b9be8653de26e0b4cd36e,0xa238cbeb142c10ef7ad8442c6d1f9e89e07e7761,0x40a2accbd92bca938b02010e17a5b8929b49130d,0xa6b71e26c5e0845f74c812102ca7114b6a896ab2,0xa65387f16b013cf2af4605ad8aa5ec25a2cba3a2,0x59ad6735bcd8152b84860cb256dd9e96b85f69da)
-  - [EIP155](https://contractscan.xyz/bundle?name=Safe+1.3.0+EIP155&addresses=0x017062a1de2fe6b99be3d9d37841fed19f573804,0xb19d6ffc2182150f8eb585b79d4abcd7c5640a9d,0x69f4d1788e39c87893c980c06edf4b7f686e2938,0xfb1bffc9d739b8d520daf37df666da4c687191ea,0x998739bfdaadde7c933b942a68053933098f9eda,0xa1dabef33b3b82c7814b6d82a79e50f4ac44102b,0xc22834581ebc8527d974f8a1c97e1bea4ef910bc,0x98ffbbf51bb33a056b08ddf711f289936aaff717,0x727a77a074d1e6c4530e814f89e618a3298fc044)
-  - [ZKsync](https://contractscan.xyz/bundle?name=Safe+1.3.0+ZKsync&addresses=0x2f870a80647bbc554f3a0ebd093f11b4d2a7492a,0xcb8e5e438c5c2b45fbe17b02ca9af91509a8ad56,0xb00ce5cccdef57e539ddced01df43a13855d9910,0x1727c2c531cf966f902e5927b98490fdfb3b2b70,0x0dfcccb95225ffb03c6fbb2559b530c2b7c8a912,0xf220d3b4dfb23c4ade8c88e526c1353abacbc38f,0xdaec33641865e4651fb43181c6db6f7232ee91c2,0x357147caf9c0cca67dfa0cf5369318d8193c8407,0x4191e2e12e8bc5002424ce0c51f9947b02675a44)
-- [1.4.1](https://contractscan.xyz/bundle?name=Safe+1.4.1&addresses=0xfd0732dc9e303f09fcef3a7388ad10a83459ec99,0x9b35af71d77eaf8d7e40252370304687390a1a52,0x38869bf66a61cf6bdb996a6ae40d5853fd43b526,0x9641d764fc13c8b624c04430c7356c1c7c8102e2,0x41675c099f32341bf84bfc5382af534df5c7461a,0x29fcb43b46531bca003ddc8fcb67ffe91900c762,0x4e1dcf7ad4e460cfd30791ccc4f9c8a4f820ec67,0xd53cd0ab83d845ac265be939c57f53ad838012c9,0x3d4ba2e0884aa488718476ca2fb8efc291a46199,0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6,0xfF83F6335d8930cBad1c0D439A841f01888D9f69,0xBD89A1CE4DDe368FFAB0eC35506eEcE0b1fFdc54)
-
+  - [EIP-155](https://contractscan.xyz/bundle?name=Safe+1.3.0+EIP-155&addresses=0x017062a1de2fe6b99be3d9d37841fed19f573804,0xb19d6ffc2182150f8eb585b79d4abcd7c5640a9d,0x69f4d1788e39c87893c980c06edf4b7f686e2938,0xfb1bffc9d739b8d520daf37df666da4c687191ea,0x998739bfdaadde7c933b942a68053933098f9eda,0xa1dabef33b3b82c7814b6d82a79e50f4ac44102b,0xc22834581ebc8527d974f8a1c97e1bea4ef910bc,0x98ffbbf51bb33a056b08ddf711f289936aaff717,0x727a77a074d1e6c4530e814f89e618a3298fc044)
+  - [ZKsync](https://contractscan.xyz/bundle?name=Safe+1.3.0+zkSync&addresses=0x2f870a80647bbc554f3a0ebd093f11b4d2a7492a,0xcb8e5e438c5c2b45fbe17b02ca9af91509a8ad56,0xb00ce5cccdef57e539ddced01df43a13855d9910,0x1727c2c531cf966f902e5927b98490fdfb3b2b70,0x0dfcccb95225ffb03c6fbb2559b530c2b7c8a912,0xf220d3b4dfb23c4ade8c88e526c1353abacbc38f,0xdaec33641865e4651fb43181c6db6f7232ee91c2,0x357147caf9c0cca67dfa0cf5369318d8193c8407,0x4191e2e12e8bc5002424ce0c51f9947b02675a44)
+- 1.4.1
+  - [Canonical](https://contractscan.xyz/bundle?name=Safe+1.4.1&addresses=0xfd0732dc9e303f09fcef3a7388ad10a83459ec99,0x9b35af71d77eaf8d7e40252370304687390a1a52,0x38869bf66a61cf6bdb996a6ae40d5853fd43b526,0x9641d764fc13c8b624c04430c7356c1c7c8102e2,0x41675c099f32341bf84bfc5382af534df5c7461a,0x29fcb43b46531bca003ddc8fcb67ffe91900c762,0x4e1dcf7ad4e460cfd30791ccc4f9c8a4f820ec67,0xd53cd0ab83d845ac265be939c57f53ad838012c9,0x3d4ba2e0884aa488718476ca2fb8efc291a46199,0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6,0xfF83F6335d8930cBad1c0D439A841f01888D9f69,0xBD89A1CE4DDe368FFAB0eC35506eEcE0b1fFdc54)
+  - [zkSync](https://contractscan.xyz/bundle?name=Safe+1.4.1+zkSync&addresses=0x9301E98DD367135f21bdF66f342A249c9D5F9069,0xAAA566Fe7978bB0fb0B5362B7ba23038f4428D8f,0x0408EF011960d02349d50286D20531229BCef773,0x309D0B190FeCCa8e1D5D8309a16F7e3CB133E885,0xC35F063962328aC65cED5D4c3fC5dEf8dec68dFa,0x610fcA2e0279Fa1F8C00c8c2F71dF522AD469380,0x817756C6c555A94BCEE39eB5a102AbC1678b09A7,0xc329D02fd8CB2fc13aa919005aF46320794a8629,0xa26620d1f8f1a2433F0D25027F141aaCAFB3E590,0x199A9df0224031c20Cc27083A4164c9c8F1Bcb39,0xAca1ec0a1A575CDCCF1DC3d5d296202Eb6061888,0xdd35026932273768A3e31F4efF7313B5B7A7199d)
+- [1.5.0](https://contractscan.xyz/bundle?name=Safe+1.5.0&addresses=0x3EfCBb83A4A7AfcB4F68D501E2c2203a38be77f4,0x2Ef5ECfbea521449E4De05EDB1ce63B75eDA90B4,0x85a8ca358D388530ad0fB95D0cb89Dd44Fc242c3,0xA83c336B20401Af773B6219BA5027174338D1836,0x218543288004CD07832472D464648173c77D7eB7,0xFf51A5898e281Db6DfC7855790607438dF2ca44b,0xEdd160fEBBD92E350D4D398fb636302fccd67C7e,0x6439e7ABD8Bb915A5263094784C5CF561c4172AC,0x14F2982D601c9458F93bd70B218933A6f8165e7b,0x900C7589200010D6C6eCaaE5B06EBe653bc2D82a,0x4FfeF8222648872B3dE295Ba1e49110E61f5b5aa,0x07EfA797c55B5DdE3698d876b277aBb6B893654C,0x54e86d004d71a8D2112ec75FaCE57D730b0433F3)
 
 ## Install
 
@@ -48,7 +50,7 @@ interface DeploymentFilter {
 }
 ```
 
-### V1 Methods (single deployments)
+### V1 Methods (Single Deployments)
 
 Those methods will return a `SingletonDeployment` object or `undefined` if no deployment was found for the specified filter.
 
@@ -121,16 +123,19 @@ const createCallLib = getCreateCallDeployment();
 const signMessageLib = getSignMessageLibDeployment();
 ```
 
-- Handler
+- Fallback Handlers
 
 ```ts
+const standardFallbackHandler = getFallbackHandlerDeployment();
 
-const callbackHandler = getDefaultCallbackHandlerDeployment();
+const tokenCallbackHandler = getTokenCallbackHandlerDeployment();
 
 const compatHandler = getCompatibilityFallbackHandlerDeployment();
+
+const extensibleFallbackHandler = getExtensibleFallbackHandlerDeployment();
 ```
 
-### V2 Methods (multiple deployments)
+### V2 Methods (Multiple Deployments)
 
 We added a new methods that allow multiple deployment addresses for a contract.
 
@@ -208,13 +213,16 @@ const signMessageLib = getSignMessageLibDeployments();
 - Handler
 
 ```ts
+const standardFallbackHandler = getFallbackHandlerDeployments();
 
-const callbackHandler = getDefaultCallbackHandlerDeployments();
+const tokenCallbackHandler = getTokenCallbackHandlerDeployments();
 
 const compatHandler = getCompatibilityFallbackHandlerDeployments();
+
+const extensibleFallbackHandler = getExtensibleFallbackHandlerDeployments();
 ```
 
-## Release cycle
+## Release Cycle
 
 `safe-deployments` release cycle is once per month, except for urgent issues that require immediate attention.
 

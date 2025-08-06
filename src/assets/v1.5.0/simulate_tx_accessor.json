@@ -1,0 +1,69 @@
+{
+  "released": true,
+  "contractName": "SimulateTxAccessor",
+  "version": "1.5.0",
+  "deployments": {
+    "canonical": {
+      "address": "0x07EfA797c55B5DdE3698d876b277aBb6B893654C",
+      "codeHash": "0x706db4bb6151f75a5b3845724174e201c59046dfbe65b4e5909ad4b88f8f752d"
+    }
+  },
+  "networkAddresses": {
+    "1": "canonical",
+    "1995": "canonical",
+    "5424": "canonical",
+    "9302": "canonical",
+    "11155111": "canonical"
+  },
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "value",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        },
+        {
+          "internalType": "enum Enum.Operation",
+          "name": "operation",
+          "type": "uint8"
+        }
+      ],
+      "name": "simulate",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "estimate",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "success",
+          "type": "bool"
+        },
+        {
+          "internalType": "bytes",
+          "name": "returnData",
+          "type": "bytes"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]
+}

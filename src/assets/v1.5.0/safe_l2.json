@@ -1,125 +1,19 @@
 {
-  "defaultAddress": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
   "released": true,
   "contractName": "SafeL2",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "deployments": {
     "canonical": {
-      "address": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-      "codeHash": "0xb1f926978a0f44a2c0ec8fe822418ae969bd8c3f18d61e5103100339894f81ff"
+      "address": "0xEdd160fEBBD92E350D4D398fb636302fccd67C7e",
+      "codeHash": "0x180193227186ccb85316c94db1f0d156ed932b14712cfaac78901899178572dc"
     }
   },
   "networkAddresses": {
-    "1": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "5": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "10": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "25": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "31": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "40": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "41": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "56": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "71": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "97": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "100": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "137": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "155": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "169": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "250": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "252": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "255": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "336": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "338": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "369": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "530": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "690": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "919": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "1030": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "1101": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "1111": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "1112": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "1135": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "1284": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "1285": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "1287": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "1329": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "1337": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "1442": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "1625": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "1729": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "2000": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "2039": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "2358": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "2810": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "3636": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "3776": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "4002": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "4157": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "4202": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "4337": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "4653": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "5000": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "5003": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "6001": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "7000": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "7001": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "7171": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "7560": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "7771": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "8192": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "8194": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "8453": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "9001": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "10242": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "10243": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "11235": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "13337": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "17000": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "17069": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "18233": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "23294": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "23295": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "32769": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "33101": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "34443": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "42161": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "42220": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "43114": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "54211": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "59140": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "59141": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "59144": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "80001": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "80085": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "81457": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "84531": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "84532": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "90001": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "105105": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "111188": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "167000": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "167009": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "205205": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "444444": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "534351": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "534352": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "555666": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "713715": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "6038361": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "7225878": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "7777777": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "11155111": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "11155420": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "94204209": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "111557560": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "123420111": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "168587773": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "666666666": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "999999999": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "1313161554": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "1313161555": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "1666600000": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "1666700000": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
-    "88153591557": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762"
+    "1": "canonical",
+    "1995": "canonical",
+    "5424": "canonical",
+    "9302": "canonical",
+    "11155111": "canonical"
   },
   "abi": [
     {
@@ -178,6 +72,19 @@
         }
       ],
       "name": "ChangedGuard",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "moduleGuard",
+          "type": "address"
+        }
+      ],
+      "name": "ChangedModuleGuard",
       "type": "event"
     },
     {
@@ -591,6 +498,34 @@
     {
       "inputs": [
         {
+          "internalType": "address",
+          "name": "executor",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "dataHash",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes",
+          "name": "signatures",
+          "type": "bytes"
+        },
+        {
+          "internalType": "uint256",
+          "name": "requiredSignatures",
+          "type": "uint256"
+        }
+      ],
+      "name": "checkNSignatures",
+      "outputs": [],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
           "internalType": "bytes32",
           "name": "dataHash",
           "type": "bytes32"
@@ -599,6 +534,29 @@
           "internalType": "bytes",
           "name": "data",
           "type": "bytes"
+        },
+        {
+          "internalType": "bytes",
+          "name": "signatures",
+          "type": "bytes"
+        }
+      ],
+      "name": "checkSignatures",
+      "outputs": [],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "executor",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "dataHash",
+          "type": "bytes32"
         },
         {
           "internalType": "bytes",
@@ -698,70 +656,6 @@
           "type": "address"
         },
         {
-          "internalType": "address",
-          "name": "refundReceiver",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_nonce",
-          "type": "uint256"
-        }
-      ],
-      "name": "encodeTransactionData",
-      "outputs": [
-        {
-          "internalType": "bytes",
-          "name": "",
-          "type": "bytes"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "to",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "value",
-          "type": "uint256"
-        },
-        {
-          "internalType": "bytes",
-          "name": "data",
-          "type": "bytes"
-        },
-        {
-          "internalType": "enum Enum.Operation",
-          "name": "operation",
-          "type": "uint8"
-        },
-        {
-          "internalType": "uint256",
-          "name": "safeTxGas",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "baseGas",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "gasPrice",
-          "type": "uint256"
-        },
-        {
-          "internalType": "address",
-          "name": "gasToken",
-          "type": "address"
-        },
-        {
           "internalType": "address payable",
           "name": "refundReceiver",
           "type": "address"
@@ -776,7 +670,7 @@
       "outputs": [
         {
           "internalType": "bool",
-          "name": "",
+          "name": "success",
           "type": "bool"
         }
       ],
@@ -854,19 +748,6 @@
         }
       ],
       "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "getChainId",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
       "type": "function"
     },
     {
@@ -1005,7 +886,7 @@
       "outputs": [
         {
           "internalType": "bytes32",
-          "name": "",
+          "name": "txHash",
           "type": "bytes32"
         }
       ],
@@ -1108,6 +989,19 @@
         }
       ],
       "name": "setGuard",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "moduleGuard",
+          "type": "address"
+        }
+      ],
+      "name": "setModuleGuard",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
