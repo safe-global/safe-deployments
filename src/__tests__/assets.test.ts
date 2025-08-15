@@ -36,12 +36,23 @@ describe('assets/', () => {
               // We manually parse the JSON here, since ECMA `JSON.parse` will
               // always order fields with numeric keys.
               const json = await readAsset(version, file);
-              const networkAddresses = json.replace(/^[\s\S]*"networkAddresses" *: *\{([^}]*)\}[\s\S]*$/, '$1').trim();
-              const keys = networkAddresses.split(',').map((pair) => {
-                const [key] = pair.split(':');
-                return parseInt(key.trim().replace(/^"(.*)"$/, '$1'));
-              });
+
+              // Extract chain IDs in their original order from the networkAddresses section
+              const networkAddressesStart = json.indexOf('"networkAddresses"');
+              if (networkAddressesStart === -1) {
+                throw new Error(`No networkAddresses found in ${version}/${file}`);
+              }
+
+              // Extract all chain IDs from the networkAddresses section
+              const allChainIds = json.substring(networkAddressesStart).match(/"(\d+)"\s*:/g);
+              if (!allChainIds) {
+                throw new Error(`No chain ID keys found in ${version}/${file}`);
+              }
+
+              // Extract chain IDs and check if they are sorted
+              const keys = allChainIds.map((match) => parseInt(match.replace(/[":\s]/g, '')));
               const sorted = [...keys].sort((a, b) => a - b);
+
               expect(keys).toEqual(sorted);
             });
 
