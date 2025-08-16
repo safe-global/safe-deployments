@@ -17,6 +17,7 @@
     }
   },
   "networkAddresses": {
+    "8008": ["canonical", "eip155"],
     "1": ["canonical", "eip155"],
     "3": "canonical",
     "4": "canonical",
