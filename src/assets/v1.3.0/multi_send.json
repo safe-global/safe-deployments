@@ -293,7 +293,7 @@
     "45000": "canonical",
     "47763": "canonical",
     "47805": "canonical",
-    "48898": "eip155",
+    "48898": ["eip155", "canonical"],
     "48899": ["eip155", "canonical"],
     "48900": ["canonical", "eip155"],
     "50104": "zksync",
