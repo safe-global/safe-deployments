@@ -1,98 +1,28 @@
 {
-  "defaultAddress": "0xd5D82B6aDDc9027B22dCA772Aa68D5d74cdBdF44",
   "released": true,
-  "contractName": "DefaultCallbackHandler",
-  "version": "1.1.1",
+  "contractName": "TokenCallbackHandler",
+  "version": "1.5.0",
   "deployments": {
     "canonical": {
-      "address": "0xd5D82B6aDDc9027B22dCA772Aa68D5d74cdBdF44",
-      "codeHash": "0x919a9f5dd111a01f7a8e4b1f5c6a972bb2d1441c67bdec71de6a09d0be92f5b9"
+      "address": "0x54e86d004d71a8D2112ec75FaCE57D730b0433F3",
+      "codeHash": "0xcbc723172700efa52cc33ee26c7fc7e284edc8097f9dc307857fe525fec98cd8"
     }
   },
   "networkAddresses": {
-    "1": "0xd5D82B6aDDc9027B22dCA772Aa68D5d74cdBdF44",
-    "4": "0xd5D82B6aDDc9027B22dCA772Aa68D5d74cdBdF44",
-    "5": "0xd5D82B6aDDc9027B22dCA772Aa68D5d74cdBdF44",
-    "42": "0xd5D82B6aDDc9027B22dCA772Aa68D5d74cdBdF44",
-    "88": "0xd5D82B6aDDc9027B22dCA772Aa68D5d74cdBdF44",
-    "100": "0xd5D82B6aDDc9027B22dCA772Aa68D5d74cdBdF44",
-    "246": "0xd5D82B6aDDc9027B22dCA772Aa68D5d74cdBdF44",
-    "73799": "0xd5D82B6aDDc9027B22dCA772Aa68D5d74cdBdF44"
+    "1": "canonical",
+    "1995": "canonical",
+    "5424": "canonical",
+    "5887": "canonical",
+    "9302": "canonical",
+    "32380": "canonical",
+    "49088": "canonical",
+    "88811": "canonical",
+    "88817": "canonical",
+    "843843": "canonical",
+    "11155111": "canonical"
   },
   "abi": [
     {
-      "constant": true,
-      "inputs": [],
-      "name": "NAME",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "VERSION",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        },
-        {
-          "internalType": "bytes",
-          "name": "",
-          "type": "bytes"
-        }
-      ],
-      "name": "onERC1155Received",
-      "outputs": [
-        {
-          "internalType": "bytes4",
-          "name": "",
-          "type": "bytes4"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
       "inputs": [
         {
           "internalType": "address",
@@ -128,12 +58,49 @@
           "type": "bytes4"
         }
       ],
-      "payable": false,
-      "stateMutability": "nonpayable",
+      "stateMutability": "view",
       "type": "function"
     },
     {
-      "constant": false,
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "name": "onERC1155Received",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "",
+          "type": "bytes4"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "inputs": [
         {
           "internalType": "address",
@@ -164,12 +131,29 @@
           "type": "bytes4"
         }
       ],
-      "payable": false,
-      "stateMutability": "nonpayable",
+      "stateMutability": "view",
       "type": "function"
     },
     {
-      "constant": false,
+      "inputs": [
+        {
+          "internalType": "bytes4",
+          "name": "interfaceId",
+          "type": "bytes4"
+        }
+      ],
+      "name": "supportsInterface",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "inputs": [
         {
           "internalType": "address",
@@ -204,8 +188,7 @@
       ],
       "name": "tokensReceived",
       "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
+      "stateMutability": "pure",
       "type": "function"
     }
   ]

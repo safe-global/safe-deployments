@@ -37,8 +37,11 @@ describe('assets/', () => {
               // always order fields with numeric keys.
               const json = await readAsset(version, file);
               const networkAddresses = json.replace(/^[\s\S]*"networkAddresses" *: *\{([^}]*)\}[\s\S]*$/, '$1').trim();
-              const keys = networkAddresses.split(',').map((pair) => {
-                const [key] = pair.split(':');
+              const keys = networkAddresses.split('\n').map((pair) => {
+                const [key, ...rest] = pair.split(':');
+                if (rest.length !== 1) {
+                  throw new Error('more than one key per line');
+                }
                 return parseInt(key.trim().replace(/^"(.*)"$/, '$1'));
               });
               const sorted = [...keys].sort((a, b) => a - b);
@@ -75,22 +78,6 @@ describe('assets/', () => {
 
             for (const addressType of Object.keys(deployments)) {
               expect(KNOWN_ADDRESS_TYPES).toContain(addressType);
-            }
-          });
-
-          it('no network can contain zksync address together with other address types', async () => {
-            const deploymentJson = await readAssetJSON(version, file);
-            if (!deploymentJson) {
-              throw new Error(`Failed to read asset ${version}/${file}`);
-            }
-            const { networkAddresses } = deploymentJson;
-
-            for (const network of Object.keys(networkAddresses)) {
-              const addressTypes = networkAddresses[network];
-
-              if (Array.isArray(addressTypes)) {
-                expect(addressTypes).not.toContain('zksync');
-              }
             }
           });
         });

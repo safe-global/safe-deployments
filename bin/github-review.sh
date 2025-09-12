@@ -45,10 +45,23 @@ if [[ -z $chainid ]]; then
     echo "ERROR: Chain ID not specified as per the PR Template" 1>&2
     exit 1
 fi
-chainInfo="https://raw.githubusercontent.com/ethereum-lists/chains/refs/heads/master/_data/chains/eip155-$chainid.json"  
-rpc="$(curl -sfL "$chainInfo" | jq -r '.rpc[0]')" 
+
+# Fetch RPC from DefiLlama's chainlist
+if ! chainlist_response="$(curl -sfL 'https://chainlist.org/rpcs.json')"; then
+    echo "ERROR: Failed to fetch DeFiLlama ChainList" 1>&2
+    exit 1
+fi
+
+# Parse the chainlist response
+if ! chainlist=$(echo "$chainlist_response" | jq -e '.'); then
+    echo "ERROR: DefiLlama's ChainList returned invalid JSON" 1>&2
+    exit 1
+fi
+
+# Extract RPC for the specified chain ID using jq
+rpc="$(echo "$chainlist" | jq --arg C "$chainid" -r '.[] | select((.chainId | tostring) == $C) | .rpc[0].url')"
 if [[ -z $rpc ]]; then
-    echo "ERROR: RPC not fetched correctly from the ethereum-lists" 1>&2
+    echo "ERROR: Chain is not listed on DefiLlama's ChainList" 1>&2
     exit 1
 fi
 version="$(gh pr diff $pr --name-only | sed -nE 's|^src/assets/v([0-9\.]*)/.*$|\1|p' | sort -u)"
@@ -89,4 +102,3 @@ git restore --ignore-unmerged -- src/assets
 
 # NOTE/TODO
 # - We should still manually verify there is no removal of deployment types for a single chain.
-# - Getting the RPC from the Chainlist website instead of looking based on the provided RPC: https://github.com/safe-global/safe-deployments/pull/683#discussion_r1668555849

@@ -1,30 +1,32 @@
 {
-  "defaultAddress": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
   "released": true,
   "contractName": "CreateCall",
-  "version": "1.1.1",
+  "version": "1.5.0",
   "deployments": {
     "canonical": {
-      "address": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
-      "codeHash": "0x9de5afc9afd2bc0e329d9b4fa34955da45bb8e11587c645c5ff5287d7507adeb"
+      "address": "0x2Ef5ECfbea521449E4De05EDB1ce63B75eDA90B4",
+      "codeHash": "0x6b7d8d29bdf7004c4617d95041923774f3f7e74b056bff55c1861c9ec92ce54f"
     }
   },
   "networkAddresses": {
-    "1": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
-    "4": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
-    "5": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
-    "42": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
-    "88": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
-    "100": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
-    "246": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A",
-    "73799": "0x8538FcBccba7f5303d2C679Fa5d7A629A8c9bf4A"
+    "1": "canonical",
+    "1995": "canonical",
+    "5424": "canonical",
+    "5887": "canonical",
+    "9302": "canonical",
+    "32380": "canonical",
+    "49088": "canonical",
+    "88811": "canonical",
+    "88817": "canonical",
+    "843843": "canonical",
+    "11155111": "canonical"
   },
   "abi": [
     {
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
+          "indexed": true,
           "internalType": "address",
           "name": "newContract",
           "type": "address"
