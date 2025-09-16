@@ -227,6 +227,7 @@
     "8329": "canonical",
     "8333": "eip155",
     "8453": ["eip155", "canonical"],
+    "8700": "eip155",
     "8822": "eip155",
     "9000": ["canonical", "eip155"],
     "9001": ["canonical", "eip155"],
