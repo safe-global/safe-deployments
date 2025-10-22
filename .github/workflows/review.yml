@@ -13,22 +13,22 @@ jobs:
   review:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 22
-    - name: Verify Review Script
-      run: |
-        git fetch https://github.com/safe-global/safe-deployments.git main:safe-global-main
-        if ! git diff --exit-code safe-global-main -- . ':!src/assets'; then
-          echo "ERROR: GitHub review script may not be up-to-date" 1>&2
-          exit 1
-        fi
-    - name: Install Dependencies
-      run: |
-        npm ci
-    - name: Review PR
-      env:
-        GH_TOKEN: ${{ github.token }}
-      run: |
-        bash bin/github-review.sh ${{ github.event.number }}
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify Review Script
+        run: |
+          git fetch https://github.com/safe-global/safe-deployments.git main:safe-global-main
+          if ! git diff --exit-code safe-global-main -- . ':!src/assets'; then
+            echo "ERROR: GitHub review script may not be up-to-date" 1>&2
+            exit 1
+          fi
+      - name: Install Dependencies
+        run: |
+          npm ci
+      - name: Review PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          bash bin/github-review.sh ${{ github.event.number }}

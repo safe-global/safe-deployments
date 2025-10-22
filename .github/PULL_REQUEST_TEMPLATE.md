@@ -5,7 +5,8 @@
 Please fill the following form:
 
 Provide the Chain ID (Only 1 chain id per PR).
-- Chain_ID: 
+
+- Chain_ID:
 
 Relevant information:
 Add any other relevant information like blockexplorer, any annotation...
