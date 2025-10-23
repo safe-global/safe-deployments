@@ -237,6 +237,7 @@
     "9001": ["canonical", "eip155"],
     "9069": "canonical",
     "9070": "canonical",
+    "9369": "canonical",
     "9728": "eip155",
     "9745": ["canonical", "eip155"],
     "9746": ["canonical", "eip155"],
