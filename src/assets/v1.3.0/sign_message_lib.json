@@ -217,7 +217,7 @@
     "6900": ["canonical", "eip155"],
     "6911": ["canonical", "eip155"],
     "7000": ["eip155", "canonical"],
-    "7001": "eip155",
+    "7001": ["eip155", "canonical"],
     "7070": "canonical",
     "7332": "eip155",
     "7341": "canonical",
