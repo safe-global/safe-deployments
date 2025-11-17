@@ -147,15 +147,21 @@ async function main() {
         continue;
       }
 
-      // If it's an array and doesn't include the deployment type, add it
+      // If it's an array and doesn't include the deployment type, add it to preserve all existing values
       if (isArray) {
-        const updatedArray: AddressType[] = [...existingValue, deploymentType];
-        json.networkAddresses[options.chainId] = updatedArray;
-        debug(`  Added "${deploymentType}" to existing array for chain ID ${options.chainId}`);
+        // Ensure we don't add duplicates (safety check)
+        if (!existingValue.includes(deploymentType)) {
+          const updatedArray: AddressType[] = [...existingValue, deploymentType];
+          json.networkAddresses[options.chainId] = updatedArray;
+          debug(`  Added "${deploymentType}" to existing array [${existingValue.join(', ')}] for chain ID ${options.chainId}`);
+        }
       } else {
-        // Convert single value to array
-        json.networkAddresses[options.chainId] = [existingValue, deploymentType];
-        debug(`  Converted single value to array and added "${deploymentType}" for chain ID ${options.chainId}`);
+        // Convert single value to array, preserving the existing value and adding the new one
+        // This ensures both deployment types are kept (e.g., canonical and eip155 for v1.3.0)
+        const existingType = existingValue as AddressType;
+        json.networkAddresses[options.chainId] = [existingType, deploymentType];
+        console.log(`  Converted single value "${existingType}" to array [${existingType}, ${deploymentType}] for chain ID ${options.chainId}`);
+        debug(`  Preserved existing deployment type "${existingType}" and added "${deploymentType}"`);
       }
     } else {
       // Add new chain ID
