@@ -2,7 +2,7 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import util from 'node:util';
 
-import type { SingletonDeploymentJSON } from '../src/types';
+import type { AddressType, SingletonDeploymentJSON } from '../src/types';
 
 type Options = {
   version: string;
@@ -62,8 +62,8 @@ function parseOptions(): Options {
  * Sorts network addresses by chain ID (numeric)
  */
 function sortNetworkAddresses(
-  networkAddresses: Record<string, string | string[]>
-): Record<string, string | string[]> {
+  networkAddresses: Record<string, AddressType | AddressType[]>
+): Record<string, AddressType | AddressType[]> {
   const entries = Object.entries(networkAddresses);
   entries.sort(([a], [b]) => {
     const aNum = parseInt(a, 10);
@@ -130,34 +130,37 @@ async function main() {
       continue;
     }
 
+    // Cast deployment type to AddressType (we've already validated it exists)
+    const deploymentType = options.deploymentType as AddressType;
+
     // Check if chain ID already exists
     if (json.networkAddresses[options.chainId] !== undefined) {
       const existingValue = json.networkAddresses[options.chainId];
       const isArray = Array.isArray(existingValue);
       const hasDeploymentType = isArray
-        ? existingValue.includes(options.deploymentType as any)
-        : existingValue === options.deploymentType;
+        ? existingValue.includes(deploymentType)
+        : existingValue === deploymentType;
 
       if (hasDeploymentType) {
-        debug(`  Chain ID ${options.chainId} already exists with deployment type "${options.deploymentType}"`);
+        debug(`  Chain ID ${options.chainId} already exists with deployment type "${deploymentType}"`);
         skippedCount++;
         continue;
       }
 
       // If it's an array and doesn't include the deployment type, add it
       if (isArray) {
-        const updatedArray = [...existingValue, options.deploymentType as any];
-        json.networkAddresses[options.chainId] = updatedArray as any;
-        debug(`  Added "${options.deploymentType}" to existing array for chain ID ${options.chainId}`);
+        const updatedArray: AddressType[] = [...existingValue, deploymentType];
+        json.networkAddresses[options.chainId] = updatedArray;
+        debug(`  Added "${deploymentType}" to existing array for chain ID ${options.chainId}`);
       } else {
         // Convert single value to array
-        json.networkAddresses[options.chainId] = [existingValue, options.deploymentType as any] as any;
-        debug(`  Converted single value to array and added "${options.deploymentType}" for chain ID ${options.chainId}`);
+        json.networkAddresses[options.chainId] = [existingValue, deploymentType];
+        debug(`  Converted single value to array and added "${deploymentType}" for chain ID ${options.chainId}`);
       }
     } else {
       // Add new chain ID
-      json.networkAddresses[options.chainId] = options.deploymentType as any;
-      debug(`  Added chain ID ${options.chainId} with deployment type "${options.deploymentType}"`);
+      json.networkAddresses[options.chainId] = deploymentType;
+      debug(`  Added chain ID ${options.chainId} with deployment type "${deploymentType}"`);
     }
 
     // Sort network addresses by chain ID
