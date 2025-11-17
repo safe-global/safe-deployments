@@ -7,15 +7,36 @@ import type { SingletonDeploymentJSON } from '../src/types';
 type Options = {
   version: string;
   chainId: string;
-  deploymentType?: string;
+  deploymentType: string;
   verbose: boolean;
 };
+
+/**
+ * Parses version string to extract version and deployment type
+ * Examples:
+ * - "v1.3.0-canonical" -> { version: "v1.3.0", deploymentType: "canonical" }
+ * - "v1.3.0-eip155" -> { version: "v1.3.0", deploymentType: "eip155" }
+ * - "v1.4.1" -> { version: "v1.4.1", deploymentType: "canonical" }
+ * - "v1.5.0" -> { version: "v1.5.0", deploymentType: "canonical" }
+ */
+function parseVersion(versionString: string): { version: string; deploymentType: string } {
+  const parts = versionString.split('-');
+  if (parts.length === 2) {
+    return {
+      version: parts[0],
+      deploymentType: parts[1],
+    };
+  }
+  return {
+    version: versionString,
+    deploymentType: 'canonical',
+  };
+}
 
 function parseOptions(): Options {
   const options = {
     version: { type: 'string' },
     chainId: { type: 'string' },
-    deploymentType: { type: 'string' },
     verbose: { type: 'boolean' },
   } as const;
   const { values } = util.parseArgs({ options });
@@ -27,10 +48,12 @@ function parseOptions(): Options {
     throw new Error('missing --chainId flag');
   }
 
+  const { version, deploymentType } = parseVersion(values.version as string);
+
   return {
-    version: values.version as string,
+    version,
     chainId: values.chainId as string,
-    deploymentType: (values.deploymentType as string) || 'canonical',
+    deploymentType,
     verbose: values.verbose === true,
   };
 }
