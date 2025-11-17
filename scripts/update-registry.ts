@@ -111,49 +111,98 @@ async function main() {
 
   debug(`Found ${jsonFiles.length} JSON files to update`);
 
-  let updatedCount = 0;
-  let skippedCount = 0;
+  // Pre-check: Validate all contracts and check if deployment is already fully supported
+  const deploymentType = options.deploymentType as AddressType;
+  const contractsToProcess: Array<{ file: string; path: string; json: SingletonDeploymentJSON }> = [];
+  const alreadySupported: string[] = [];
+  const missingDeploymentType: string[] = [];
 
   for (const file of jsonFiles) {
     const filePath = path.join(assetsDir, file);
     const content = await fs.readFile(filePath, 'utf-8');
     const json: SingletonDeploymentJSON = JSON.parse(content);
 
-    debug(`Processing ${json.contractName}...`);
-
-    // Check if deployment type exists
-    if (!json.deployments[options.deploymentType as keyof typeof json.deployments]) {
-      console.warn(
-        `⚠️  Skipping ${json.contractName}: deployment type "${options.deploymentType}" not found. Available types: ${Object.keys(json.deployments).join(', ')}`
-      );
-      skippedCount++;
+    // Check if deployment type exists for this contract
+    if (!json.deployments[deploymentType as keyof typeof json.deployments]) {
+      missingDeploymentType.push(json.contractName);
       continue;
     }
 
-    // Cast deployment type to AddressType (we've already validated it exists)
-    const deploymentType = options.deploymentType as AddressType;
-
-    // Check if chain ID already exists
-    if (json.networkAddresses[options.chainId] !== undefined) {
-      const existingValue = json.networkAddresses[options.chainId];
+    // Check if chain ID already exists with this deployment type
+    const existingValue = json.networkAddresses[options.chainId];
+    if (existingValue !== undefined) {
       const isArray = Array.isArray(existingValue);
       const hasDeploymentType = isArray
         ? existingValue.includes(deploymentType)
         : existingValue === deploymentType;
 
       if (hasDeploymentType) {
-        debug(`  Chain ID ${options.chainId} already exists with deployment type "${deploymentType}"`);
-        skippedCount++;
+        alreadySupported.push(json.contractName);
         continue;
       }
+    }
 
-      // If it's an array and doesn't include the deployment type, add it to preserve all existing values
+    // Contract needs to be updated
+    contractsToProcess.push({ file, path: filePath, json });
+  }
+
+  // Report pre-check results
+  if (missingDeploymentType.length > 0) {
+    console.warn(
+      `⚠️  ${missingDeploymentType.length} contract(s) don't support deployment type "${deploymentType}": ${missingDeploymentType.join(', ')}`
+    );
+  }
+
+  if (alreadySupported.length === jsonFiles.length - missingDeploymentType.length) {
+    // All contracts that support this deployment type already have the chain ID
+    console.log(`\n✅ Chain ID ${options.chainId} with deployment type "${deploymentType}" is already supported for all contracts:`);
+    alreadySupported.forEach((name) => console.log(`   - ${name}`));
+    console.log(`\nNo changes needed.`);
+    return;
+  }
+
+  if (alreadySupported.length > 0) {
+    console.log(`\nℹ️  ${alreadySupported.length} contract(s) already support chain ID ${options.chainId} with "${deploymentType}":`);
+    alreadySupported.forEach((name) => console.log(`   - ${name}`));
+  }
+
+  if (contractsToProcess.length === 0) {
+    console.log(`\n✅ No contracts need updating.`);
+    return;
+  }
+
+  console.log(`\n📝 Will update ${contractsToProcess.length} contract(s):`);
+  contractsToProcess.forEach(({ json }) => console.log(`   - ${json.contractName}`));
+
+  // Process contracts that need updating
+  let updatedCount = 0;
+  let skippedCount = alreadySupported.length + missingDeploymentType.length;
+
+  for (const { file, path: filePath, json } of contractsToProcess) {
+    debug(`Processing ${json.contractName}...`);
+
+    // Deployment type and chain ID already validated in pre-check
+    // At this point, we know:
+    // 1. The deployment type exists for this contract
+    // 2. The chain ID either doesn't exist OR exists but doesn't have this deployment type
+
+    const existingValue = json.networkAddresses[options.chainId];
+
+    if (existingValue !== undefined) {
+      // Chain ID exists but with a different deployment type - add to array
+      const isArray = Array.isArray(existingValue);
+      
       if (isArray) {
-        // Ensure we don't add duplicates (safety check)
+        // Add to existing array (safety check: shouldn't happen due to pre-check, but verify)
         if (!existingValue.includes(deploymentType)) {
           const updatedArray: AddressType[] = [...existingValue, deploymentType];
           json.networkAddresses[options.chainId] = updatedArray;
           debug(`  Added "${deploymentType}" to existing array [${existingValue.join(', ')}] for chain ID ${options.chainId}`);
+        } else {
+          // This shouldn't happen due to pre-check, but handle gracefully
+          debug(`  Chain ID ${options.chainId} already has deployment type "${deploymentType}" - skipping`);
+          skippedCount++;
+          continue;
         }
       } else {
         // Convert single value to array, preserving the existing value and adding the new one
