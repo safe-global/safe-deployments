@@ -59,6 +59,22 @@ function parseOptions(): Options {
 }
 
 /**
+ * Sorts deployment types array to ensure "canonical" always comes before "eip155"
+ * This is a company convention for version 1.3.0
+ */
+function sortDeploymentTypes(types: AddressType[]): AddressType[] {
+  const sorted = [...types];
+  sorted.sort((a, b) => {
+    // Ensure canonical always comes before eip155
+    if (a === 'canonical' && b === 'eip155') return -1;
+    if (a === 'eip155' && b === 'canonical') return 1;
+    // For other types, maintain alphabetical order
+    return a.localeCompare(b);
+  });
+  return sorted;
+}
+
+/**
  * Sorts network addresses by chain ID (numeric)
  */
 function sortNetworkAddresses(
@@ -195,9 +211,10 @@ async function main() {
       if (isArray) {
         // Add to existing array (safety check: shouldn't happen due to pre-check, but verify)
         if (!existingValue.includes(deploymentType)) {
-          const updatedArray: AddressType[] = [...existingValue, deploymentType];
+          const updatedArray: AddressType[] = sortDeploymentTypes([...existingValue, deploymentType]);
           json.networkAddresses[options.chainId] = updatedArray;
           debug(`  Added "${deploymentType}" to existing array [${existingValue.join(', ')}] for chain ID ${options.chainId}`);
+          debug(`  Sorted array: [${updatedArray.join(', ')}]`);
         } else {
           // This shouldn't happen due to pre-check, but handle gracefully
           debug(`  Chain ID ${options.chainId} already has deployment type "${deploymentType}" - skipping`);
@@ -207,10 +224,12 @@ async function main() {
       } else {
         // Convert single value to array, preserving the existing value and adding the new one
         // This ensures both deployment types are kept (e.g., canonical and eip155 for v1.3.0)
+        // Sort to ensure canonical always comes before eip155 (company convention)
         const existingType = existingValue as AddressType;
-        json.networkAddresses[options.chainId] = [existingType, deploymentType];
-        console.log(`  Converted single value "${existingType}" to array [${existingType}, ${deploymentType}] for chain ID ${options.chainId}`);
-        debug(`  Preserved existing deployment type "${existingType}" and added "${deploymentType}"`);
+        const sortedArray = sortDeploymentTypes([existingType, deploymentType]);
+        json.networkAddresses[options.chainId] = sortedArray;
+        console.log(`  Converted single value "${existingType}" to array [${sortedArray.join(', ')}] for chain ID ${options.chainId}`);
+        debug(`  Preserved existing deployment type "${existingType}" and added "${deploymentType}", sorted to ensure canonical comes first`);
       }
     } else {
       // Add new chain ID
