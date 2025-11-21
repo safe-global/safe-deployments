@@ -96,12 +96,16 @@ function sortNetworkAddresses(
 ): Record<string, AddressType | AddressType[]> {
   const entries = Object.entries(networkAddresses);
   entries.sort(([a], [b]) => {
-    const aNum = parseInt(a, 10);
-    const bNum = parseInt(b, 10);
-    if (isNaN(aNum) || isNaN(bNum)) {
+    try {
+      const aNum = BigInt(a);
+      const bNum = BigInt(b);
+      if (aNum < bNum) return -1;
+      if (aNum > bNum) return 1;
+      return 0;
+    } catch {
+      // If chain ID is not a valid number, sort alphabetically
       return a.localeCompare(b);
     }
-    return aNum - bNum;
   });
   return Object.fromEntries(entries);
 }
@@ -174,8 +178,9 @@ async function main() {
 
   // Report pre-check results
   if (missingDeploymentType.length > 0) {
-    console.warn(
-      `⚠️  ${missingDeploymentType.length} contract(s) don't support deployment type "${deploymentType}": ${missingDeploymentType.join(', ')}`,
+    throw new Error(
+      `❌ ${missingDeploymentType.length} contract(s) don't support deployment type "${deploymentType}": ${missingDeploymentType.join(', ')}\n` +
+        `Cannot proceed with partial application. All contracts must support the deployment type.`,
     );
   }
 
