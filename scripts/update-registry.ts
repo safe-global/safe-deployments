@@ -58,35 +58,6 @@ function parseOptions(): Options {
   };
 }
 
-/**
- * Sorts deployment types array according to official policy:
- * 1. If there already is a deployment for the chain, keep it first (to avoid breaking changes)
- * 2. If deploying both variants, prefer eip155
- */
-function sortDeploymentTypes(types: AddressType[], existingValue?: AddressType): AddressType[] {
-  // Policy #1: If there's an existing deployment, preserve it as first
-  if (existingValue !== undefined && types.includes(existingValue)) {
-    const sorted = [existingValue];
-    // Add other types after the existing one
-    for (const type of types) {
-      if (type !== existingValue && !sorted.includes(type)) {
-        sorted.push(type);
-      }
-    }
-    return sorted;
-  }
-
-  // Policy #2: No existing value - prefer eip155 when deploying both variants
-  const sorted = [...types];
-  sorted.sort((a, b) => {
-    // Put eip155 first
-    if (a === 'eip155' && b !== 'eip155') return -1;
-    if (a !== 'eip155' && b === 'eip155') return 1;
-    // For other types, maintain alphabetical order
-    return a.localeCompare(b);
-  });
-  return sorted;
-}
 
 /**
  * Sorts network addresses by chain ID (numeric)
@@ -225,21 +196,18 @@ async function main() {
       if (isArray) {
         // Add to existing array (pre-check ensures deploymentType is not already in array)
         // Policy: Keep existing first value to avoid breaking changes
-        const firstValue = existingValue[0];
-        const updatedArray: AddressType[] = sortDeploymentTypes([...existingValue, deploymentType], firstValue);
-        json.networkAddresses[options.chainId] = updatedArray;
+        json.networkAddresses[options.chainId] = [...existingValue, deploymentType];
         debug(
           `  Added "${deploymentType}" to existing array [${existingValue.join(', ')}] for chain ID ${options.chainId}`,
         );
-        debug(`  Sorted array (preserving first value): [${updatedArray.join(', ')}]`);
+        debug(`  Updated array: [${[...existingValue, deploymentType].join(', ')}]`);
       } else {
         // Convert single value to array
         // Policy: Keep existing deployment type first to avoid breaking changes
         const existingType = existingValue as AddressType;
-        const sortedArray = sortDeploymentTypes([existingType, deploymentType], existingType);
-        json.networkAddresses[options.chainId] = sortedArray;
+        json.networkAddresses[options.chainId] = [existingType, deploymentType];
         console.log(
-          `  Converted single value "${existingType}" to array [${sortedArray.join(', ')}] for chain ID ${options.chainId}`,
+          `  Converted single value "${existingType}" to array [${existingType}, ${deploymentType}] for chain ID ${options.chainId}`,
         );
         debug(`  Preserved existing deployment type "${existingType}" as first, added "${deploymentType}"`);
       }
