@@ -58,7 +58,6 @@ function parseOptions(): Options {
   };
 }
 
-
 /**
  * Sorts network addresses by chain ID (numeric)
  */
