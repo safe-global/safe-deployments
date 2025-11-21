@@ -45,9 +45,6 @@ jobs:
             --chainId "${{ inputs.chain_id }}" \
             --verbose
 
-      - name: Format JSON files
-        run: npm run lint:fix:json
-
       - name: Check for changes
         id: check-changes
         run: |

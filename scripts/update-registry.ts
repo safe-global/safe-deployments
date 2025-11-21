@@ -75,7 +75,7 @@ function sortDeploymentTypes(types: AddressType[], existingValue?: AddressType):
     }
     return sorted;
   }
-  
+
   // No existing value: put "eip155" first, then others
   const sorted = [...types];
   sorted.sort((a, b) => {
@@ -92,7 +92,7 @@ function sortDeploymentTypes(types: AddressType[], existingValue?: AddressType):
  * Sorts network addresses by chain ID (numeric)
  */
 function sortNetworkAddresses(
-  networkAddresses: Record<string, AddressType | AddressType[]>
+  networkAddresses: Record<string, AddressType | AddressType[]>,
 ): Record<string, AddressType | AddressType[]> {
   const entries = Object.entries(networkAddresses);
   entries.sort(([a], [b]) => {
@@ -118,9 +118,7 @@ async function main() {
   debug(options);
 
   // Normalize version (remove 'v' prefix if present)
-  const normalizedVersion = options.version.startsWith('v')
-    ? options.version
-    : `v${options.version}`;
+  const normalizedVersion = options.version.startsWith('v') ? options.version : `v${options.version}`;
 
   const assetsDir = path.join('src', 'assets', normalizedVersion);
 
@@ -162,9 +160,7 @@ async function main() {
     const existingValue = json.networkAddresses[options.chainId];
     if (existingValue !== undefined) {
       const isArray = Array.isArray(existingValue);
-      const hasDeploymentType = isArray
-        ? existingValue.includes(deploymentType)
-        : existingValue === deploymentType;
+      const hasDeploymentType = isArray ? existingValue.includes(deploymentType) : existingValue === deploymentType;
 
       if (hasDeploymentType) {
         alreadySupported.push(json.contractName);
@@ -179,36 +175,35 @@ async function main() {
   // Report pre-check results
   if (missingDeploymentType.length > 0) {
     console.warn(
-      `⚠️  ${missingDeploymentType.length} contract(s) don't support deployment type "${deploymentType}": ${missingDeploymentType.join(', ')}`
+      `⚠️  ${missingDeploymentType.length} contract(s) don't support deployment type "${deploymentType}": ${missingDeploymentType.join(', ')}`,
     );
   }
 
-  if (alreadySupported.length === jsonFiles.length - missingDeploymentType.length) {
+  if (contractsToProcess.length === 0) {
     // All contracts that support this deployment type already have the chain ID
-    console.log(`\n✅ Chain ID ${options.chainId} with deployment type "${deploymentType}" is already supported for all contracts:`);
+    console.log(
+      `\n✅ Chain ID ${options.chainId} with deployment type "${deploymentType}" is already supported for all contracts:`,
+    );
     alreadySupported.forEach((name) => console.log(`   - ${name}`));
     console.log(`\nNo changes needed.`);
     return;
   }
 
   if (alreadySupported.length > 0) {
-    console.log(`\nℹ️  ${alreadySupported.length} contract(s) already support chain ID ${options.chainId} with "${deploymentType}":`);
+    console.log(
+      `\nℹ️  ${alreadySupported.length} contract(s) already support chain ID ${options.chainId} with "${deploymentType}":`,
+    );
     alreadySupported.forEach((name) => console.log(`   - ${name}`));
-  }
-
-  if (contractsToProcess.length === 0) {
-    console.log(`\n✅ No contracts need updating.`);
-    return;
   }
 
   console.log(`\n📝 Will update ${contractsToProcess.length} contract(s):`);
   contractsToProcess.forEach(({ json }) => console.log(`   - ${json.contractName}`));
 
   // Process contracts that need updating
-  let updatedCount = 0;
-  let skippedCount = alreadySupported.length + missingDeploymentType.length;
+  const updatedCount = contractsToProcess.length;
+  const skippedCount = alreadySupported.length + missingDeploymentType.length;
 
-  for (const { file, path: filePath, json } of contractsToProcess) {
+  for (const { path: filePath, json } of contractsToProcess) {
     debug(`Processing ${json.contractName}...`);
 
     // Deployment type and chain ID already validated in pre-check
@@ -221,28 +216,25 @@ async function main() {
     if (existingValue !== undefined) {
       // Chain ID exists but with a different deployment type - add to array
       const isArray = Array.isArray(existingValue);
-      
+
       if (isArray) {
-        // Add to existing array (safety check: shouldn't happen due to pre-check, but verify)
-        if (!existingValue.includes(deploymentType)) {
-          // Preserve the first value in the existing array, then add the new one
-          const firstValue = existingValue[0];
-          const updatedArray: AddressType[] = sortDeploymentTypes([...existingValue, deploymentType], firstValue);
-          json.networkAddresses[options.chainId] = updatedArray;
-          debug(`  Added "${deploymentType}" to existing array [${existingValue.join(', ')}] for chain ID ${options.chainId}`);
-          debug(`  Sorted array (preserving first value): [${updatedArray.join(', ')}]`);
-        } else {
-          // This shouldn't happen due to pre-check, but handle gracefully
-          debug(`  Chain ID ${options.chainId} already has deployment type "${deploymentType}" - skipping`);
-          skippedCount++;
-          continue;
-        }
+        // Add to existing array (pre-check ensures deploymentType is not already in array)
+        // Preserve the first value in the existing array, then add the new one
+        const firstValue = existingValue[0];
+        const updatedArray: AddressType[] = sortDeploymentTypes([...existingValue, deploymentType], firstValue);
+        json.networkAddresses[options.chainId] = updatedArray;
+        debug(
+          `  Added "${deploymentType}" to existing array [${existingValue.join(', ')}] for chain ID ${options.chainId}`,
+        );
+        debug(`  Sorted array (preserving first value): [${updatedArray.join(', ')}]`);
       } else {
         // Convert single value to array, preserving the existing value as first
         const existingType = existingValue as AddressType;
         const sortedArray = sortDeploymentTypes([existingType, deploymentType], existingType);
         json.networkAddresses[options.chainId] = sortedArray;
-        console.log(`  Converted single value "${existingType}" to array [${sortedArray.join(', ')}] for chain ID ${options.chainId}`);
+        console.log(
+          `  Converted single value "${existingType}" to array [${sortedArray.join(', ')}] for chain ID ${options.chainId}`,
+        );
         debug(`  Preserved existing deployment type "${existingType}" as first, added "${deploymentType}"`);
       }
     } else {
@@ -257,7 +249,6 @@ async function main() {
     // Write updated JSON back to file
     const updatedContent = JSON.stringify(json, null, 2);
     await fs.writeFile(filePath, updatedContent + '\n', 'utf-8');
-    updatedCount++;
 
     console.log(`✓ Updated ${json.contractName}`);
   }
@@ -273,4 +264,3 @@ main().catch((err) => {
   console.error(`ERROR: ${err.message}`);
   process.exitCode = 1;
 });
-
