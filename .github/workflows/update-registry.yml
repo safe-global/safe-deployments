@@ -54,7 +54,6 @@ jobs:
             --version "${{ inputs.version }}" \
             --chainId "${{ inputs.chain_id }}" \
             --verbose
-          npm run lint:fix:json
 
       - name: Check for changes
         id: check-changes
