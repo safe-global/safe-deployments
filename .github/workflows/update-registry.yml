@@ -16,6 +16,16 @@ on:
         description: 'Chain ID to add (e.g., 12345)'
         required: true
         type: string
+  workflow_call:
+    inputs:
+      version:
+        description: 'Safe version with deployment type'
+        required: true
+        type: string
+      chain_id:
+        description: 'Chain ID to add (e.g., 12345)'
+        required: true
+        type: string
 
 permissions:
   contents: write
