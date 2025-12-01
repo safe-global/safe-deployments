@@ -20,7 +20,8 @@
     "lint:fix:json": "prettier -w src/assets/*/*.json",
     "review:verify-deployment": "ts-node scripts/review/verifyDeployment.ts",
     "review:diff": "ts-node scripts/review/diff.ts",
-    "update-registry": "ts-node scripts/update-registry.ts && npm run lint:fix:json",
+    "update-registry": "ts-node scripts/update-registry.ts",
+    "update-registry:full": "npm run update-registry -- && npm run lint:fix:json",
     "prepack": "npm run build",
     "test": "jest"
   },
