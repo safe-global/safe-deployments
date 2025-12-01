@@ -30,7 +30,6 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  members: read
 
 jobs:
   update-registry:
@@ -40,25 +39,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Verify safe-global organization membership
-        run: |
-          ORG="safe-global"
-          USER="${{ github.actor }}"
-          
-          # Check if user is a member of the organization
-          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
-            -H "Authorization: token ${{ github.token }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/orgs/${ORG}/members/${USER}")
-          
-          if [ "$HTTP_CODE" != "204" ]; then
-            echo "❌ Error: User ${USER} is not a member of the ${ORG} organization"
-            echo "This workflow can only be triggered by members of the ${ORG} organization."
-            exit 1
-          fi
-          
-          echo "✅ User ${USER} is a member of the ${ORG} organization"
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
