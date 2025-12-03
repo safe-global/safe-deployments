@@ -87,7 +87,7 @@ jobs:
             
             - Added chain ID ${{ inputs.chain_id }} to all contracts in version ${{ inputs.version }}
           title: |
-            Add chain ${{ inputs.chain_id }} to ${{ inputs.version == 'v1.3.0-both' && 'v1.3.0 (canonical + eip155)' || inputs.version }}
+            Add chain ${{ inputs.chain_id }} to ${{ inputs.version }} registry
           body: |
             ## Add new chain
             
