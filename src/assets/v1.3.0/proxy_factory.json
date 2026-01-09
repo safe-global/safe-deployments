@@ -259,6 +259,7 @@
     "11111": "canonical",
     "11124": ["zksync", "canonical", "eip155"],
     "11235": "canonical",
+    "11417": "canonical",
     "11437": "canonical",
     "11820": "canonical",
     "11891": "canonical",
