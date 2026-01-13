@@ -391,7 +391,7 @@
     "978657": "canonical",
     "1000101": "canonical",
     "4457845": "zksync",
-    "5042002": ["canonical", "eip155"],
+    "5042002": ["eip155", "canonical"],
     "5064014": ["eip155", "canonical"],
     "6038361": ["eip155", "canonical"],
     "6281971": ["eip155", "canonical"],
