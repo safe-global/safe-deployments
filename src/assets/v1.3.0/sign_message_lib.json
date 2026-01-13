@@ -390,6 +390,7 @@
     "853211": "eip155",
     "978657": "canonical",
     "1000101": "canonical",
+    "1111111": "canonical",
     "4457845": "zksync",
     "5042002": ["eip155", "canonical"],
     "5064014": ["eip155", "canonical"],
