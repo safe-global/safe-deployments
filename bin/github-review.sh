@@ -40,6 +40,17 @@ if ! [[ $1 =~ ^[0-9]+$ ]]; then
     exit 1
 fi
 pr=$1
+
+# Validate PR exists and is open in this repository
+if ! pr_state="$(gh pr view $pr --json state --jq '.state' 2>/dev/null)"; then
+    echo "ERROR: PR #$pr does not exist in this repository" 1>&2
+    exit 1
+fi
+if [[ "$pr_state" != "OPEN" ]]; then
+    echo "ERROR: PR #$pr is not open (current state: $pr_state)" 1>&2
+    exit 1
+fi
+
 chainid="$(gh pr view $pr | sed -nE 's/^- Chain_ID: ([0-9]+).*$/\1/p')"
 if [[ -z $chainid ]]; then
     echo "ERROR: Chain ID not specified as per the PR Template" 1>&2
