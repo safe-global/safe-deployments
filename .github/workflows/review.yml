@@ -5,6 +5,11 @@ on:
     paths:
       - 'src/assets/**'
   workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'Pull Request number to review'
+        required: true
+        type: number
 
 permissions:
   pull-requests: write
@@ -31,4 +36,4 @@ jobs:
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
-        bash bin/github-review.sh ${{ github.event.number }}
+        bash bin/github-review.sh ${{ inputs.pr_number || github.event.number }}
