@@ -98,15 +98,18 @@ jobs:
 
       - name: Create Pull Request
         if: steps.check-changes.outputs.has_changes == 'true'
+        env:
+          VERSION: ${{ inputs.version }}
+          CHAIN_ID: ${{ inputs.chain_id }}
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: |
-            Add chain ${{ inputs.chain_id }} to ${{ inputs.version }} registry
+            Add chain ${{ env.CHAIN_ID }} to ${{ env.VERSION }} registry
             
-            - Added chain ID ${{ inputs.chain_id }} to all contracts in version ${{ inputs.version }}
+            - Added chain ID ${{ env.CHAIN_ID }} to all contracts in version ${{ env.VERSION }}
           title: |
-            Add chain ${{ inputs.chain_id }} to ${{ inputs.version }} registry
+            Add chain ${{ env.CHAIN_ID }} to ${{ env.VERSION }} registry
           body: |
             ## Add new chain
             
@@ -115,8 +118,8 @@ jobs:
             Please fill the following form:
             
             Provide the Chain ID (Only 1 chain id per PR).
-            - Chain_ID: ${{ inputs.chain_id }}
+            - Chain_ID: ${{ env.CHAIN_ID }}
             
-          branch: update-registry-${{ github.run_id }}-${{ inputs.chain_id }}
+          branch: update-registry-${{ github.run_id }}-${{ env.CHAIN_ID }}
           delete-branch: true
 
