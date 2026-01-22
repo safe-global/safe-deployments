@@ -56,7 +56,8 @@ function validateChainId(chainId: string): void {
 }
 
 /**
- * Parses version string to extract version and deployment type
+ * Parses and validates version string to extract version and deployment type
+ * Returns validated and normalized version
  * Examples:
  * - "v1.3.0-canonical" -> { version: "v1.3.0", deploymentType: "canonical" }
  * - "v1.3.0-eip155" -> { version: "v1.3.0", deploymentType: "eip155" }
@@ -65,20 +66,19 @@ function validateChainId(chainId: string): void {
  */
 function parseVersion(versionString: string): { version: string; deploymentType: string } {
   const parts = versionString.split('-');
-  if (parts.length === 2) {
-    const deploymentType = validateDeploymentType(parts[1]);
-    return {
-      version: parts[0],
-      deploymentType,
-    };
-  }
+
   if (parts.length > 2) {
     throw new Error(`Invalid version format: ${versionString}. Too many components.`);
   }
-  return {
-    version: versionString,
-    deploymentType: 'canonical',
-  };
+
+  if (parts.length === 2) {
+    const version = validateVersion(parts[0]);
+    const deploymentType = validateDeploymentType(parts[1]);
+    return { version, deploymentType };
+  }
+
+  const version = validateVersion(versionString);
+  return { version, deploymentType: 'canonical' };
 }
 
 /**
@@ -104,11 +104,10 @@ function parseOptions(): Options {
   const { version, deploymentType } = parseVersion(values.version as string);
   const chainId = values.chainId as string;
 
-  const normalizedVersion = validateVersion(version);
   validateChainId(chainId);
 
   return {
-    version: normalizedVersion,
+    version,
     chainId,
     deploymentType,
     verbose: values.verbose === true,
