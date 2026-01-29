@@ -11,8 +11,53 @@ type Options = {
   verbose: boolean;
 };
 
+// Allowlist of valid versions to prevent path traversal attacks
+const ALLOWED_VERSIONS = ['v1.0.0', 'v1.1.1', 'v1.2.0', 'v1.3.0', 'v1.4.1', 'v1.5.0'] as const;
+
+// Allowlist of valid deployment types
+const VALID_DEPLOYMENT_TYPES = ['canonical', 'eip155', 'zksync'] as const;
+
 /**
- * Parses version string to extract version and deployment type
+ * Validates version string against allowlist to prevent path traversal
+ * @throws {Error} if version is not in allowlist
+ */
+function validateVersion(version: string): string {
+  const normalized = version.startsWith('v') ? version : `v${version}`;
+
+  if (!(ALLOWED_VERSIONS as readonly string[]).includes(normalized)) {
+    throw new Error(`Invalid version: ${version}. Must be one of: ${ALLOWED_VERSIONS.join(', ')}`);
+  }
+
+  return normalized;
+}
+
+/**
+ * Validates deployment type against allowlist
+ * @throws {Error} if deployment type is not valid
+ */
+function validateDeploymentType(deploymentType: string): AddressType {
+  if (!(VALID_DEPLOYMENT_TYPES as readonly string[]).includes(deploymentType)) {
+    throw new Error(`Invalid deployment type: ${deploymentType}. Must be one of: ${VALID_DEPLOYMENT_TYPES.join(', ')}`);
+  }
+  return deploymentType as AddressType;
+}
+
+/**
+ * Validates chain ID format and prevents injection attacks
+ * Numeric-only validation prevents prototype pollution (__proto__, constructor, prototype)
+ * @throws {Error} if chain ID is not a valid positive integer
+ */
+function validateChainId(chainId: string): void {
+  // Must be a valid positive integer (no leading zeros except for "0" itself)
+  // This regex also prevents prototype pollution attacks by only allowing digits
+  if (!/^(0|[1-9]\d*)$/.test(chainId)) {
+    throw new Error(`Invalid chain ID format: ${chainId}. Must be a positive integer without leading zeros.`);
+  }
+}
+
+/**
+ * Parses and validates version string to extract version and deployment type
+ * Returns validated and normalized version
  * Examples:
  * - "v1.3.0-canonical" -> { version: "v1.3.0", deploymentType: "canonical" }
  * - "v1.3.0-eip155" -> { version: "v1.3.0", deploymentType: "eip155" }
@@ -21,18 +66,26 @@ type Options = {
  */
 function parseVersion(versionString: string): { version: string; deploymentType: string } {
   const parts = versionString.split('-');
-  if (parts.length === 2) {
-    return {
-      version: parts[0],
-      deploymentType: parts[1],
-    };
+
+  if (parts.length > 2) {
+    throw new Error(`Invalid version format: ${versionString}. Too many components.`);
   }
-  return {
-    version: versionString,
-    deploymentType: 'canonical',
-  };
+
+  if (parts.length === 2) {
+    const version = validateVersion(parts[0]);
+    const deploymentType = validateDeploymentType(parts[1]);
+    return { version, deploymentType };
+  }
+
+  const version = validateVersion(versionString);
+  return { version, deploymentType: 'canonical' };
 }
 
+/**
+ * Parses and validates command line arguments
+ * @returns Validated options with normalized version and validated chainId
+ * @throws {Error} if required arguments are missing or invalid
+ */
 function parseOptions(): Options {
   const options = {
     version: { type: 'string' },
@@ -49,10 +102,13 @@ function parseOptions(): Options {
   }
 
   const { version, deploymentType } = parseVersion(values.version as string);
+  const chainId = values.chainId as string;
+
+  validateChainId(chainId);
 
   return {
     version,
-    chainId: values.chainId as string,
+    chainId,
     deploymentType,
     verbose: values.verbose === true,
   };
@@ -91,10 +147,7 @@ async function main() {
   debug('Parsed options:');
   debug(options);
 
-  // Normalize version (remove 'v' prefix if present)
-  const normalizedVersion = options.version.startsWith('v') ? options.version : `v${options.version}`;
-
-  const assetsDir = path.join('src', 'assets', normalizedVersion);
+  const assetsDir = path.join('src', 'assets', options.version);
 
   // Check if version directory exists
   try {

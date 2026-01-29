@@ -28,13 +28,12 @@ on:
         required: true
         type: string
 
-permissions:
-  contents: write
-  pull-requests: write
-
 jobs:
   update-registry:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -49,22 +48,42 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Update registry
+      - name: Validate inputs
+        env:
+          VERSION: ${{ inputs.version }}
+          CHAIN_ID: ${{ inputs.chain_id }}
         run: |
-          if [ "${{ inputs.version }}" = "v1.3.0-both" ]; then
+          # Validate version format (alphanumeric, dots, and hyphens only)
+          if ! [[ "$VERSION" =~ ^[a-zA-Z0-9.-]+$ ]]; then
+            echo "ERROR: Invalid version format. Only alphanumeric, dots, and hyphens allowed."
+            exit 1
+          fi
+          
+          # Validate chain ID is numeric only
+          if ! [[ "$CHAIN_ID" =~ ^[0-9]+$ ]]; then
+            echo "ERROR: Invalid chain ID format. Must be numeric only."
+            exit 1
+          fi
+
+      - name: Update registry
+        env:
+          VERSION: ${{ inputs.version }}
+          CHAIN_ID: ${{ inputs.chain_id }}
+        run: |
+          if [ "$VERSION" = "v1.3.0-both" ]; then
             echo "Running for both v1.3.0 deployment types..."
             npm run update-registry -- \
               --version "v1.3.0-canonical" \
-              --chainId "${{ inputs.chain_id }}" \
+              --chainId "$CHAIN_ID" \
               --verbose
             npm run update-registry -- \
               --version "v1.3.0-eip155" \
-              --chainId "${{ inputs.chain_id }}" \
+              --chainId "$CHAIN_ID" \
               --verbose
           else
             npm run update-registry -- \
-              --version "${{ inputs.version }}" \
-              --chainId "${{ inputs.chain_id }}" \
+              --version "$VERSION" \
+              --chainId "$CHAIN_ID" \
               --verbose
           fi
 
@@ -79,15 +98,18 @@ jobs:
 
       - name: Create Pull Request
         if: steps.check-changes.outputs.has_changes == 'true'
+        env:
+          VERSION: ${{ inputs.version }}
+          CHAIN_ID: ${{ inputs.chain_id }}
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: |
-            Add chain ${{ inputs.chain_id }} to ${{ inputs.version }} registry
+            Add chain ${{ env.CHAIN_ID }} to ${{ env.VERSION }} registry
             
-            - Added chain ID ${{ inputs.chain_id }} to all contracts in version ${{ inputs.version }}
+            - Added chain ID ${{ env.CHAIN_ID }} to all contracts in version ${{ env.VERSION }}
           title: |
-            Add chain ${{ inputs.chain_id }} to ${{ inputs.version }} registry
+            Add chain ${{ env.CHAIN_ID }} to ${{ env.VERSION }} registry
           body: |
             ## Add new chain
             
@@ -96,8 +118,8 @@ jobs:
             Please fill the following form:
             
             Provide the Chain ID (Only 1 chain id per PR).
-            - Chain_ID: ${{ inputs.chain_id }}
+            - Chain_ID: ${{ env.CHAIN_ID }}
             
-          branch: update-registry-${{ github.run_id }}-${{ inputs.chain_id }}
+          branch: update-registry-${{ github.run_id }}-${{ env.CHAIN_ID }}
           delete-branch: true
 
