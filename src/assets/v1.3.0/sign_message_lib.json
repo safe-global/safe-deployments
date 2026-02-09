@@ -183,6 +183,7 @@
     "2390": "eip155",
     "2391": ["eip155", "canonical"],
     "2741": ["zksync", "canonical", "eip155"],
+    "2787": "canonical",
     "2810": ["eip155", "canonical"],
     "2818": ["canonical", "eip155"],
     "2910": ["eip155", "canonical"],
