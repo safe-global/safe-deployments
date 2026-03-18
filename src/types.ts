@@ -22,12 +22,18 @@ export interface SingletonDeploymentJSON {
 
   // The address & hash of the contract code, where the key is the deployment type.
   // There could be multiple deployment types: canonical, eip155, zksync
+  //
+  // Note: "canonical" refers to different deployers depending on the version:
+  //   - 1.0.0 through 1.3.0: Arachnid's Deterministic Deployment Proxy (pre-EIP-155 tx)
+  //   - 1.4.1 onwards: Safe Singleton Factory (EIP-155 replay-protected)
+  // The "eip155" type (only in 1.3.0) uses the Safe Singleton Factory for chains that enforce EIP-155.
+  //
   // Possible addresses per version:
-  // 1.0.0: canonical
-  // 1.1.1: canonical
-  // 1.2.0: canonical
-  // 1.3.0: canonical, eip155, zksync
-  // 1.4.1: canonical, zksync
+  // 1.0.0: canonical (Arachnid's Deterministic Deployment Proxy)
+  // 1.1.1: canonical (Arachnid's Deterministic Deployment Proxy)
+  // 1.2.0: canonical (Arachnid's Deterministic Deployment Proxy)
+  // 1.3.0: canonical (Arachnid's Deterministic Deployment Proxy), eip155 (Safe Singleton Factory), zksync
+  // 1.4.1: canonical (Safe Singleton Factory), zksync
   // Ex: deployments: { "canonical": { "codeHash": "0x1234", "address": "0x5678"}}
   deployments: AtLeastOne<Record<AddressType, { address: string; codeHash: string }>>;
 
@@ -56,12 +62,18 @@ export interface SingletonDeployment {
 
   // The address & hash of the contract code, where the key is the deployment type.
   // There could be multiple deployment types: canonical, eip155, zksync
+  //
+  // Note: "canonical" refers to different deployers depending on the version:
+  //   - 1.0.0 through 1.3.0: Arachnid's Deterministic Deployment Proxy (pre-EIP-155 tx)
+  //   - 1.4.1 onwards: Safe Singleton Factory (EIP-155 replay-protected)
+  // The "eip155" type (only in 1.3.0) uses the Safe Singleton Factory for chains that enforce EIP-155.
+  //
   // Possible addresses per version:
-  // 1.0.0: canonical
-  // 1.1.1: canonical
-  // 1.2.0: canonical
-  // 1.3.0: canonical, eip155, zksync
-  // 1.4.1: canonical, zksync
+  // 1.0.0: canonical (Arachnid's Deterministic Deployment Proxy)
+  // 1.1.1: canonical (Arachnid's Deterministic Deployment Proxy)
+  // 1.2.0: canonical (Arachnid's Deterministic Deployment Proxy)
+  // 1.3.0: canonical (Arachnid's Deterministic Deployment Proxy), eip155 (Safe Singleton Factory), zksync
+  // 1.4.1: canonical (Safe Singleton Factory), zksync
   // Ex: deployments: { "canonical": { "codeHash": "0x1234", "address": "0x5678"}}
   deployments: AtLeastOne<Record<AddressType, { address: string; codeHash: string }>>;
 

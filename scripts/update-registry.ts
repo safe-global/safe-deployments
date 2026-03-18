@@ -14,7 +14,11 @@ type Options = {
 // Allowlist of valid versions to prevent path traversal attacks
 const ALLOWED_VERSIONS = ['v1.0.0', 'v1.1.1', 'v1.2.0', 'v1.3.0', 'v1.4.1', 'v1.5.0'] as const;
 
-// Allowlist of valid deployment types
+// Allowlist of valid deployment types.
+// Note: "canonical" refers to different deployers depending on the version:
+//   - v1.0.0 through v1.3.0: Arachnid's Deterministic Deployment Proxy (pre-EIP-155 tx)
+//   - v1.4.1 onwards: Safe Singleton Factory (EIP-155 replay-protected)
+// "eip155" (only in v1.3.0) uses the Safe Singleton Factory for EIP-155-enforcing chains.
 const VALID_DEPLOYMENT_TYPES = ['canonical', 'eip155', 'zksync'] as const;
 
 /**
@@ -56,13 +60,17 @@ function validateChainId(chainId: string): void {
 }
 
 /**
- * Parses and validates version string to extract version and deployment type
- * Returns validated and normalized version
+ * Parses and validates version string to extract version and deployment type.
+ * Returns validated and normalized version.
+ *
+ * When no deployment type suffix is provided, defaults to "canonical".
+ * Note: "canonical" means different deployers depending on the version -- see VALID_DEPLOYMENT_TYPES.
+ *
  * Examples:
- * - "v1.3.0-canonical" -> { version: "v1.3.0", deploymentType: "canonical" }
- * - "v1.3.0-eip155" -> { version: "v1.3.0", deploymentType: "eip155" }
- * - "v1.4.1" -> { version: "v1.4.1", deploymentType: "canonical" }
- * - "v1.5.0" -> { version: "v1.5.0", deploymentType: "canonical" }
+ * - "v1.3.0-canonical" -> { version: "v1.3.0", deploymentType: "canonical" } (Arachnid's proxy)
+ * - "v1.3.0-eip155" -> { version: "v1.3.0", deploymentType: "eip155" } (Safe Singleton Factory)
+ * - "v1.4.1" -> { version: "v1.4.1", deploymentType: "canonical" } (Safe Singleton Factory)
+ * - "v1.5.0" -> { version: "v1.5.0", deploymentType: "canonical" } (Safe Singleton Factory)
  */
 function parseVersion(versionString: string): { version: string; deploymentType: string } {
   const parts = versionString.split('-');
