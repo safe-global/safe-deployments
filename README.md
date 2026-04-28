@@ -31,8 +31,9 @@ The addresses on the different networks and the abi files are available for each
 
 ## Install
 
-- npm - `npm i @safe-global/safe-deployments`
-- yarn - `yarn add @safe-global/safe-deployments`
+```sh
+pnpm add @safe-global/safe-deployments
+```
 
 ## Usage
 

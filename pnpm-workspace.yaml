@@ -1,0 +1,8 @@
+# Block packages published within the last 7 days.
+minimumReleaseAge: 10080
+
+# Only packages listed here are allowed to run install scripts.
+onlyBuiltDependencies: []
+
+# Prevent transitive dependencies from using git/file/link-style specs.
+blockExoticSubdeps: true
