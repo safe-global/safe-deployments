@@ -40,13 +40,17 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@903f9c1a6ebcba6cf41d87230be49611ac97822e
+
       - name: Setup Node.js
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: 22
+          cache: pnpm
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Validate inputs
         env:
@@ -72,16 +76,16 @@ jobs:
         run: |
           if [ "$VERSION" = "v1.3.0-both" ]; then
             echo "Running for both v1.3.0 deployment types..."
-            npm run update-registry -- \
+            pnpm run update-registry \
               --version "v1.3.0-canonical" \
               --chainId "$CHAIN_ID" \
               --verbose
-            npm run update-registry -- \
+            pnpm run update-registry \
               --version "v1.3.0-eip155" \
               --chainId "$CHAIN_ID" \
               --verbose
           else
-            npm run update-registry -- \
+            pnpm run update-registry \
               --version "$VERSION" \
               --chainId "$CHAIN_ID" \
               --verbose

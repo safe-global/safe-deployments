@@ -17,11 +17,13 @@ jobs:
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - uses: pnpm/action-setup@903f9c1a6ebcba6cf41d87230be49611ac97822e
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: 22
+          cache: pnpm
       - run: |
-          npm ci
+          pnpm install --frozen-lockfile
           bash bin/github-release.sh --verbose bump
         env:
           GH_TOKEN: ${{ github.token }}

@@ -10,10 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      - uses: pnpm/action-setup@903f9c1a6ebcba6cf41d87230be49611ac97822e
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: 22
+          cache: pnpm
       - run: |
-          npm ci
-          npm test
-          npm run lint
+          pnpm install --frozen-lockfile
+          pnpm test
+          pnpm run lint
