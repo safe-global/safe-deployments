@@ -105,7 +105,7 @@ jobs:
         env:
           VERSION: ${{ inputs.version }}
           CHAIN_ID: ${{ inputs.chain_id }}
-        uses: peter-evans/create-pull-request@4e1beaa7521e8b457b572c090b25bd3db56bf1c5
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: |
