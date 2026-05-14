@@ -33,6 +33,7 @@ The addresses on the different networks and the abi files are available for each
 
 - npm - `npm i @safe-global/safe-deployments`
 - yarn - `yarn add @safe-global/safe-deployments`
+- pnpm - `pnpm add @safe-global/safe-deployments`
 
 ## Usage
 

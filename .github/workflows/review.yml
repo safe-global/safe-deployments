@@ -18,10 +18,12 @@ jobs:
   review:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
+    - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+    - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
+    - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
       with:
         node-version: 22
+        cache: pnpm
     - name: Verify Review Script
       run: |
         git fetch https://github.com/safe-global/safe-deployments.git main:safe-global-main
@@ -31,7 +33,7 @@ jobs:
         fi
     - name: Install Dependencies
       run: |
-        npm ci
+        pnpm install --frozen-lockfile
     - name: Review PR
       env:
         GH_TOKEN: ${{ github.token }}

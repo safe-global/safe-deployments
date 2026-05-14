@@ -77,7 +77,7 @@ fi
 
 name="$(jq -r '.name' package.json)"
 current="$(jq -r '.version' package.json)"
-latest="$(npm view "$name" version)"
+latest="$(pnpm view "$name" version)"
 
 log "current: v$current"
 log "latest:  v$latest"
@@ -108,7 +108,7 @@ command_bump () {
 		exit 0
 	fi
 
-	newtag="$(npm version patch --no-git-tag-version)"
+	newtag="$(pnpm version patch --no-git-tag-version)"
 	log "bumping to $newtag"
 
 	branch="bump/$newtag"
@@ -140,7 +140,7 @@ command_draft() {
 	fi
 
 	log "generating NPM package"
-	npm pack
+	pnpm pack
 	package="${name#@}-$current.tgz"
 	package="${package//\//-}"
 
