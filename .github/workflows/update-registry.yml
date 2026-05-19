@@ -28,6 +28,8 @@ on:
         required: true
         type: string
 
+permissions: {}
+
 jobs:
   update-registry:
     runs-on: ubuntu-latest
