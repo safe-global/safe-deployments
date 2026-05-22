@@ -79,11 +79,11 @@ jobs:
           if [ "$VERSION" = "v1.3.0-both" ]; then
             echo "Running for both v1.3.0 deployment types..."
             pnpm run update-registry \
-              --version "v1.3.0-canonical" \
+              --version "v1.3.0-eip155" \
               --chainId "$CHAIN_ID" \
               --verbose
             pnpm run update-registry \
-              --version "v1.3.0-eip155" \
+              --version "v1.3.0-canonical" \
               --chainId "$CHAIN_ID" \
               --verbose
           else
