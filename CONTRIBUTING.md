@@ -20,6 +20,15 @@ pnpm update-registry --version v1.5.0 --chainId <CHAIN_ID> --deploymentType cano
 Valid versions: `v1.0.0`, `v1.1.1`, `v1.2.0`, `v1.3.0`, `v1.4.1`, `v1.5.0`  
 Valid deployment types: `canonical`, `eip155`, `zksync`
 
+For `v1.3.0` chains that support both `eip155` and `canonical`, run `eip155` first:
+
+```bash
+pnpm update-registry --version v1.3.0-eip155 --chainId <CHAIN_ID>
+pnpm update-registry --version v1.3.0-canonical --chainId <CHAIN_ID>
+```
+
+This ensures the deployment type order is `["eip155", "canonical"]`. The exception is chains that were already registered with only `canonical` — in that case, `canonical` stays first to preserve backwards compatibility.
+
 ## Before pushing
 
 ```bash
