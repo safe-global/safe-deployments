@@ -3,15 +3,13 @@
 [![npm version](https://badge.fury.io/js/%40safe-global%2Fsafe-deployments.svg)](https://badge.fury.io/js/%40safe-global%2Fsafe-deployments)
 [![CI](https://github.com/safe-global/safe-deployments/actions/workflows/test.yml/badge.svg)](https://github.com/safe-global/safe-deployments/actions/workflows/test.yml)
 
-This contract contains a collection of deployments of the contract of the [Safe contracts repository](https://github.com/safe-global/safe-smart-account).
+This contract contains a collection of deployments of the contract of the [Safe contracts repository](https://github.com/safe-fndn/safe-smart-account).
 
 The addresses on the different networks and the abi files are available for each deployment. To get an overview of the available versions, check the available [json assets](./src/assets/).
 
-## Adding additional deployments:
+## Adding additional deployments
 
-1. Follow the [deployment steps in the Safe contract repository](https://github.com/safe-global/safe-smart-account/#deployments).
-2. Verify that the addresses match the expected address for each contract. You can find them under the "addresses" mapping in the respective JSON file in the [assets folder](./src/assets/).
-3. Create a PR adding the new deployment. Example PR can be found [here](https://github.com/safe-global/safe-deployments/pull/676).
+To register a new chain deployment, read the [contributing guide](CONTRIBUTING.md).
 
 ## Deployments overview
 
@@ -33,6 +31,7 @@ The addresses on the different networks and the abi files are available for each
 
 - npm - `npm i @safe-global/safe-deployments`
 - yarn - `yarn add @safe-global/safe-deployments`
+- pnpm - `pnpm add @safe-global/safe-deployments`
 
 ## Usage
 
