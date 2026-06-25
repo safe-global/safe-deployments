@@ -97,7 +97,7 @@ fi
 
 echo "Checking changes to assets files"
 gh pr diff $pr > .temp-github-review.diff # This line fetches the diff output of the PR
-npm run review:diff -s -- --diffPatchFileName .temp-github-review.diff --verbose
+pnpm run review:diff --diffPatchFileName .temp-github-review.diff --verbose
 
 # Assume that if `GITHUB_HEAD_REF` is set, then we are running in CI and have already checked out
 # the deployment files, otherwise apply the patch on top of the current branch.
@@ -106,7 +106,7 @@ if [[ -z "$GITHUB_HEAD_REF" ]]; then
 fi
 
 echo "Verifying Deployment Asset"
-npm run review:verify-deployment -s -- --version "v$version" --chainId "$chainid" --rpc "$rpc" --verbose
+pnpm run review:verify-deployment --version "v$version" --chainId "$chainid" --rpc "$rpc" --verbose
 echo "Network addresses & Code hashes are correct"
 
 git restore --ignore-unmerged -- src/assets

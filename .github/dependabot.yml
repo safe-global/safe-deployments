@@ -1,0 +1,36 @@
+version: 2
+
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 10
+    cooldown:
+      default-days: 7
+    groups:
+      jest:
+        patterns:
+          - 'jest'
+          - 'ts-jest'
+          - '@types/jest'
+        update-types:
+          - 'minor'
+          - 'patch'
+      typescript-toolchain:
+        patterns:
+          - 'typescript'
+          - 'typescript-eslint'
+          - 'ts-node'
+          - '@types/*'
+        update-types:
+          - 'minor'
+          - 'patch'
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 10
