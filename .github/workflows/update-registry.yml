@@ -40,7 +40,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # persist-credentials:false avoids a duplicate "Authorization" header
+          # (checkout + peter-evans both inject one), which causes git to fail
+          # with HTTP 400. Remove this once peter-evans/create-pull-request is
+          # replaced by the manual `gh pr create` flow.
+          persist-credentials: false
 
       - name: Setup pnpm
         uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
@@ -92,6 +96,9 @@ jobs:
               --chainId "$CHAIN_ID" \
               --verbose
           fi
+
+      - name: Format updated registry files
+        run: pnpm run update-registry:lint
 
       - name: Check for changes
         id: check-changes
