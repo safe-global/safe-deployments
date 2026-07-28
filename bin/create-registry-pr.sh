@@ -51,53 +51,60 @@ branch="update-registry-${run_id}-${chain_id}"
 title="Add chain ${chain_id} to ${version} registry"
 base_sha="$(git rev-parse HEAD)"
 
-# Collect the working-tree changes as GraphQL fileChanges. Scoped to src/assets:
-# the update-registry script writes nowhere else, so this bounds the signed commit
-# to registry files and prevents any stray file from riding along. Files that
-# still exist on disk are additions (base64-encoded); the rest are deletions.
-additions='[]'
-deletions='[]'
+tmp="${RUNNER_TEMP:-/tmp}"
+
+# Collect the working-tree changes as GraphQL fileChanges, scoped to src/assets
+# (the update-registry script writes nowhere else). File contents are streamed
+# through temp files, never shell variables or argv, to avoid ARG_MAX limits on
+# large registries. Files that still exist on disk are additions (base64-encoded
+# by jq); the rest are deletions.
+: >"${tmp}/additions.ndjson"
+: >"${tmp}/deletions.ndjson"
 while IFS= read -r path; do
     [ -z "$path" ] && continue
     if [ -f "$path" ]; then
-        additions="$(jq -c --arg p "$path" --arg c "$(base64 -w0 "$path")" \
-            '. + [{path: $p, contents: $c}]' <<<"$additions")"
+        jq -n --arg p "$path" --rawfile c "$path" \
+            '{path: $p, contents: ($c | @base64)}' >>"${tmp}/additions.ndjson"
     else
-        deletions="$(jq -c --arg p "$path" '. + [{path: $p}]' <<<"$deletions")"
+        jq -n --arg p "$path" '{path: $p}' >>"${tmp}/deletions.ndjson"
     fi
 done < <(git status --porcelain -- src/assets | cut -c4-)
+jq -s '.' "${tmp}/additions.ndjson" >"${tmp}/additions.json"
+jq -s '.' "${tmp}/deletions.ndjson" >"${tmp}/deletions.json"
 
-if [ "$additions" = '[]' ] && [ "$deletions" = '[]' ]; then
+if [ "$(jq 'length' "${tmp}/additions.json")" -eq 0 ] &&
+    [ "$(jq 'length' "${tmp}/deletions.json")" -eq 0 ]; then
     echo "ERROR: no changes under src/assets to commit." >&2
     exit 1
 fi
 
 # Create the branch off the checked-out base commit. No new commit here, so the
-# "require signed commits" ruleset is not triggered by this ref.
+# "require signed commits" ruleset is not triggered by this ref. Delete the ref if
+# a later step fails, so failed runs don't leave orphan branches behind.
 gh api "repos/${repo}/git/refs" -f ref="refs/heads/${branch}" -f sha="${base_sha}"
+trap 'gh api -X DELETE "repos/${repo}/git/refs/heads/${branch}" >/dev/null 2>&1 || true' ERR
 
-# Create the commit through the API so GitHub signs it (verified).
-commit_input="$(jq -n \
+# Build the signed-commit request, reading the large fileChanges arrays from files.
+jq -n \
     --arg repo "$repo" \
     --arg branch "$branch" \
     --arg headline "$title" \
     --arg body "Added chain ID ${chain_id} to all contracts in version ${version}." \
     --arg oid "$base_sha" \
-    --argjson additions "$additions" \
-    --argjson deletions "$deletions" \
+    --slurpfile additions "${tmp}/additions.json" \
+    --slurpfile deletions "${tmp}/deletions.json" \
     '{
-        branch: {repositoryNameWithOwner: $repo, branchName: $branch},
-        message: {headline: $headline, body: $body},
-        expectedHeadOid: $oid,
-        fileChanges: {additions: $additions, deletions: $deletions}
-    }')"
+        query: "mutation ($input: CreateCommitOnBranchInput!) { createCommitOnBranch(input: $input) { commit { oid } } }",
+        variables: {input: {
+            branch: {repositoryNameWithOwner: $repo, branchName: $branch},
+            message: {headline: $headline, body: $body},
+            expectedHeadOid: $oid,
+            fileChanges: {additions: $additions[0], deletions: $deletions[0]}
+        }}
+    }' >"${tmp}/commit.json"
 
-jq -n \
-    --arg query 'mutation ($input: CreateCommitOnBranchInput!) { createCommitOnBranch(input: $input) { commit { oid } } }' \
-    --argjson input "$commit_input" \
-    '{query: $query, variables: {input: $input}}' >"${RUNNER_TEMP:-/tmp}/commit.json"
-
-commit_resp="$(gh api graphql --input "${RUNNER_TEMP:-/tmp}/commit.json")"
+# Create the commit through the API so GitHub signs it (verified).
+commit_resp="$(gh api graphql --input "${tmp}/commit.json")"
 if jq -e '.errors' <<<"$commit_resp" >/dev/null; then
     echo "createCommitOnBranch failed: $commit_resp" >&2
     exit 1
@@ -106,7 +113,7 @@ fi
 # Open the PR via the API (no local git state involved). The body is written to a
 # file and passed with -F body=@file so its markdown (apostrophes, brackets) is
 # not re-parsed by the shell.
-pr_body_file="${RUNNER_TEMP:-/tmp}/pr-body.md"
+pr_body_file="${tmp}/pr-body.md"
 cat >"$pr_body_file" <<EOF
 ## Add new chain
 
@@ -124,6 +131,7 @@ pr_number="$(gh api "repos/${repo}/pulls" \
     -f base=main \
     -F body=@"$pr_body_file" \
     --jq '.number')"
+trap - ERR # PR exists now; keep the branch even if a later step fails.
 echo "Created PR #${pr_number}"
 
 # Emit the PR number for the workflow to consume.
