@@ -93,6 +93,9 @@ jobs:
               --verbose
           fi
 
+      - name: Format updated registry files
+        run: pnpm run update-registry:lint
+
       - name: Check for changes
         id: check-changes
         run: |
