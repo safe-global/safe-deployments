@@ -10,6 +10,7 @@
   },
   "networkAddresses": {
     "1": "canonical",
+    "10": "canonical",
     "31": "canonical",
     "63": "canonical",
     "81": "canonical",
