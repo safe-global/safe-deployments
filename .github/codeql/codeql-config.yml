@@ -1,0 +1,8 @@
+name: CodeQL config
+
+# Deployment address/ABI data and build output are not analyzable source code;
+# excluding them keeps analysis scoped to the TypeScript sources and speeds up scans.
+paths-ignore:
+  - src/assets/**
+  - dist/**
+  - node_modules/**
