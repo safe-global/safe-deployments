@@ -4,7 +4,6 @@ import {
   SingletonDeploymentJSON,
   DeploymentFormats,
   SingletonDeploymentV2,
-  AddressType,
 } from './types';
 import semverSatisfies from 'semver/functions/satisfies';
 
@@ -43,8 +42,10 @@ const mapJsonToDeploymentsFormatV1 = (deployment: SingletonDeploymentJSON): Sing
  * Maps a SingletonDeploymentJSON object to a SingletonDeploymentV2 object.
  *
  * This function transforms the `networkAddresses` field of the deployment JSON object.
- * It converts each entry in `networkAddresses` to an array of addresses, using the `addresses` field
- * to resolve each address type.
+ * It converts every entry in `networkAddresses` to an array of resolved addresses, using
+ * the `deployments` field to resolve each address type. Single-address entries are wrapped
+ * in a one-element array, so consumers always work with `string[]` and do not have to
+ * branch on `string | string[]`.
  *
  * @param {SingletonDeploymentJSON} deployment - The deployment JSON object to map.
  * @returns {SingletonDeploymentV2} - The mapped deployment object in V2 format.
@@ -52,13 +53,12 @@ const mapJsonToDeploymentsFormatV1 = (deployment: SingletonDeploymentJSON): Sing
 const mapJsonToDeploymentsFormatV2 = (deployment: SingletonDeploymentJSON): SingletonDeploymentV2 => ({
   ...deployment,
   networkAddresses: Object.fromEntries(
-    Object.entries(deployment.networkAddresses).map(([chainId, addressTypes]) => [
-      chainId,
-      (Array.isArray(addressTypes)
-        ? // The usage of non-null assertion below is safe, because we validate that the asset files are properly formed in tests
-          (addressTypes.map((addressType) => deployment.deployments[addressType]!.address) as AddressType[])
-        : deployment.deployments[addressTypes]!.address) as AddressType,
-    ]),
+    Object.entries(deployment.networkAddresses).map(([chainId, addressTypes]) => {
+      const types = Array.isArray(addressTypes) ? addressTypes : [addressTypes];
+      // The usage of non-null assertion below is safe, because we validate that the asset files are properly formed in tests
+      const addresses = types.map((addressType) => deployment.deployments[addressType]!.address);
+      return [chainId, addresses];
+    }),
   ),
 });
 
