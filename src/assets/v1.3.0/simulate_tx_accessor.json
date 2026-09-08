@@ -152,6 +152,7 @@
     "1516": ["eip155", "canonical"],
     "1559": "eip155",
     "1625": ["eip155", "canonical"],
+    "1643": "eip155",
     "1663": "eip155",
     "1672": ["eip155", "canonical"],
     "1729": "canonical",
