@@ -27,6 +27,19 @@ To register a new chain deployment, read the [contributing guide](CONTRIBUTING.m
   - [zkSync](https://contractscan.xyz/bundle?name=Safe+1.4.1+zkSync&addresses=0x9301E98DD367135f21bdF66f342A249c9D5F9069,0xAAA566Fe7978bB0fb0B5362B7ba23038f4428D8f,0x0408EF011960d02349d50286D20531229BCef773,0x309D0B190FeCCa8e1D5D8309a16F7e3CB133E885,0xC35F063962328aC65cED5D4c3fC5dEf8dec68dFa,0x610fcA2e0279Fa1F8C00c8c2F71dF522AD469380,0x817756C6c555A94BCEE39eB5a102AbC1678b09A7,0xc329D02fd8CB2fc13aa919005aF46320794a8629,0xa26620d1f8f1a2433F0D25027F141aaCAFB3E590,0x199A9df0224031c20Cc27083A4164c9c8F1Bcb39,0xAca1ec0a1A575CDCCF1DC3d5d296202Eb6061888,0xdd35026932273768A3e31F4efF7313B5B7A7199d)
 - [1.5.0](https://contractscan.xyz/bundle?name=Safe+1.5.0&addresses=0x3EfCBb83A4A7AfcB4F68D501E2c2203a38be77f4,0x2Ef5ECfbea521449E4De05EDB1ce63B75eDA90B4,0x85a8ca358D388530ad0fB95D0cb89Dd44Fc242c3,0xA83c336B20401Af773B6219BA5027174338D1836,0x218543288004CD07832472D464648173c77D7eB7,0xFf51A5898e281Db6DfC7855790607438dF2ca44b,0xEdd160fEBBD92E350D4D398fb636302fccd67C7e,0x6439e7ABD8Bb915A5263094784C5CF561c4172AC,0x14F2982D601c9458F93bd70B218933A6f8165e7b,0x900C7589200010D6C6eCaaE5B06EBe653bc2D82a,0x4FfeF8222648872B3dE295Ba1e49110E61f5b5aa,0x07EfA797c55B5DdE3698d876b277aBb6B893654C,0x54e86d004d71a8D2112ec75FaCE57D730b0433F3)
 
+## Deployment types
+
+Each contract version may include one or more deployment types, identified by the `deployments` key in the JSON assets. The meaning of `canonical` changed between v1.3.0 and v1.4.1:
+
+| Type | Versions | Deployed via |
+|------|----------|--------------|
+| `canonical` | v1.0.0 – v1.3.0 | [Arachnid's Deterministic Deployment Proxy](https://github.com/Arachnid/deterministic-deployment-proxy) — a pre-EIP-155 keyless transaction that produces the same address on every chain |
+| `eip155` | v1.3.0 only | [Safe Singleton Factory](https://github.com/safe-global/safe-singleton-factory) — an EIP-155 replay-protected deployment, producing a different address from the canonical one |
+| `canonical` | v1.4.1+ | [Safe Singleton Factory](https://github.com/safe-global/safe-singleton-factory) — the same factory as v1.3.0's `eip155` type; the naming was unified starting in v1.4.1, making the Safe Singleton Factory the primary deployment method |
+| `zksync` | v1.3.0+ | Deployed specifically for ZKsync-compatible chains (bytecode differs from EVM-equivalent chains) |
+
+> **TL;DR** — `canonical` in v1.3.0 and `canonical` in v1.4.1 resolve to addresses deployed by **different factories**. If you are querying a specific deployment type by name, be aware of this version-dependent distinction.
+
 ## Install
 
 - npm - `npm i @safe-global/safe-deployments`
@@ -73,8 +86,10 @@ export interface SingletonDeployment {
   // 1.0.0: canonical
   // 1.1.1: canonical
   // 1.2.0: canonical
-  // 1.3.0: canonical, eip155, zksync
-  // 1.4.1: canonical, zksync
+  // 1.3.0: canonical (Arachnid proxy), eip155 (Safe Singleton Factory), zksync
+  // 1.4.1: canonical (Safe Singleton Factory), zksync
+  // 1.5.0: canonical (Safe Singleton Factory), zksync
+  // Note: "canonical" has different meanings across versions — see the Deployment types section.
   // Ex: deployments: { "canonical": { "codeHash": "0x1234", "address": "0x5678"}}
   deployments: Record<string, { address: string; codeHash: string }>;
 
@@ -160,8 +175,10 @@ export interface SingletonDeployment {
   // 1.0.0: canonical
   // 1.1.1: canonical
   // 1.2.0: canonical
-  // 1.3.0: canonical, eip155, zksync
-  // 1.4.1: canonical, zksync
+  // 1.3.0: canonical (Arachnid proxy), eip155 (Safe Singleton Factory), zksync
+  // 1.4.1: canonical (Safe Singleton Factory), zksync
+  // 1.5.0: canonical (Safe Singleton Factory), zksync
+  // Note: "canonical" has different meanings across versions — see the Deployment types section.
   // Ex: deployments: { "canonical": { "codeHash": "0x1234", "address": "0x5678"}}
   deployments: Record<string, { address: string; codeHash: string }>;
 
