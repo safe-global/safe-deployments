@@ -64,6 +64,7 @@
     "250": "canonical",
     "252": "canonical",
     "255": "canonical",
+    "287": "canonical",
     "288": "canonical",
     "300": ["zksync", "canonical"],
     "314": "canonical",
