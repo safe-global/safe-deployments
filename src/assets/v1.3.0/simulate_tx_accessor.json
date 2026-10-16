@@ -159,6 +159,7 @@
     "1750": ["eip155", "canonical"],
     "1776": "canonical",
     "1807": "canonical",
+    "1829": "canonical",
     "1868": "canonical",
     "1874": ["eip155", "canonical"],
     "1890": "canonical",
