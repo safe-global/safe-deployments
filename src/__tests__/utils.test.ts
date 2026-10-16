@@ -448,8 +448,8 @@ describe('utils.ts', () => {
             },
           },
           networkAddresses: {
-            '1': '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
-            '100': '0xbabebabebabebabebabebabebabebabebabebabe',
+            '1': ['0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef'],
+            '100': ['0xbabebabebabebabebabebabebabebabebabebabe'],
             '101': ['0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef', '0xc0ffeec0ffeec0ffeec0ffeec0ffeec0ffeebabe'],
           },
           released: true,
@@ -461,6 +461,40 @@ describe('utils.ts', () => {
         const testDeployments = [testReleasedDeploymentJson];
 
         expect(findDeployment({}, testDeployments, DeploymentFormats.MULTIPLE)).toMatchObject(expectedDeployment);
+      });
+
+      it('should always return networkAddresses entries as arrays', () => {
+        const testDeploymentJson: SingletonDeploymentJSON = {
+          version: '',
+          abi: [],
+          deployments: {
+            canonical: {
+              address: '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
+              codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+            },
+            eip155: {
+              address: '0xc0ffeec0ffeec0ffeec0ffeec0ffeec0ffeebabe',
+              codeHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+            },
+          },
+          networkAddresses: { '1': 'canonical', '5': ['canonical', 'eip155'] },
+          contractName: '',
+          released: true,
+        };
+
+        const result = findDeployment({}, [testDeploymentJson], DeploymentFormats.MULTIPLE);
+
+        expect(result).toBeDefined();
+        // Every value of networkAddresses should be an array, so consumers can iterate without
+        // branching on `string | string[]`.
+        for (const value of Object.values(result!.networkAddresses)) {
+          expect(Array.isArray(value)).toBe(true);
+        }
+        expect(result!.networkAddresses['1']).toEqual(['0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef']);
+        expect(result!.networkAddresses['5']).toEqual([
+          '0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef',
+          '0xc0ffeec0ffeec0ffeec0ffeec0ffeec0ffeebabe',
+        ]);
       });
     });
   });
