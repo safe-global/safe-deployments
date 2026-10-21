@@ -433,6 +433,7 @@
     "12227332": "canonical",
     "13374202": ["eip155", "canonical"],
     "21000000": "eip155",
+    "42424242": "canonical",
     "94204209": ["canonical", "eip155"],
     "111557560": ["canonical", "eip155"],
     "123420111": ["canonical", "eip155"],
