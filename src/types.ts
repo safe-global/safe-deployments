@@ -80,7 +80,9 @@ export interface SingletonDeploymentV2 {
   deployments: AtLeastOne<Record<AddressType, { address: string; codeHash: string }>>;
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   abi: any[];
-  networkAddresses: Record<string, string | string[]>;
+  // A record of network addresses, where the key is the network identifier and the value is the list of addresses deployed for that network.
+  // Single-address entries are represented as an array with one element, so consumers do not need to handle a `string | string[]` union.
+  networkAddresses: Record<string, string[]>;
 }
 
 export interface DeploymentFilter {
