@@ -165,8 +165,9 @@ export interface SingletonDeployment {
   // Ex: deployments: { "canonical": { "codeHash": "0x1234", "address": "0x5678"}}
   deployments: Record<string, { address: string; codeHash: string }>;
 
-  // A record of network addresses, where the key is the network identifier and the value is the address.
-  networkAddresses: Record<string, string | string[]>;
+  // A record of network addresses, where the key is the network identifier and the value is the list of addresses deployed for that network.
+  // Networks with a single deployment expose a one-element array, so consumers always work with `string[]`.
+  networkAddresses: Record<string, string[]>;
 
   // The ABI (Application Binary Interface) of the contract.
   abi: any[];
